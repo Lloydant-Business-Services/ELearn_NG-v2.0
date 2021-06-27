@@ -21,9 +21,10 @@ namespace DataLayer.Model
             var roles = new Role[]
               {
                     new Role{ Active = true, Name = "Super Admin"},
-                    new Role{ Active = true, Name = "ICT DIRECTOR"},
-                    new Role{ Active = true, Name = "INSTRUCTOR"},
-                    new Role{ Active = true, Name = "STUDENT"},
+                    new Role{ Active = true, Name = "School Admin"},
+                    new Role{ Active = true, Name = "Instructor"},
+                    new Role{ Active = true, Name = "Department Administrator"},
+                    new Role{ Active = true, Name = "Student"},
               };
             foreach (Role role in roles)
             {
@@ -56,55 +57,54 @@ namespace DataLayer.Model
             }
             await context.SaveChangesAsync();
 
-           
-            //var personTypes = new PersonType[]
-            //   {
-            //    new PersonType{ Active = true, Name = "Staff"},
-            //    new PersonType{ Active = true, Name = "Student"},
-            //    new PersonType{ Active = true, Name = "Admin"},
-            //   };
-            //foreach (PersonType personType in personTypes)
-            //{
-            //    context.Add(personType);
-            //}
-            //await context.SaveChangesAsync();
 
-            //var sessions = new Session[]
-            //   {
-            //    new Session{ Active = true, Name = "2018/2019"},
-            //    new Session{ Active = true, Name = "2019/2020"},
-            //    new Session{ Active = true, Name = "2020/2021"},
-            //   };
-            //foreach (Session session in sessions)
-            //{
-            //    context.Add(session);
-            //}
-            //await context.SaveChangesAsync();
-            //var semesters = new Semester[]
-            //   {
-            //    new Semester{ Active = true, Name = "First Semester"},
-            //    new Semester{ Active = true, Name = "Second Semester"},
-            //    new Semester{ Active = true, Name = "Third Semester"},
-            //   };
-            //foreach (Semester semester in semesters)
-            //{
-            //    context.Add(semester);
-            //}
-            //await context.SaveChangesAsync();
-            //var answerOptions = new AnswerOptions[]
-            //   {
-            //    new AnswerOptions{ Active = true, Name = "a"},
-            //    new AnswerOptions{ Active = true, Name = "b"},
-            //    new AnswerOptions{ Active = true, Name = "c"},
-            //    new AnswerOptions{ Active = true, Name = "d"},
-            //    new AnswerOptions{ Active = true, Name = "e"},
-            //    new AnswerOptions{ Active = true, Name = "f"},
-            //   };
-            //foreach (AnswerOptions answerOption in answerOptions)
-            //{
-            //    context.Add(answerOption);
-            //}
-            //await context.SaveChangesAsync();
+            var personTypes = new PersonType[]
+               {
+                new PersonType{ Active = true, Name = "Staff"},
+                new PersonType{ Active = true, Name = "Student"},
+                new PersonType{ Active = true, Name = "Admin"},
+               };
+            foreach (PersonType personType in personTypes)
+            {
+                context.Add(personType);
+            }
+            await context.SaveChangesAsync();
+
+            var sessions = new Session[]
+               {
+                new Session{ Active = true, Name = "2019/2020"},
+                new Session{ Active = true, Name = "2020/2021"},
+               };
+            foreach (Session session in sessions)
+            {
+                context.Add(session);
+            }
+            await context.SaveChangesAsync();
+            var semesters = new Semester[]
+               {
+                new Semester{ Active = true, Name = "First Semester"},
+                new Semester{ Active = true, Name = "Second Semester"},
+                new Semester{ Active = true, Name = "Third Semester"},
+               };
+            foreach (Semester semester in semesters)
+            {
+                context.Add(semester);
+            }
+            await context.SaveChangesAsync();
+            var answerOptions = new AnswerOptions[]
+               {
+                new AnswerOptions{ Active = true, Name = "a"},
+                new AnswerOptions{ Active = true, Name = "b"},
+                new AnswerOptions{ Active = true, Name = "c"},
+                new AnswerOptions{ Active = true, Name = "d"},
+                new AnswerOptions{ Active = true, Name = "e"},
+                new AnswerOptions{ Active = true, Name = "f"},
+               };
+            foreach (AnswerOptions answerOption in answerOptions)
+            {
+                context.Add(answerOption);
+            }
+            await context.SaveChangesAsync();
 
         }
 

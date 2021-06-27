@@ -27,5 +27,6 @@ namespace APIs.Controllers
 
         [HttpPost("Authenticate")]
        public async Task<UserDto> AuthenticateUser(UserDto dto) => await _userService.AuthenticateUser(dto, key);
+       
     }
 }

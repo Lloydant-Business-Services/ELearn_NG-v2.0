@@ -49,7 +49,10 @@ namespace APIs
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            UpdateDatabase(app);
+
             //to serve static files
+
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -78,6 +81,19 @@ namespace APIs
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<ELearnContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }

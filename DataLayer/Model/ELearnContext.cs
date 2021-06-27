@@ -28,5 +28,31 @@ namespace DataLayer.Model
         public DbSet<User> USER { get; set; }
         public DbSet<Role> ROLE { get; set; }
         public DbSet<SecurityQuestion> SECURITY_QUESTION { get; set; }
+        public DbSet<Session> SESSION { get; set; }
+        public DbSet<Level> LEVEL { get; set; }
+        public DbSet<Semester> SEMESTER { get; set; }
+        public DbSet<SessionSemester> SESSION_SEMESTER { get; set; }
+        public DbSet<FacultySchool> FACULTY_SCHOOL { get; set; }
+        public DbSet<Department> DEPARTMENT { get; set; }
+        public DbSet<InstitutionType> INSTITUTION_TYPE { get; set; }
+        public DbSet<PersonType> PERSON_TYPE { get; set; }
+        public DbSet<StudentPerson> STUDENT_PERSON { get; set; }
+        public DbSet<Course> COURSE { get; set; }
+        public DbSet<CourseTopic> COURSE_TOPIC { get; set; }
+        public DbSet<CourseContent> COURSE_CONTENT { get; set; }
+        public DbSet<CourseAllocation> COURSE_ALLOCATION { get; set; }
+        public DbSet<CourseRegistration> COURSE_REGISTRATION { get; set; }
+        public DbSet<CourseSubAllocation> COURSE_SUB_ALLOCATION { get; set; }
+        public DbSet<Assignment> ASSIGNMENT { get; set; }
+        public DbSet<AssignmentSubmission> ASSIGNMENT_SUBMISSION { get; set; }
+        public DbSet<AnswerOptions> ANSWER_OPTIONS { get; set; }
+        public DbSet<Examination> EXAMINATION { get; set; }
+        public DbSet<ObjectiveExamination> OBJECTIVE_EXAMINATION { get; set; }
+        public DbSet<StudentExamination> STUDENT_EXAMINATION { get; set; }
+        public DbSet<QuestionOption> QUESTION_OPTION { get; set; }
+        public DbSet<StudentExamObjectiveAnswer> STUDENT_EXAM_OBJECTIVE_ANSWER { get; set; }
+        public DbSet<TheoryExamination> THEORY_EXAMINATION { get; set; }
+        public DbSet<GeneralAudit> GENERAL_AUDIT { get; set; }
+
     }
 }
