@@ -15,6 +15,8 @@ namespace DataLayer.Model
         public string SurName { get; set; }
         [MaxLength(50)]
         public string PhoneNo { get; set; }
+        [MaxLength(50)]
+        public string Email { get; set; }
         public bool Active { get; set; }
         public long GenderId { get; set; }
         public virtual Gender Gender { get; set; }

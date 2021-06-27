@@ -20,7 +20,6 @@ namespace DataLayer.Model
         public long RoleId { get; set; }
         public long SecurityQuestionId { get; set; }
         public long PersonId { get; set; }
-        public long SignedUpInstitutionId { get; set; }
         public virtual Person Person { get; set; }
         public virtual Role Role { get; set; }
         public virtual SecurityQuestion SecurityQuestion { get; set; }
