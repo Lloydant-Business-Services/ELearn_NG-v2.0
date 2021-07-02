@@ -35,6 +35,7 @@ namespace APIs.Controllers
             try
             {
                 long size = file.Length;
+                //
                 if (size > 0)
                 {
                     List<StudentUploadModel> studentList = new List<StudentUploadModel>();
@@ -83,6 +84,6 @@ namespace APIs.Controllers
             catch (Exception ex) { throw ex; }
         }
 
- 
+
     }
 }
