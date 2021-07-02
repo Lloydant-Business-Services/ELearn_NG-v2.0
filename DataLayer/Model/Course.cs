@@ -9,8 +9,12 @@ namespace DataLayer.Model
     {
         [MaxLength(50)]
         public string CourseCode { get; set; }
+        [MaxLength(50)]
+        public string CourseCodeSlug { get; set; }
         [MaxLength(100)]
         public string CourseTitle { get; set; }
+        [MaxLength(100)]
+        public string CourseTitleSlug { get; set; }
         public long UserId { get; set; }
         public long LevelId { get; set; }
         public DateTime DateCreated { get; set; }

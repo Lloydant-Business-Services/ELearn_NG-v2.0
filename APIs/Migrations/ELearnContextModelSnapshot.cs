@@ -147,7 +147,15 @@ namespace APIs.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("CourseCodeSlug")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("CourseTitle")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("CourseTitleSlug")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -566,14 +574,14 @@ namespace APIs.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Firstname")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<long>("GenderId")
+                    b.Property<long?>("GenderId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Othername")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -581,7 +589,7 @@ namespace APIs.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("SurName")
+                    b.Property<string>("Surname")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -803,10 +811,14 @@ namespace APIs.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<long>("DepartmentId")
+                    b.Property<long?>("DepartmentId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("MatricNo")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("MatricNoSlug")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -883,7 +895,7 @@ namespace APIs.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<long>("SecurityQuestionId")
+                    b.Property<long?>("SecurityQuestionId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("SignUpDate")
@@ -1113,8 +1125,7 @@ namespace APIs.Migrations
                     b.HasOne("DataLayer.Model.Gender", "Gender")
                         .WithMany()
                         .HasForeignKey("GenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Gender");
                 });
@@ -1200,8 +1211,7 @@ namespace APIs.Migrations
                     b.HasOne("DataLayer.Model.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DataLayer.Model.Person", "Person")
                         .WithMany()
@@ -1242,8 +1252,7 @@ namespace APIs.Migrations
                     b.HasOne("DataLayer.Model.SecurityQuestion", "SecurityQuestion")
                         .WithMany()
                         .HasForeignKey("SecurityQuestionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Person");
 

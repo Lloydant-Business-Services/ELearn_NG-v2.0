@@ -11,7 +11,7 @@ namespace BusinessLayer.Interface
         IEnumerable<T> GetAll();
         T GetById(long Id);
         Task<long> Insert(T entity);
-        void Update(T entity);
+        Task <long> Update(T entity);
         void Delete(long Id);
     }
 }

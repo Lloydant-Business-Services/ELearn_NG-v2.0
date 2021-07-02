@@ -10,6 +10,7 @@ C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\APIs.pdb
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Castle.Core.dll
+C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\EPPlus.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Humanizer.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
@@ -20,9 +21,15 @@ C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.EntityFrame
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Json.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileSystemGlobbing.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
@@ -33,6 +40,7 @@ C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.IdentityMod
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.IO.RecyclableMemoryStream.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
@@ -51,7 +59,9 @@ C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\System.Security.Acces
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\System.Security.Permissions.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\System.Security.Principal.Windows.dll
+C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\System.Windows.Extensions.dll
+C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
@@ -70,6 +80,7 @@ C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\runtimes\win\lib\netc
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
+C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\BusinessLayer.dll
 C:\Users\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\DataLayer.dll

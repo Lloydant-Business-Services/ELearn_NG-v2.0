@@ -91,6 +91,24 @@ namespace DataLayer.Model
                 context.Add(semester);
             }
             await context.SaveChangesAsync();
+
+            var levels = new Level[]
+               {
+                new Level{ Active = true, Name = "100 Level"},
+                new Level{ Active = true, Name = "200 Level"},
+                new Level{ Active = true, Name = "300 Level"},
+                new Level{ Active = true, Name = "400 Level"},
+                new Level{ Active = true, Name = "500 Level"},
+                new Level{ Active = true, Name = "ND I"},
+                new Level{ Active = true, Name = "ND II"},
+                new Level{ Active = true, Name = "HND I"},
+                new Level{ Active = true, Name = "HND II"},
+               };
+            foreach (Semester semester in semesters)
+            {
+                context.Add(semester);
+            }
+            await context.SaveChangesAsync();
             var answerOptions = new AnswerOptions[]
                {
                 new AnswerOptions{ Active = true, Name = "a"},
@@ -106,7 +124,25 @@ namespace DataLayer.Model
             }
             await context.SaveChangesAsync();
 
+
+            //var user = new User[]
+            //  {
+            //        new User{ 
+            //            Active = true, 
+            //            Username = "admin@elearn.ng",
+
+            //        },
+                    
+            //  };
+            foreach (Role role in roles)
+            {
+                context.Add(role);
+            }
+            await context.SaveChangesAsync();
+
         }
+
+
 
     }
 }

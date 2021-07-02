@@ -18,7 +18,7 @@ namespace DataLayer.Model
         public string SecurityAnswer { get; set; }
         public DateTime SignUpDate { get; set; }
         public long RoleId { get; set; }
-        public long SecurityQuestionId { get; set; }
+        public long? SecurityQuestionId { get; set; }
         public long PersonId { get; set; }
         public virtual Person Person { get; set; }
         public virtual Role Role { get; set; }

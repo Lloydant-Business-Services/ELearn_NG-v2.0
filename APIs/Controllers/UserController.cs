@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer;
 using BusinessLayer.Interface;
 using DataLayer.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 namespace APIs.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -26,7 +29,12 @@ namespace APIs.Controllers
         }
 
         [HttpPost("Authenticate")]
-       public async Task<UserDto> AuthenticateUser(UserDto dto) => await _userService.AuthenticateUser(dto, key);
-       
+        public async Task<UserDto> AuthenticateUser(UserDto dto) => await _userService.AuthenticateUser(dto, key);
+        [HttpPost("AddUser")]
+        
+        public async Task<long> PostUser(AddUserDto userDto) => await _userService.PostUser(userDto);
+
+        [HttpPost("ChangePassword")]
+        public async Task<bool> ChangeUserPassword(ChangePasswordDto changePasswordDto) => await _userService.ChangePassword(changePasswordDto);
     }
 }

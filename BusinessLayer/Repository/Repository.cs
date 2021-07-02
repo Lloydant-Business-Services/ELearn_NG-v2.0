@@ -43,15 +43,12 @@ namespace DataLayer.Model
             return entity.Id;
         }
 
-        public void Update(T entity)
+        public async Task<long> Update(T entity)
         {
             if (entity == null) throw new ArgumentNullException("null entity");
-            _context.SaveChanges();
-        }
-
-        Task<long> IRepository<T>.Insert(T entity)
-        {
-            throw new NotImplementedException();
+            entities.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity.Id;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BusinessLayer.Interface;
 using BusinessLayer.Services;
 using DataLayer.Model;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,12 +40,51 @@ namespace APIs
          );
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISchoolAdminService, SchoolAdminService>();
+            services.AddScoped<IStudentPersonService, StudentPersonService>();
+            services.AddScoped<IFacultyService, FacultySchoolService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<ICourseService, CourseService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ELearn NG API", Version = "v2.1" });
+                
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "ELearn NG API", 
+                    Version = "v2.1" });
+
+                //c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+                //{
+                //    Name = "Authorization",
+                //    Type = SecuritySchemeType.Http,
+                //    Scheme = "basic",
+                //    In = ParameterLocation.Header,
+                //    Description = "Basic Auth Header"
+                //});
+
+                //c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                //{
+                //    {
+                //     new OpenApiSecurityScheme
+                //     {
+                //         Reference = new OpenApiReference
+                //         {
+                //             Type = ReferenceType.SecurityScheme,
+                //             Id="basic"
+                //         }
+                //     },
+                //     new string[]{}
+                //     }
+                //});
+
             });
+            //services.AddAuthentication("BasicAuthentication")
+            //    .AddScheme<AuthenticationSchemeOptions, UserService>("BasicAuthentication", null);
+            //services.AddAuthorization(JwtBearerDefaults)
+
             services.AddControllers();
+            services.AddRouting();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -69,7 +109,7 @@ namespace APIs
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
