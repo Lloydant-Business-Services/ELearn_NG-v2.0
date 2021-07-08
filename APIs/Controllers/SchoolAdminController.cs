@@ -84,6 +84,9 @@ namespace APIs.Controllers
             catch (Exception ex) { throw ex; }
         }
 
-
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents() => await _service.GetAllStudents();
+        [HttpGet("[action]")]
+        public async Task<DetailCountDto> InstitutionDetailCount() => await _service.InstitutionDetailCount();
     }
 }

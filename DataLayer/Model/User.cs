@@ -15,14 +15,14 @@ namespace DataLayer.Model
         public bool IsVerified { get; set; }
         public string Guid { get; set; }
         [MaxLength(50)]
-        public string SecurityAnswer { get; set; }
+        //public string SecurityAnswer { get; set; }
         public DateTime SignUpDate { get; set; }
         public long RoleId { get; set; }
-        public long? SecurityQuestionId { get; set; }
+        //public long? SecurityQuestionId { get; set; }
         public long PersonId { get; set; }
         public virtual Person Person { get; set; }
         public virtual Role Role { get; set; }
-        public virtual SecurityQuestion SecurityQuestion { get; set; }
+        //public virtual SecurityQuestion SecurityQuestion { get; set; }
         public bool Active { get; set; }
     }
 }

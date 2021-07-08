@@ -45,6 +45,8 @@ namespace APIs
             services.AddScoped<IFacultyService, FacultySchoolService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<ISessionSemesterService, SessionSemesterService>();
+            services.AddScoped<ICourseAllocationService, CourseAllocationService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddSwaggerGen(c =>
@@ -84,6 +86,7 @@ namespace APIs
             //services.AddAuthorization(JwtBearerDefaults)
 
             services.AddControllers();
+
             services.AddRouting();
         }
 
@@ -107,7 +110,13 @@ namespace APIs
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors(
+             options => options.SetIsOriginAllowed(x => _ = true)
+             .AllowAnyMethod()
+             .AllowAnyHeader()
+             .AllowCredentials()
+         //.WithOrigins(MyAllowSpecificOrigins)
+         );
             app.UseRouting();
             app.UseAuthorization();
             app.UseAuthorization();

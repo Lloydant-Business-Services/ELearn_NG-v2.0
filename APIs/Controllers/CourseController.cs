@@ -26,5 +26,7 @@ namespace APIs.Controllers
         public async Task<ResponseModel> UpdateCourseDetail(AddCourseDto dto) => await _service.UpdateCourseDetail(dto);
         [HttpGet("GetAllCourses")]
         public async Task<IEnumerable<AddCourseDto>> GetCourses() => await _service.GetCourses();
+        //[HttpPost("[action]")]
+        //public async Task<ResponseModel> AllocateCourse(AllocateCourseDto dto) => await _service.AllocateCourse(dto);
     }
 }

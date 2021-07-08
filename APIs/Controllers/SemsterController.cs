@@ -27,11 +27,11 @@ namespace APIs.Controllers
 
         [HttpGet("{id}")]
         public Semester GetById(long id) => _repo.GetById(id);
-        [HttpPut("UpdateSemester")]
-        public async Task<long> EditSemster(Semester semester) => await _repo.Update(semester);
+        //[HttpPut("UpdateSemester")]
+        //public async Task<long> EditSemster(Semester semester) => await _repo.Update(semester);
 
-        [HttpDelete]
-        public void Delete(long id) => _repo.Delete(id);
+        //[HttpDelete]
+        //public void Delete(long id) => _repo.Delete(id);
 
 
     }

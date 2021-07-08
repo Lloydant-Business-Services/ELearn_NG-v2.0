@@ -10,5 +10,7 @@ namespace BusinessLayer.Interface
     public interface ISchoolAdminService
     {
         Task<ExcelSheetUploadAggregation> ProcessStudentUpload(IEnumerable<StudentUploadModel> studentList);
+        Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents();
+        Task<DetailCountDto> InstitutionDetailCount();
     }
 }

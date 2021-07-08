@@ -1,10 +1,13 @@
-﻿using System;
+﻿using DataLayer.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BusinessLayer.Interface
 {
-    interface ISessionSemesterService
+    public interface ISessionSemesterService
     {
+        Task<ResponseModel> SetSessionSemester(long sessionId, long semesterId);
     }
 }

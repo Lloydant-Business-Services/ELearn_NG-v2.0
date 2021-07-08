@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BusinessLayer;
 using BusinessLayer.Interface;
 using DataLayer.Dtos;
+using DataLayer.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,5 +37,11 @@ namespace APIs.Controllers
 
         [HttpPost("ChangePassword")]
         public async Task<bool> ChangeUserPassword(ChangePasswordDto changePasswordDto) => await _userService.ChangePassword(changePasswordDto);
+
+        [HttpGet("UserProfile")]
+        public async Task<GetUserProfileDto> GetUserProfile(long userId) => await _userService.GetUserProfile(userId);
+        [HttpPut("[action]")]
+        public async Task<ResponseModel> ProfileUpdate(UpdateUserProfileDto dto) => await _userService.ProfileUpdate(dto);
+        
     }
 }

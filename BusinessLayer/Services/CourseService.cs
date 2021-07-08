@@ -87,15 +87,18 @@ namespace BusinessLayer.Services
         }
         public async Task<IEnumerable<AddCourseDto>> GetCourses()
         {
-            return await _context.COURSE.Where(a => a.Active)
+            return await _context.COURSE_ALLOCATION.Where(a => a.SessionSemester.Active)
                 .Select(f => new AddCourseDto { 
-                    CourseCode = f.CourseCode,
-                    CourseTitle = f.CourseTitle,
-                    UserId = f.UserId,
-                    DateCreated = f.DateCreated,
-                    Id = f.Id
+                    CourseCode = f.Course.CourseCode,
+                    CourseTitle = f.Course.CourseTitle,
+                    UserId = f.Course.UserId,
+                    DateCreated = f.Course.DateCreated,
+                    Id = f.Course.Id,
+                    LevelId = f.Course.LevelId,
+                    CourseAllocationId = f.Id
                 })
                 .ToListAsync();
         }
+    
     }
 }

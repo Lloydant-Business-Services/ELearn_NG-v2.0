@@ -49,6 +49,7 @@ namespace BusinessLayer.Services
                         StudentUploadModel failedUploadSingle = new StudentUploadModel();
 
                         
+                        
                         var studentPerson = await GetStudentPersonBy(matNo);
                         if(studentPerson == null)
                         {
@@ -66,7 +67,8 @@ namespace BusinessLayer.Services
                             {
                                 MatricNo = matNo,
                                 PersonId = person.Id,
-                                MatricNoSlug = mat_no_slug
+                                MatricNoSlug = mat_no_slug,
+                                Active = true
                             };
                             _context.Add(_student_person);
                             await _context.SaveChangesAsync();
@@ -122,6 +124,30 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
-       
+        public async Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents()
+        {
+            return await _context.STUDENT_PERSON.Where(a => a.Id > 0)
+                .Include(p => p.Person)
+                .Select(f => new GetInstitutionUsersDto
+                {
+                    FullName = f.Person.Surname + " " + f.Person.Firstname + " " + f.Person.Othername,
+                    MatricNumber = f.MatricNo,
+                    PersonId = f.PersonId
+                })
+                .ToListAsync();
+        }
+
+        public async Task<DetailCountDto> InstitutionDetailCount()
+        {
+            DetailCountDto countDto = new DetailCountDto();
+            var studentCount = await _context.STUDENT_PERSON.Where(d => d.Id > 0).CountAsync();
+            var instructorCount = await _context.COURSE_ALLOCATION.Where(d => d.Id > 0).CountAsync();
+            var departmentCount = await _context.DEPARTMENT.Where(d => d.Id > 0).CountAsync();
+            countDto.AllDepartments = departmentCount;
+            countDto.AllStudents = studentCount;
+            countDto.AllInstructors = instructorCount;
+            return countDto;
+        }
+
     }
 }

@@ -13,5 +13,8 @@ namespace BusinessLayer.Interface
         Task<UserDto> AuthenticateUser(UserDto dto, string injectkey);
         Task<long> PostUser(AddUserDto userDto);
         Task<bool> ChangePassword(ChangePasswordDto changePasswordDto);
+        Task<GetUserProfileDto> GetUserProfile(long userId);
+        Task<ResponseModel> ProfileUpdate(UpdateUserProfileDto dto);
+        //Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents();
     }
 }

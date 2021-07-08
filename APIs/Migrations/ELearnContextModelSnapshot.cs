@@ -371,6 +371,9 @@ namespace APIs.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("slug")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FacultySchoolId");
@@ -424,6 +427,9 @@ namespace APIs.Migrations
                     b.Property<string>("Name")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("slug")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -891,14 +897,8 @@ namespace APIs.Migrations
                     b.Property<long>("RoleId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("SecurityAnswer")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<long?>("SecurityQuestionId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("SignUpDate")
+                        .HasMaxLength(50)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Username")
@@ -910,8 +910,6 @@ namespace APIs.Migrations
                     b.HasIndex("PersonId");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("SecurityQuestionId");
 
                     b.ToTable("USER");
                 });
@@ -1249,16 +1247,9 @@ namespace APIs.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DataLayer.Model.SecurityQuestion", "SecurityQuestion")
-                        .WithMany()
-                        .HasForeignKey("SecurityQuestionId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.Navigation("Person");
 
                     b.Navigation("Role");
-
-                    b.Navigation("SecurityQuestion");
                 });
 #pragma warning restore 612, 618
         }

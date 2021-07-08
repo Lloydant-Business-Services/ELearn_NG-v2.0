@@ -23,6 +23,7 @@ namespace BusinessLayer.Services
         private readonly IConfiguration _configuration;
         private readonly string baseUrl;
         private readonly string defualtPassword = "1234567";
+        ResponseModel response = new ResponseModel();
 
         public UserService(ELearnContext context, IConfiguration configuration)
              : base(context)
@@ -153,6 +154,91 @@ namespace BusinessLayer.Services
             return true;
 
         }
+        public async Task<GetUserProfileDto> GetUserProfile(long userId)
+        {
+            StudentPerson studentPerson = new StudentPerson();
+            User user = new User();
+            //Person person = new Person();
+            GetUserProfileDto dto = new GetUserProfileDto();
+
+            user = await _context.USER.Where(x => x.Id == userId).Include(p => p.Person).FirstOrDefaultAsync();
+            if(user != null)
+            {
+                studentPerson = await _context.STUDENT_PERSON.Where(d => d.PersonId == user.PersonId).Include(x => x.Department).FirstOrDefaultAsync();
+
+                dto.MatricNumber = studentPerson != null ? studentPerson.MatricNo : null;
+                dto.Person = user.Person;
+                if (studentPerson != null && studentPerson.DepartmentId > 0)
+                {
+                    dto.Department = studentPerson.Department;
+
+                }
+                dto.IsUpdatedProfile = user.IsVerified;
+                dto.UserId = user.Id;
+                dto.RoleId = user.RoleId;
+                dto.Username = user.Username;
+            }
+            return dto;
+
+        }
+
+        public async Task<ResponseModel> ProfileUpdate(UpdateUserProfileDto dto)
+        {
+            try
+            {
+                StudentPerson studentPerson = new StudentPerson();
+                User user = await _context.USER.Where(u => u.Id == dto.UserId).FirstOrDefaultAsync();
+                if (user == null)
+                    throw new NullReferenceException("User not found");
+                Person person = await _context.PERSON.Where(p => p.Id == user.PersonId).FirstOrDefaultAsync();
+
+                if (!String.IsNullOrEmpty(dto.Firstname))
+                {
+                    person.Firstname = dto.Firstname;
+
+                }
+                if (!String.IsNullOrEmpty(dto.Surname))
+                {
+                    person.Surname = dto.Surname;
+
+                }
+                if (!String.IsNullOrEmpty(dto.Othername))
+                {
+                    person.Othername = dto.Othername;
+
+                }
+                if (dto.GenderId > 0)
+                {
+                    person.GenderId = dto.GenderId;
+
+                }
+                if (!String.IsNullOrEmpty(dto.PhoneNumber))
+                {
+                    person.PhoneNo = dto.PhoneNumber;
+
+                }
+                if (!String.IsNullOrEmpty(dto.Email))
+                {
+                    person.Email = dto.Email;
+
+                }
+
+                _context.Update(person);
+                await _context.SaveChangesAsync();
+                response.StatusCode = StatusCodes.Status200OK;
+                response.Message = "success";
+                return response;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+       
+        
     }
 
 }
