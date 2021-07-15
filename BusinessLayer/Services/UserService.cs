@@ -97,45 +97,45 @@ namespace BusinessLayer.Services
             return true;
         }
 
-        public async Task<long> PostUser(AddUserDto userDto)
-        {
-            using var transaction = await _context.Database.BeginTransactionAsync();
-            try
-            {
-                User user = new User();
-                Person person = new Person()
-                    {
-                        Surname = userDto.Surname,
-                        Firstname = userDto.Firstname,
-                        Othername = userDto.Othername,
-                        Email = userDto.Email,
-                    };
-                    _context.Add(person);
-                await _context.SaveChangesAsync();
+        //public async Task<long> PostUser(AddUserDto userDto)
+        //{
+        //    using var transaction = await _context.Database.BeginTransactionAsync();
+        //    try
+        //    {
+        //        User user = new User();
+        //        Person person = new Person()
+        //            {
+        //                Surname = userDto.Surname,
+        //                Firstname = userDto.Firstname,
+        //                Othername = userDto.Othername,
+        //                Email = userDto.Email,
+        //            };
+        //            _context.Add(person);
+        //        await _context.SaveChangesAsync();
 
-                Utility.CreatePasswordHash(defualtPassword, out byte[] passwordHash, out byte[] passwordSalt);
-                    user.Username = userDto.Email;
-                    user.RoleId = userDto.RoleId;
-                    user.IsVerified = true;
-                    user.Active = true;
-                    user.PasswordHash = passwordHash;
-                    user.PasswordSalt = passwordSalt;
-                    user.PersonId = person.Id;
-                    _context.Add(user);
-                    await _context.SaveChangesAsync();
+        //        Utility.CreatePasswordHash(defualtPassword, out byte[] passwordHash, out byte[] passwordSalt);
+        //            user.Username = userDto.Email;
+        //            user.RoleId = userDto.RoleId;
+        //            user.IsVerified = true;
+        //            user.Active = true;
+        //            user.PasswordHash = passwordHash;
+        //            user.PasswordSalt = passwordSalt;
+        //            user.PersonId = person.Id;
+        //            _context.Add(user);
+        //            await _context.SaveChangesAsync();
 
-                    await transaction.CommitAsync();
+        //            await transaction.CommitAsync();
 
-                    return StatusCodes.Status200OK;
+        //            return StatusCodes.Status200OK;
                     
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                throw ex;
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        transaction.Rollback();
+        //        throw ex;
+        //    }
            
-        }
+        //}
 
         public async Task<bool> ChangePassword(ChangePasswordDto changePasswordDto)
         {
@@ -158,7 +158,6 @@ namespace BusinessLayer.Services
         {
             StudentPerson studentPerson = new StudentPerson();
             User user = new User();
-            //Person person = new Person();
             GetUserProfileDto dto = new GetUserProfileDto();
 
             user = await _context.USER.Where(x => x.Id == userId).Include(p => p.Person).FirstOrDefaultAsync();
@@ -186,17 +185,24 @@ namespace BusinessLayer.Services
         {
             try
             {
-                StudentPerson studentPerson = new StudentPerson();
+                //StudentPerson studentPerson = new StudentPerson();
                 User user = await _context.USER.Where(u => u.Id == dto.UserId).FirstOrDefaultAsync();
                 if (user == null)
                     throw new NullReferenceException("User not found");
                 Person person = await _context.PERSON.Where(p => p.Id == user.PersonId).FirstOrDefaultAsync();
+                StudentPerson studentPerson = await _context.STUDENT_PERSON.Where(x => x.PersonId == person.Id).FirstOrDefaultAsync();
 
+                if (dto.DepartmentId > 0)
+                {
+                    studentPerson.DepartmentId = dto.DepartmentId;
+
+                }
                 if (!String.IsNullOrEmpty(dto.Firstname))
                 {
                     person.Firstname = dto.Firstname;
 
                 }
+
                 if (!String.IsNullOrEmpty(dto.Surname))
                 {
                     person.Surname = dto.Surname;
@@ -223,7 +229,9 @@ namespace BusinessLayer.Services
 
                 }
 
+
                 _context.Update(person);
+                _context.Update(studentPerson);
                 await _context.SaveChangesAsync();
                 response.StatusCode = StatusCodes.Status200OK;
                 response.Message = "success";

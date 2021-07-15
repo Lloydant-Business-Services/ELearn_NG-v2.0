@@ -25,24 +25,30 @@ namespace APIs.Controllers
             _context = context;
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         //[Authorize]
         public async Task<ResponseModel> AddDepartment(DepartmentDto model) => await _service.AddDepartment(model);
         //public async Task<long> PostDepartment([FromBody] Department department) => await _service.Insert(department);
 
-        [HttpGet]
+        [HttpGet("[action]")]
         //[Authorize]
-        public async Task<IEnumerable<Department>> GetAll()
+        public async Task<IEnumerable<DepartmentDto>> GetDepartments()
         {
             return await _context.DEPARTMENT.Where(a => a.Id > 0).Include(f => f.FacultySchool)
+                .Select(f => new DepartmentDto
+                {
+                    Name = f.Name,
+                    FacultyId = f.FacultySchoolId,
+                    Id = f.Id
+                })
                 .ToListAsync();
         }
         [HttpGet("{id}")]
         public Department GetById(long id) => _service.GetById(id);
         [HttpPut]
         public async Task<ResponseModel> UpdateDepartment(DepartmentDto model) => await _service.UpdateDepartment(model);
-        [HttpDelete]
-        public async Task<ResponseModel> DeleteDepartment(long id) => await _service.DeleteDepartment(id);
+        //[HttpDelete]
+        //public async Task<ResponseModel> DeleteDepartment(long id) => await _service.DeleteDepartment(id);
         //public async Task<long> UpdateById([FromBody]Department department) => await _service.Update(department);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.Interface;
+using DataLayer.Dtos;
 using DataLayer.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,8 @@ namespace APIs.Controllers
         }
         [HttpPost("[action]")]
         public async Task<ResponseModel> SetSessionSemester(long sessionId, long semesterId) => await _service.SetSessionSemester(sessionId, semesterId);
-
+        [HttpGet("[action]")]
+        public async Task<GetSessionSemesterDto> GetActiveSessionSemester() => await _service.GetActiveSessionSemester();
 
 
     }

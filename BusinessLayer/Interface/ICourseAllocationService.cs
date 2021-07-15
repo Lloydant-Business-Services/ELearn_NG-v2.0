@@ -11,5 +11,8 @@ namespace BusinessLayer.Interface
     {
         Task<ResponseModel> AllocateCourse(AllocateCourseDto dto);
         Task<IEnumerable<GetInstructorDto>> GetInstututionInstructors();
+        Task<long> AddCourseInstructorAndHod(AddUserDto userDto);
+        Task<IEnumerable<GetCourseInstructorDto>> GetInstructorsByDepartmentId(long departmentId);
+        Task<IEnumerable<GetCourseInstructorDto>> GetAllDepartmentHeads();
     }
 }

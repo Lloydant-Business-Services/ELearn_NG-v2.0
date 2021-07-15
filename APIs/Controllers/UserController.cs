@@ -31,9 +31,8 @@ namespace APIs.Controllers
 
         [HttpPost("Authenticate")]
         public async Task<UserDto> AuthenticateUser(UserDto dto) => await _userService.AuthenticateUser(dto, key);
-        [HttpPost("AddUser")]
-        
-        public async Task<long> PostUser(AddUserDto userDto) => await _userService.PostUser(userDto);
+        //[HttpPost("AddUser")]      
+        //public async Task<long> PostUser(AddUserDto userDto) => await _userService.PostUser(userDto);
 
         [HttpPost("ChangePassword")]
         public async Task<bool> ChangeUserPassword(ChangePasswordDto changePasswordDto) => await _userService.ChangePassword(changePasswordDto);

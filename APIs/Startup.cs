@@ -47,7 +47,9 @@ namespace APIs
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ISessionSemesterService, SessionSemesterService>();
             services.AddScoped<ICourseAllocationService, CourseAllocationService>();
+            services.AddScoped<ICourseRegistrationService, CourseRegistrationService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            
 
             services.AddSwaggerGen(c =>
             {

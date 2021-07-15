@@ -53,6 +53,7 @@ namespace DataLayer.Model
         public DbSet<StudentExamObjectiveAnswer> STUDENT_EXAM_OBJECTIVE_ANSWER { get; set; }
         public DbSet<TheoryExamination> THEORY_EXAMINATION { get; set; }
         public DbSet<GeneralAudit> GENERAL_AUDIT { get; set; }
+        public DbSet<InstructorDepartment> INSTRUCTOR_DEPARTMENT { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Interface;
+using DataLayer.Dtos;
 using DataLayer.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -76,6 +77,20 @@ namespace BusinessLayer.Services
                 }
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<GetSessionSemesterDto> GetActiveSessionSemester()
+        {
+            return await _context.SESSION_SEMESTER.Where(a => a.Active)
+                .Include(s => s.Semester)
+                .Include(s => s.Session)
+                .Select(f => new GetSessionSemesterDto { 
+                    SemesterName = f.Semester.Name,
+                    SessionName = f.Session.Name,
+                    SemesterId = f.SemesterId,
+                    SessionId = f.SessionId
+                })
+                .FirstOrDefaultAsync();
         }
     }
 }

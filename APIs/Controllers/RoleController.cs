@@ -19,7 +19,7 @@ namespace APIs.Controllers
             _repo = repo;
         }
 
-        [HttpGet("GetAllSemester")]
-        public IEnumerable<Role> GetSemesters() => _repo.GetAll();
+        [HttpGet("GetRoles")]
+        public IEnumerable<Role> AllRoles() => _repo.GetAll();
     }
 }
