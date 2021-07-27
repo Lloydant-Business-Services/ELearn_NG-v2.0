@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Miracle\\ELearnNG_2.0\\APIs\\APIs.csproj": {}
+    "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\APIs\\APIs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Miracle\\ELearnNG_2.0\\APIs\\APIs.csproj": {
+    "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\APIs\\APIs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Miracle\\ELearnNG_2.0\\APIs\\APIs.csproj",
+        "projectUniqueName": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\APIs\\APIs.csproj",
         "projectName": "APIs",
-        "projectPath": "C:\\Users\\Miracle\\ELearnNG_2.0\\APIs\\APIs.csproj",
-        "packagesPath": "C:\\Users\\bobby\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Miracle\\ELearnNG_2.0\\APIs\\obj\\",
+        "projectPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\APIs\\APIs.csproj",
+        "packagesPath": "C:\\Users\\macbook\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\APIs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\bobby\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\macbook\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,12 +29,13 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj": {
-                "projectPath": "C:\\Users\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj"
+              "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj": {
+                "projectPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj"
               },
-              "C:\\Users\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {
-                "projectPath": "C:\\Users\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj"
+              "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj"
               }
             }
           }
@@ -47,6 +48,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
@@ -101,12 +103,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -115,24 +111,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj": {
+    "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj",
+        "projectUniqueName": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj",
         "projectName": "BusinessLayer",
-        "projectPath": "C:\\Users\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj",
-        "packagesPath": "C:\\Users\\bobby\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Miracle\\ELearnNG_2.0\\BusinessLayer\\obj\\",
+        "projectPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj",
+        "packagesPath": "C:\\Users\\macbook\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\BusinessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\bobby\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\macbook\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -144,9 +140,10 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {
-                "projectPath": "C:\\Users\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj"
+              "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj"
               }
             }
           }
@@ -159,6 +156,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
@@ -213,38 +211,29 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {
+    "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj",
+        "projectUniqueName": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj",
         "projectName": "DataLayer",
-        "projectPath": "C:\\Users\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj",
-        "packagesPath": "C:\\Users\\bobby\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Miracle\\ELearnNG_2.0\\DataLayer\\obj\\",
+        "projectPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj",
+        "packagesPath": "C:\\Users\\macbook\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\bobby\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\macbook\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -256,6 +245,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -267,6 +257,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
@@ -321,21 +312,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

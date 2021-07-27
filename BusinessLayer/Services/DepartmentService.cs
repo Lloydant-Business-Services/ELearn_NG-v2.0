@@ -97,5 +97,99 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
+        public async Task<int> AssignDepartmentHead(AddDepartmentHeadDto dto)
+        {
+            try
+            {
+                DepartmentHeads departmentHeads = new DepartmentHeads()
+                {
+                    DepartmentId = dto.DepartmentId,
+                    UserId = dto.UserId,
+                    Active = true
+                };
+                _context.Add(departmentHeads);
+                await _context.SaveChangesAsync();
+                return StatusCodes.Status200OK;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<IEnumerable<GetDepartmentHeadDto>> GetDepartmentHeadsByFaculty(long facultyId)
+        {
+            return await _context.DEPARTMENT_HEADS.Where(a => a.Active && a.Department.FacultySchool.Id == facultyId)
+                .Include(u => u.User)
+                .ThenInclude(p => p.Person)
+                .Include(d => d.Department)
+                .ThenInclude(f => f.FacultySchool)
+                .Select(f => new GetDepartmentHeadDto
+                {
+                    UserId = f.UserId,
+                    DepartmentId = f.DepartmentId,
+                    DepartmentName = f.Department.Name,
+                    HodName = f.User.Person.Surname + " " + f.User.Person.Firstname + " " + f.User.Person.Othername
+                })
+                .ToListAsync();
+        }
+        public async Task<GetDepartmentHeadDto> GetDepartmentHeadByDepartmentId(long departmentId)
+        {
+            return await _context.DEPARTMENT_HEADS.Where(a => a.Active && a.DepartmentId == departmentId)
+                .Include(u => u.User)
+                .ThenInclude(p => p.Person)
+                .Include(d => d.Department)
+                .ThenInclude(f => f.FacultySchool)
+                .Select(f => new GetDepartmentHeadDto
+                {
+                    UserId = f.UserId,
+                    DepartmentId = f.DepartmentId,
+                    DepartmentName = f.Department.Name,
+                    HodName = f.User.Person.Surname + " " + f.User.Person.Firstname + " " + f.User.Person.Othername
+                })
+                .FirstOrDefaultAsync();
+        }
+        public async Task<IEnumerable<GetDepartmentHeadDto>> GetAllDepartmentHeads()
+        {
+            return await _context.DEPARTMENT_HEADS.Where(a => a.Active)
+                .Include(u => u.User)
+                .ThenInclude(p => p.Person)
+                .Include(d => d.Department)
+                .ThenInclude(f => f.FacultySchool)
+                .Select(f => new GetDepartmentHeadDto
+                {
+                    UserId = f.UserId,
+                    DepartmentId = f.DepartmentId,
+                    DepartmentName = f.Department.Name,
+                    HodName = f.User.Person.Surname + " " + f.User.Person.Firstname + " " + f.User.Person.Othername
+                })
+                .ToListAsync();
+        }
+        
+        public async Task<GetSessionSemesterDto> GetActiveSessionSemester()
+        {
+            return await _context.SESSION_SEMESTER.Where(a => a.Active)
+                .Include(s => s.Semester)
+                .Include(s => s.Session)
+                .Select(f => new GetSessionSemesterDto
+                {
+                    SemesterName = f.Semester.Name,
+                    SessionName = f.Session.Name,
+                    SemesterId = f.SemesterId,
+                    SessionId = f.SessionId,
+                    Id = f.Id
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<DepartmentDto>> GetDepartmentsByFacultyId(long facultyId)
+        {
+            return await _context.DEPARTMENT.Where(d => d.FacultySchoolId == facultyId)
+                .Select(d => new DepartmentDto
+                {
+                    Name = d.Name,
+                    Id = d.Id
+                }).ToListAsync();
+                
+        }
     }
 }

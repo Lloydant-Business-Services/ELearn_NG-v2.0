@@ -384,6 +384,31 @@ namespace APIs.Migrations
                     b.ToTable("DEPARTMENT");
                 });
 
+            modelBuilder.Entity("DataLayer.Model.DepartmentHeads", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("DepartmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("DEPARTMENT_HEADS");
+                });
+
             modelBuilder.Entity("DataLayer.Model.Examination", b =>
                 {
                     b.Property<long>("Id")
@@ -1108,6 +1133,25 @@ namespace APIs.Migrations
                         .IsRequired();
 
                     b.Navigation("FacultySchool");
+                });
+
+            modelBuilder.Entity("DataLayer.Model.DepartmentHeads", b =>
+                {
+                    b.HasOne("DataLayer.Model.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataLayer.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataLayer.Model.Examination", b =>

@@ -48,6 +48,8 @@ namespace APIs
             services.AddScoped<ISessionSemesterService, SessionSemesterService>();
             services.AddScoped<ICourseAllocationService, CourseAllocationService>();
             services.AddScoped<ICourseRegistrationService, CourseRegistrationService>();
+            services.AddScoped<ICourseContentService, CourseContentService>();
+            services.AddScoped<IAssignmentService, AssignmentService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             
 

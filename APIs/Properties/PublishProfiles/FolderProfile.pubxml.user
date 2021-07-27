@@ -4,6 +4,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_PublishTargetUrl>C:\Users\Miracle\ELearn_NG_2_Deploy</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\inetpub\wwwroot\ELearn_NG_2_Deploy</_PublishTargetUrl>
+    <History>True|2021-07-27T08:45:35.5167839Z;True|2021-07-27T08:26:13.9128067+01:00;True|2021-07-27T08:21:46.2588137+01:00;True|2021-07-27T04:51:34.5922515+01:00;False|2021-07-27T04:50:56.9862303+01:00;True|2021-07-27T04:14:16.5280302+01:00;True|2021-07-19T10:08:21.2987816+01:00;False|2021-07-19T10:04:37.8457843+01:00;</History>
   </PropertyGroup>
 </Project>

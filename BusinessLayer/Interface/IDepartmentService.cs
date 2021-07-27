@@ -12,5 +12,10 @@ namespace BusinessLayer.Interface
         Task<ResponseModel> AddDepartment(DepartmentDto model);
         Task<ResponseModel> UpdateDepartment(DepartmentDto model);
         Task<ResponseModel> DeleteDepartment(long id);
+        Task<IEnumerable<GetDepartmentHeadDto>> GetDepartmentHeadsByFaculty(long facultyId);
+        Task<GetDepartmentHeadDto> GetDepartmentHeadByDepartmentId(long departmentId);
+        Task<int> AssignDepartmentHead(AddDepartmentHeadDto dto);
+        Task<IEnumerable<GetDepartmentHeadDto>> GetAllDepartmentHeads();
+        Task<IEnumerable<DepartmentDto>> GetDepartmentsByFacultyId(long facultyId);
     }
 }

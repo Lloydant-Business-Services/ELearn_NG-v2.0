@@ -43,10 +43,20 @@ namespace APIs.Controllers
                 })
                 .ToListAsync();
         }
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<DepartmentDto>> GetDepartmentsByFacultyId(long facultyId) => await _service.GetDepartmentsByFacultyId(facultyId);
         [HttpGet("{id}")]
         public Department GetById(long id) => _service.GetById(id);
         [HttpPut]
         public async Task<ResponseModel> UpdateDepartment(DepartmentDto model) => await _service.UpdateDepartment(model);
+        [HttpGet("GetDepartmentHeadsByFacultyId")]
+        public async Task<IEnumerable<GetDepartmentHeadDto>> GetDepartmentHeadsByFaculty(long facultyId) => await _service.GetDepartmentHeadsByFaculty(facultyId);
+        [HttpGet("[action]")]
+        public async Task<GetDepartmentHeadDto> GetDepartmentHeadByDepartmentId(long departmentId) => await _service.GetDepartmentHeadByDepartmentId(departmentId);
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<GetDepartmentHeadDto>> GetAllDepartmentHeads() => await _service.GetAllDepartmentHeads();
+        [HttpPost("[action]")]
+        public async Task<int> AssignDepartmentHead(AddDepartmentHeadDto dto) => await _service.AssignDepartmentHead(dto);
         //[HttpDelete]
         //public async Task<ResponseModel> DeleteDepartment(long id) => await _service.DeleteDepartment(id);
         //public async Task<long> UpdateById([FromBody]Department department) => await _service.Update(department);
