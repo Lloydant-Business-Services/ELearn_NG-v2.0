@@ -27,7 +27,7 @@ namespace APIs.Controllers
         [HttpGet("GetAllocatedCourses")]
         public async Task<IEnumerable<AddCourseDto>> GetStudentCourses() => await _service.GetStudentCourses();
         [HttpGet("GetAllCourses")]
-        public async Task<IEnumerable<AddCourseDto>> GetCourses() => await _service.GetCourses();
+        public async Task<IEnumerable<AllCoursesDto>> GetCourses() => await _service.GetCourses();
         [HttpGet("[action]")]
         public async Task<IEnumerable<GetDepartmentCourseDto>> GetDepartmentalCourses(long departmentId) => await _service.GetDepartmentalCourses(departmentId);
         //[HttpPost("[action]")]

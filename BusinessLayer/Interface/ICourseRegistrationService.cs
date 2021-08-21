@@ -11,5 +11,6 @@ namespace BusinessLayer.Interface
     {
         Task<ResponseModel> RegisterCourses(RegisterCourseDto dto);
         Task<IEnumerable<GetRegisteredCoursesDto>> GetRegisteredCourses(long personId, long sessionSemesterId);
+        Task<ResponseModel> RegisterCourseSingle(RegisterCourseSingleDto dto);
     }
 }

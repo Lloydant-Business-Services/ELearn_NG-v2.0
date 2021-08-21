@@ -35,8 +35,14 @@ namespace BusinessLayer.Services
                 var doesExist = await _context.SESSION_SEMESTER.Where(f => f.SessionId == sessionId && f.SemesterId == semesterId).FirstOrDefaultAsync();
                 if(doesExist != null)
                 {
-                    response.StatusCode = StatusCodes.Status208AlreadyReported;
-                    response.Message = "session/semester with sessionid and semesterid already set";
+                    doesExist.SessionId = sessionId;
+                    doesExist.SemesterId = semesterId;
+                    doesExist.Active = true;
+                    _context.Update(doesExist);
+                    await _context.SaveChangesAsync();
+                    await DeactivateOtherActiveSessionSemester(doesExist.Id);
+                    //response.StatusCode = StatusCodes.Status208AlreadyReported;
+                    //response.Message = "session/semester with sessionid and semesterid already set";
                     return response;
                 }
                 if(sessionId > 0 && semesterId > 0)
@@ -88,7 +94,8 @@ namespace BusinessLayer.Services
                     SemesterName = f.Semester.Name,
                     SessionName = f.Session.Name,
                     SemesterId = f.SemesterId,
-                    SessionId = f.SessionId
+                    SessionId = f.SessionId,
+                    Id = f.Id
                 })
                 .FirstOrDefaultAsync();
         }

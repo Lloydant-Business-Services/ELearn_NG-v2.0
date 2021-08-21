@@ -10,6 +10,7 @@ namespace DataLayer.Dtos
         public string CourseCode { get; set; }
         public string CourseLecturer { get; set; }
         public long CourseId { get; set; }
+        public long CourseAllocationId { get; set; }
 
     }
 }

@@ -6,8 +6,15 @@ namespace DataLayer.Dtos
 {
     public class RegisterCourseDto
     {
-        public long SessionSemesterId { get; set; }
-        public long CourseAllocationId { get; set; }
-        public long StudentPersonId { get; set; }
+        //public long SessionSemesterId { get; set; }
+        public long PersonId { get; set; }
+        public List<Allocation> CourseAllocation { get; set; }
+
     }
+    public class Allocation
+    {
+        public long CourseAllocationId { get; set; }
+
+    }
+
 }

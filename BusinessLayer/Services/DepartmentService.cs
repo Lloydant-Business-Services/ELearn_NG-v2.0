@@ -97,10 +97,19 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
-        public async Task<int> AssignDepartmentHead(AddDepartmentHeadDto dto)
+        public async Task<ResponseModel> AssignDepartmentHead(AddDepartmentHeadDto dto)
         {
             try
             {
+                ResponseModel response = new ResponseModel();
+                var doesExist = await _context.DEPARTMENT_HEADS.Where(d => d.DepartmentId == dto.DepartmentId).FirstOrDefaultAsync();
+                if (doesExist != null)
+                {
+                    response.Message = "HOD already assigned";
+                    response.StatusCode = StatusCodes.Status400BadRequest;
+                    return response;
+
+                }
                 DepartmentHeads departmentHeads = new DepartmentHeads()
                 {
                     DepartmentId = dto.DepartmentId,
@@ -109,7 +118,7 @@ namespace BusinessLayer.Services
                 };
                 _context.Add(departmentHeads);
                 await _context.SaveChangesAsync();
-                return StatusCodes.Status200OK;
+                return response;
             }
             catch(Exception ex)
             {

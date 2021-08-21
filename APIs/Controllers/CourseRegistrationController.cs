@@ -19,9 +19,12 @@ namespace APIs.Controllers
         {
             _service = service;
         }
-        [HttpPost("[action]")]
+        [HttpPost("RegisterCoursesBulk")]
         public async Task<ResponseModel> RegisterCourses(RegisterCourseDto dto) => await _service.RegisterCourses(dto);
         [HttpGet("[action]")]
         public async Task<IEnumerable<GetRegisteredCoursesDto>> GetRegisteredCourses(long personId, long sessionSemesterId) => await _service.GetRegisteredCourses(personId, sessionSemesterId);
+
+        [HttpPost("[action]")]
+        public async Task<ResponseModel> RegisterCourseSingle(RegisterCourseSingleDto dto) => await _service.RegisterCourseSingle(dto);
     }
 }

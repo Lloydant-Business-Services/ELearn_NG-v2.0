@@ -39,7 +39,7 @@ namespace APIs.Controllers
 
         [HttpGet("UserProfile")]
         public async Task<GetUserProfileDto> GetUserProfile(long userId) => await _userService.GetUserProfile(userId);
-        [HttpPut("[action]")]
+        [HttpPost("[action]")]
         public async Task<ResponseModel> ProfileUpdate(UpdateUserProfileDto dto) => await _userService.ProfileUpdate(dto);
         
     }

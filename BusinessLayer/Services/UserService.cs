@@ -157,13 +157,17 @@ namespace BusinessLayer.Services
         public async Task<GetUserProfileDto> GetUserProfile(long userId)
         {
             StudentPerson studentPerson = new StudentPerson();
+            InstructorDepartment instructorDepartment = new InstructorDepartment();
+            DepartmentHeads departmentHeads = new DepartmentHeads();
             User user = new User();
             GetUserProfileDto dto = new GetUserProfileDto();
 
-            user = await _context.USER.Where(x => x.Id == userId).Include(p => p.Person).FirstOrDefaultAsync();
+            user = await _context.USER.Where(x => x.Id == userId).Include(p => p.Person).Include(r => r.Role).FirstOrDefaultAsync();
             if(user != null)
             {
-                studentPerson = await _context.STUDENT_PERSON.Where(d => d.PersonId == user.PersonId).Include(x => x.Department).FirstOrDefaultAsync();
+                studentPerson = await _context.STUDENT_PERSON.Where(d => d.PersonId == user.PersonId).Include(x => x.Department).ThenInclude(f => f.FacultySchool).FirstOrDefaultAsync();
+                instructorDepartment = await _context.INSTRUCTOR_DEPARTMENT.Where(i => i.UserId == user.Id).Include(d => d.Department).ThenInclude(f => f.FacultySchool).FirstOrDefaultAsync();
+                departmentHeads = await _context.DEPARTMENT_HEADS.Where(d => d.UserId == user.Id).Include(d => d.Department).ThenInclude(f => f.FacultySchool).FirstOrDefaultAsync();
 
                 dto.MatricNumber = studentPerson != null ? studentPerson.MatricNo : null;
                 dto.Person = user.Person;
@@ -172,9 +176,18 @@ namespace BusinessLayer.Services
                     dto.Department = studentPerson.Department;
 
                 }
+                else if (departmentHeads != null)
+                {
+                    dto.Department = departmentHeads.Department;
+                }
+                else if(instructorDepartment != null)
+                {
+                    dto.Department = instructorDepartment.Department;
+                }
+                
                 dto.IsUpdatedProfile = user.IsVerified;
                 dto.UserId = user.Id;
-                dto.RoleId = user.RoleId;
+                dto.RoleName = user.Role.Name;
                 dto.Username = user.Username;
             }
             return dto;
@@ -192,9 +205,10 @@ namespace BusinessLayer.Services
                 Person person = await _context.PERSON.Where(p => p.Id == user.PersonId).FirstOrDefaultAsync();
                 StudentPerson studentPerson = await _context.STUDENT_PERSON.Where(x => x.PersonId == person.Id).FirstOrDefaultAsync();
 
-                if (dto.DepartmentId > 0)
+                if (dto.DepartmentId > 0 && studentPerson != null)
                 {
                     studentPerson.DepartmentId = dto.DepartmentId;
+                    _context.Update(studentPerson);
 
                 }
                 if (!String.IsNullOrEmpty(dto.Firstname))
@@ -231,7 +245,10 @@ namespace BusinessLayer.Services
 
 
                 _context.Update(person);
-                _context.Update(studentPerson);
+                //if(studentPerson != null)
+                //{
+                //    _context.Update(studentPerson);
+                //}
                 await _context.SaveChangesAsync();
                 response.StatusCode = StatusCodes.Status200OK;
                 response.Message = "success";

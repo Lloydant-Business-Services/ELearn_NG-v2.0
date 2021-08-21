@@ -49,7 +49,11 @@ namespace APIs
             services.AddScoped<ICourseAllocationService, CourseAllocationService>();
             services.AddScoped<ICourseRegistrationService, CourseRegistrationService>();
             services.AddScoped<ICourseContentService, CourseContentService>();
-            services.AddScoped<IAssignmentService, AssignmentService>();
+            //services.AddScoped<IAssignmentService, AssignmentService>();
+            services.AddScoped<IInstructorHodService, InstructorHodService>();
+            services.AddScoped<ICourseMaterialService, CourseMaterialService>();
+            services.AddScoped<IAssignment_Service, Assignment_Service>();
+            //services.AddScoped<ICourseAssignment, AssignmentService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             
 

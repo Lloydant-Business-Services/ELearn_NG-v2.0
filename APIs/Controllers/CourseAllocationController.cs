@@ -22,13 +22,15 @@ namespace APIs.Controllers
 
         [HttpPost("AllocateCourse")]
         public async Task<ResponseModel> AllocateCourse(AllocateCourseDto dto) => await _service.AllocateCourse(dto);
-        [HttpGet("GetAllInstructors")]
-        public async Task<IEnumerable<GetInstructorDto>> GetInstututionInstructors() => await _service.GetInstututionInstructors();
-        [HttpPost("[action]")]
-        public async Task<long> AddCourseInstructorAndHod(AddUserDto userDto) => await _service.AddCourseInstructorAndHod(userDto);
-        [HttpGet("[action]")]
-        public async Task<IEnumerable<GetCourseInstructorDto>> GetInstructorsByDepartmentId(long departmentId) => await _service.GetInstructorsByDepartmentId(departmentId);
-        [HttpGet("[action]")]
-        public async Task<IEnumerable<GetCourseInstructorDto>> GetAllDepartmentHeads() => await _service.GetAllDepartmentHeads();
+        [HttpPost("ClearAllocation")]
+        public async Task<int> ClearCourseAllocation() => await _service.ClearCourseAllocation();
+        //[HttpGet("GetAllInstructors")]
+        //public async Task<IEnumerable<GetInstructorDto>> GetInstututionInstructors() => await _service.GetInstututionInstructors();
+        //[HttpPost("[action]")]
+        //public async Task<long> AddCourseInstructorAndHod(AddUserDto userDto) => await _service.AddCourseInstructorAndHod(userDto);
+        //[HttpGet("[action]")]
+        //public async Task<IEnumerable<GetCourseInstructorDto>> GetInstructorsByDepartmentId(long departmentId) => await _service.GetInstructorsByDepartmentId(departmentId);
+        //[HttpGet("[action]")]
+        //public async Task<IEnumerable<GetCourseInstructorDto>> GetAllDepartmentHeads() => await _service.GetAllDepartmentHeads();
     }
 }

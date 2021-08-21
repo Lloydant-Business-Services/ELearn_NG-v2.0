@@ -12,7 +12,7 @@ namespace BusinessLayer.Interface
         Task<ResponseModel> AddCourse(AddCourseDto courseDto);
         Task<ResponseModel> UpdateCourseDetail(AddCourseDto dto);
         Task<IEnumerable<AddCourseDto>> GetStudentCourses();
-        Task<IEnumerable<AddCourseDto>> GetCourses();
+        Task<IEnumerable<AllCoursesDto>> GetCourses();
         Task<IEnumerable<GetDepartmentCourseDto>> GetDepartmentalCourses(long departmentId);
         //Task<ResponseModel> AllocateCourse(AllocateCourseDto dto);
     }

@@ -80,7 +80,9 @@ namespace BusinessLayer.Services
                                 PersonId = person.Id,
                                 RoleId = (int)UserRole.Student,
                                 PasswordHash = passwordHash,
-                                PasswordSalt = passwordSalt
+                                PasswordSalt = passwordSalt,
+                                IsVerified = true,
+                                Active = true
 
                             };
                             _context.Add(user);
@@ -132,7 +134,9 @@ namespace BusinessLayer.Services
                 {
                     FullName = f.Person.Surname + " " + f.Person.Firstname + " " + f.Person.Othername,
                     MatricNumber = f.MatricNo,
-                    PersonId = f.PersonId
+                    PersonId = f.PersonId,
+                    StudentPersonId = f.Id
+                    
                 })
                 .ToListAsync();
         }

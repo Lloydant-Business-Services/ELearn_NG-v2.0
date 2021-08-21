@@ -56,7 +56,7 @@ namespace APIs.Controllers
         [HttpGet("[action]")]
         public async Task<IEnumerable<GetDepartmentHeadDto>> GetAllDepartmentHeads() => await _service.GetAllDepartmentHeads();
         [HttpPost("[action]")]
-        public async Task<int> AssignDepartmentHead(AddDepartmentHeadDto dto) => await _service.AssignDepartmentHead(dto);
+        public async Task<ResponseModel> AssignDepartmentHead(AddDepartmentHeadDto dto) => await _service.AssignDepartmentHead(dto);
         //[HttpDelete]
         //public async Task<ResponseModel> DeleteDepartment(long id) => await _service.DeleteDepartment(id);
         //public async Task<long> UpdateById([FromBody]Department department) => await _service.Update(department);

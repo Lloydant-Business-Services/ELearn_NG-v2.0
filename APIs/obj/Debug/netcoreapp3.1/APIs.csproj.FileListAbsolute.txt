@@ -190,7 +190,6 @@ C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\AP
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.AssemblyInfoInputs.cache
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.AssemblyInfo.cs
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.csproj.CoreCompileInputs.cache
-C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\staticwebassets\APIs.StaticWebAssets.Manifest.cache
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\staticwebassets\APIs.StaticWebAssets.xml
@@ -200,3 +199,4 @@ C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\AP
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.dll
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.pdb
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.genruntimeconfig.cache
+C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.MvcApplicationPartsAssemblyInfo.cs

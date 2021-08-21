@@ -100,10 +100,14 @@ namespace BusinessLayer.Services
                 })
                 .ToListAsync();
         }
-        public async Task<IEnumerable<AddCourseDto>> GetCourses()
+        public async Task<IEnumerable<AllCoursesDto>> GetCourses()
         {
+            
+           // List<AllCoursesDto> courseDtoList = new List<AllCoursesDto>();
+
             return await _context.COURSE.Where(a => a.Active)
-                .Select(f => new AddCourseDto { 
+                .Select(f => new AllCoursesDto
+                { 
                     CourseCode = f.CourseCode,
                     CourseTitle = f.CourseTitle,
                     UserId = f.UserId,
@@ -112,6 +116,16 @@ namespace BusinessLayer.Services
                     LevelId = f.LevelId,
                 })
                 .ToListAsync();
+            //if(courses.Count > 0)
+            //{
+            //    foreach (var item in courses)
+            //    {
+            //        var 
+            //        AddCourseDto courseDto = new AddCourseDto();
+
+            //    }
+            //}
+            
         }
 
         public async Task<IEnumerable<GetDepartmentCourseDto>> GetDepartmentalCourses(long departmentId)
@@ -130,6 +144,8 @@ namespace BusinessLayer.Services
                     CourseId = f.CourseAllocation.Course.Id,
                     CourseCode = f.CourseAllocation.Course.CourseCode,
                     CourseTitle = f.CourseAllocation.Course.CourseTitle,
+                    CourseAllocationId = f.CourseAllocation.Id
+                    
                 })
                 .ToListAsync();
         }
