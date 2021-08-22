@@ -29,7 +29,7 @@ namespace BusinessLayer.Services
 
         }
 
-        public async Task<ExcelSheetUploadAggregation> ProcessStudentUpload(IEnumerable<StudentUploadModel> studentList)
+        public async Task<ExcelSheetUploadAggregation> ProcessStudentUpload(IEnumerable<StudentUploadModel> studentList, long departmentId)
         {
             ExcelSheetUploadAggregation uploadAggregation = new ExcelSheetUploadAggregation();
             List<StudentUploadModel> failedUploads = new List<StudentUploadModel>();
@@ -68,7 +68,8 @@ namespace BusinessLayer.Services
                                 MatricNo = matNo,
                                 PersonId = person.Id,
                                 MatricNoSlug = mat_no_slug,
-                                Active = true
+                                Active = true,
+                                DepartmentId = departmentId
                             };
                             _context.Add(_student_person);
                             await _context.SaveChangesAsync();

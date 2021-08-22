@@ -9,6 +9,7 @@ namespace DataLayer.Dtos
         public long UserId { get; set; }
         public long CourseId { get; set; }
         public long InstructorId { get; set; }
+        public long LevelId { get; set; }
         //public long SessionSemesterId { get; set; }
     }
 }

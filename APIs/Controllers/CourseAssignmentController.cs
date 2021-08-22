@@ -47,8 +47,8 @@ namespace APIs.Controllers
        // }
        // [HttpPost("[action]")]
        // public async Task<AssignmentSubmissionDto> GradeAssignment(GradeAssignmentDto gradeAssignmentDto) => await _service.GradeAssignment(gradeAssignmentDto);
-        [HttpGet("[action]")]
-        public async Task<IEnumerable<AssignmentListDto>> ListAssignmentByCourseId(long courseId) => await _service.ListAssignmentByCourseId(courseId);
+        //[HttpGet("[action]")]
+        //public async Task<IEnumerable<AssignmentListDto>> ListAssignmentByCourseId(long courseId) => await _service.ListAssignmentByCourseId(courseId);
         //[HttpGet("[action]")]
         //public async Task<IEnumerable<AssignmentListDto>> ListAssignmentByInstructorUserId(long userId) => await _service.ListAssignmentByInstructorUserId(userId);
         //[HttpGet("[action]")]

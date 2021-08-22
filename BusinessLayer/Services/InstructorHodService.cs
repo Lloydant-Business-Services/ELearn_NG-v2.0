@@ -102,7 +102,31 @@ namespace BusinessLayer.Services
             }
 
         }
-
+        public async Task<IEnumerable<InstructorCoursesDto>> GetInstructorCoursesByUserId(long instructorUserId)
+        {
+            try
+            {
+                var activeSessionSemester = await GetActiveSessionSemester();
+                var instructorCourses = await _context.COURSE_ALLOCATION
+                    .Include(c => c.Course)
+                    .Where(x => x.InstructorId == instructorUserId && x.SessionSemesterId == activeSessionSemester.Id)
+                    .Select(f => new InstructorCoursesDto
+                    {
+                        CourseTitle = f.Course.CourseTitle,
+                        CourseCode = f.Course.CourseCode,
+                        Level = f.Level.Name,
+                        CourseId = f.Course.Id,
+                        CourseAllocationId = f.Id
+                    })
+                    .ToListAsync();
+                return instructorCourses;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+           
+        }
         public async Task<IEnumerable<GetInstructorDto>> GetInstututionInstructors()
         {
             try
@@ -122,7 +146,8 @@ namespace BusinessLayer.Services
                     Department = f.Department,
                     CourseCode = f.CourseAllocation != null ? f.CourseAllocation.Course.CourseCode : null,
                     CourseTitle = f.CourseAllocation !=null ? f.CourseAllocation.Course.CourseTitle : null,
-                    CourseId = f.CourseAllocation !=null ? f.CourseAllocation.CourseId : 0
+                    CourseId = f.CourseAllocation !=null ? f.CourseAllocation.CourseId : 0,
+                    Level = f.CourseAllocation != null ? f.CourseAllocation.Level.Name : null
 
                 })
                 .ToListAsync();

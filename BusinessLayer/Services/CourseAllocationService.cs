@@ -46,7 +46,7 @@ namespace BusinessLayer.Services
                 }
                 if (course != null && user != null && instructor != null && sessionSemester != null)
                 {
-                    
+
                     CourseAllocation courseAllocation = new CourseAllocation()
                     {
                         CourseId = course.Id,
@@ -54,6 +54,7 @@ namespace BusinessLayer.Services
                         CreatedById = user.Id,
                         DateCreated = DateTime.Now,
                         SessionSemesterId = activeSesionSemester.Id,
+                        LevelId = dto.LevelId,
                         Active = true
                     };
                     _context.Add(courseAllocation);
@@ -169,7 +170,22 @@ namespace BusinessLayer.Services
         //        .ToListAsync();
         //}
 
-        
+        //public async Task<IEnumerable<InstructorCoursesDto>> GetAllocatedCoursesByInstructorUserId(long instructorUserId)
+        //{
+        //    var activeSessionSemester = GetActiveSessionSemester();
+        //    var instructorCourses = await _context.COURSE_ALLOCATION
+        //        .Include(c => c.Course)
+        //        .Where(x => x.InstructorId == instructorUserId && x.SessionSemesterId == activeSessionSemester.Id)
+        //        .Select(f => new InstructorCoursesDto { 
+        //            CourseTitle = f.Course.CourseTitle,
+        //            CourseCode = f.Course.CourseCode,
+        //            Level = f.Level.Name,
+        //            CourseId = f.Course.Id,
+        //            CourseAllocationId = f.Id
+        //        })
+        //        .ToListAsync();
+        //    return instructorCourses;
+        //}
         public async Task<GetSessionSemesterDto> GetActiveSessionSemester()
         {
             return await _context.SESSION_SEMESTER.Where(a => a.Active)

@@ -30,6 +30,10 @@ namespace APIs.Controllers
         public async Task<IEnumerable<AllCoursesDto>> GetCourses() => await _service.GetCourses();
         [HttpGet("[action]")]
         public async Task<IEnumerable<GetDepartmentCourseDto>> GetDepartmentalCourses(long departmentId) => await _service.GetDepartmentalCourses(departmentId);
+        [HttpGet("[action]")]
+        public async Task<AllCoursesDto> GetCourseByCourseId(long courseId) => await _service.GetCourseByCourseId(courseId);
+        [HttpGet("[action]")]
+        public async Task<AllCoursesDto> AllocatedCourseByAllocationId(long courseAllocationId) => await _service.AllocatedCourseByAllocationId(courseAllocationId);
         //[HttpPost("[action]")]
         //public async Task<ResponseModel> AllocateCourse(AllocateCourseDto dto) => await _service.AllocateCourse(dto);
     }

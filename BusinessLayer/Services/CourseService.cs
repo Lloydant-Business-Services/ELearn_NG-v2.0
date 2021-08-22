@@ -49,7 +49,7 @@ namespace BusinessLayer.Services
                     CourseTitleSlug = Utility.GenerateSlug(courseDto.CourseTitle),
                     DateCreated = DateTime.Now,
                     UserId = courseDto.UserId,
-                    LevelId = courseDto.LevelId,
+                    //LevelId = courseDto.LevelId,
                     Active = true
                 };
                 _context.Add(course);
@@ -95,7 +95,7 @@ namespace BusinessLayer.Services
                     UserId = f.Course.UserId,
                     DateCreated = f.Course.DateCreated,
                     Id = f.Course.Id,
-                    LevelId = f.Course.LevelId,
+                    LevelId = f.LevelId,
                     CourseAllocationId = f.Id
                 })
                 .ToListAsync();
@@ -113,21 +113,37 @@ namespace BusinessLayer.Services
                     UserId = f.UserId,
                     DateCreated = f.DateCreated,
                     Id = f.Id,
-                    LevelId = f.LevelId,
+                    //LevelId = f.LevelId,
                 })
                 .ToListAsync();
-            //if(courses.Count > 0)
-            //{
-            //    foreach (var item in courses)
-            //    {
-            //        var 
-            //        AddCourseDto courseDto = new AddCourseDto();
-
-            //    }
-            //}
+            
             
         }
-
+        public async Task<AllCoursesDto> GetCourseByCourseId(long courseId)
+        {
+            return await _context.COURSE.Where(c => c.Id == courseId)
+                .Select(f => new AllCoursesDto
+                {
+                    CourseTitle = f.CourseTitle,
+                    CourseCode = f.CourseCode,
+                    DateCreated = f.DateCreated,
+                    Id = f.Id
+                })
+                .FirstOrDefaultAsync();
+        }
+        public async Task<AllCoursesDto> AllocatedCourseByAllocationId(long courseAllocationId)
+        {
+            return await _context.COURSE_ALLOCATION.Where(c => c.Id == courseAllocationId)
+                .Select(f => new AllCoursesDto
+                {
+                    CourseTitle = f.Course.CourseTitle,
+                    CourseCode = f.Course.CourseCode,
+                    DateCreated = f.Course.DateCreated,
+                    Id = f.Course.Id,
+                    CourseAllocationId = f.Id
+                })
+                .FirstOrDefaultAsync();
+        }
         public async Task<IEnumerable<GetDepartmentCourseDto>> GetDepartmentalCourses(long departmentId)
         {
             var activeSessionSemester = await GetActiveSessionSemester();

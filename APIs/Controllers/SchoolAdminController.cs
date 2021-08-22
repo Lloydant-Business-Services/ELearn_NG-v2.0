@@ -29,7 +29,7 @@ namespace APIs.Controllers
 
         }
         [HttpPost("StudentExcelUpload")]
-        public async Task<ExcelSheetUploadAggregation> UploadStudentData(IFormFile file)
+        public async Task<ExcelSheetUploadAggregation> UploadStudentData(IFormFile file, long departmentId)
         {
             ExcelSheetUploadAggregation uploadAggregation = new ExcelSheetUploadAggregation();
             try
@@ -67,7 +67,7 @@ namespace APIs.Controllers
                             if (studentList?.Count() > 0)
                             {
 
-                                uploadAggregation = await _service.ProcessStudentUpload(studentList);
+                                uploadAggregation = await _service.ProcessStudentUpload(studentList, departmentId);
                             }
                         }
                         else

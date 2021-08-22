@@ -13,5 +13,6 @@ namespace BusinessLayer.Interface
         Task<ResponseModel> AddCourseInstructorAndHod(AddUserDto userDto);
         Task<IEnumerable<GetInstructorDto>> GetInstructorsByDepartmentId(long departmentId);
         Task<IEnumerable<GetInstructorDto>> GetAllDepartmentHeads();
+        Task<IEnumerable<InstructorCoursesDto>> GetInstructorCoursesByUserId(long instructorUserId);
     }
 }

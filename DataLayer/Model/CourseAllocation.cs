@@ -15,6 +15,8 @@ namespace DataLayer.Model
         public DateTime DateCreated { get; set; }
         public long SessionSemesterId { get; set; }
         public virtual SessionSemester SessionSemester { get; set; }
+        public virtual Level Level { get; set; }
+        public long? LevelId { get; set; }
         public bool Active { get; set; }
 
 

@@ -55,6 +55,7 @@ namespace DataLayer.Model
         public DbSet<GeneralAudit> GENERAL_AUDIT { get; set; }
         public DbSet<InstructorDepartment> INSTRUCTOR_DEPARTMENT { get; set; }
         public DbSet<DepartmentHeads> DEPARTMENT_HEADS { get; set; }
+        public DbSet<Announcement> ANNOUNCEMENT { get; set; }
 
     }
 }

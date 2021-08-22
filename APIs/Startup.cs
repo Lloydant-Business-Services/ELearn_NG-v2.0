@@ -53,6 +53,7 @@ namespace APIs
             services.AddScoped<IInstructorHodService, InstructorHodService>();
             services.AddScoped<ICourseMaterialService, CourseMaterialService>();
             services.AddScoped<IAssignment_Service, Assignment_Service>();
+            services.AddScoped<IAnnouncementService, AnnouncementService>();
             //services.AddScoped<ICourseAssignment, AssignmentService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             

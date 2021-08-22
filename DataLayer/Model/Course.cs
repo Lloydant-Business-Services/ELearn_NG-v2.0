@@ -16,7 +16,7 @@ namespace DataLayer.Model
         [MaxLength(100)]
         public string CourseTitleSlug { get; set; }
         public long UserId { get; set; }
-        public long LevelId { get; set; }
+        public long? LevelId { get; set; }
         public DateTime DateCreated { get; set; }
         public virtual User User { get; set; }
         public virtual Level Level { get; set; }
