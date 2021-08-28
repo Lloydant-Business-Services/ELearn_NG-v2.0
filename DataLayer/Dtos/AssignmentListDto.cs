@@ -13,6 +13,7 @@ namespace DataLayer.Dtos
         public string InstructorName { get; set; }
         public decimal MaxScore { get; set; }
         public bool IsPublished { get; set; }
+        public bool IsSubmitted { get; set; }
         public DateTime DueDate { get; set; }
         public bool Active { get; set; }
     }

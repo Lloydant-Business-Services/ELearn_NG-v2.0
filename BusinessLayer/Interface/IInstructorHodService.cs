@@ -14,5 +14,6 @@ namespace BusinessLayer.Interface
         Task<IEnumerable<GetInstructorDto>> GetInstructorsByDepartmentId(long departmentId);
         Task<IEnumerable<GetInstructorDto>> GetAllDepartmentHeads();
         Task<IEnumerable<InstructorCoursesDto>> GetInstructorCoursesByUserId(long instructorUserId);
+        Task<IEnumerable<GetInstructorDto>> GetInstructorsByFacultyId(long facultyId);
     }
 }

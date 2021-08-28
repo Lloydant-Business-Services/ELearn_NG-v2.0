@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Interface;
 using DataLayer.Dtos;
+using DataLayer.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
@@ -39,7 +40,7 @@ namespace APIs.Controllers
         public async Task<AssignmentDto> GetAssignmentByAssignmentId(long AssignmentId) => await _service.GetAssignmentByAssignmentId(AssignmentId);
 
         [HttpPost("SubmitStudentAssignment")]
-        public async Task<AssignmentSubmissionDto> PostStudentAssignment([FromForm] StudentAssignmentSubmissionDto studentAssignmentSubmissionDto)
+        public async Task<ResponseModel> PostStudentAssignment([FromForm] StudentAssignmentSubmissionDto studentAssignmentSubmissionDto)
         {
             var directory = Path.Combine("Resources", "AssignmentSubmission");
             var filePath = Path.Combine(_hostingEnvironment.ContentRootPath, directory);
@@ -63,5 +64,7 @@ namespace APIs.Controllers
         public async Task<AssignmentDto> EditAssignment(UpdateAssignmentDto updateAssignmentDto) => await _service.EditAssignment(updateAssignmentDto);
         [HttpGet("[action]")]
         public async Task<AssignmentSubmissionDto> GetAssignmentSubmissionById(long AssignmentSubmissionId) => await _service.GetAssignmentSubmissionById(AssignmentSubmissionId);
+        [HttpGet("[action]")]
+        public async Task<StudentPersonDetailCountDto> StudentPersonStats(long PersonId) => await _service.StudentPersonStats(PersonId);
     }
 }

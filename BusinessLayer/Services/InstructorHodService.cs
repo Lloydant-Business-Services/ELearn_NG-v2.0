@@ -203,6 +203,31 @@ namespace BusinessLayer.Services
                 .Distinct()
                 .ToListAsync();
         }
+        public async Task<IEnumerable<GetInstructorDto>> GetInstructorsByFacultyId(long facultyId)
+        {
+            var activeSessionSemester = await GetActiveSessionSemester();
+            //return await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.DepartmentId == departmentId && d.CourseAllocation.SessionSemester.Active)
+            return await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.Department.FacultySchoolId == facultyId)
+                .Include(d => d.User)
+                .ThenInclude(p => p.Person)
+                .Include(d => d.Department)
+                .ThenInclude(f => f.FacultySchool)
+                .Include(c => c.CourseAllocation)
+                .ThenInclude(c => c.Course)
+                .Select(f => new GetInstructorDto
+                {
+                    FullName = f.User.Person.Surname + " " + f.User.Person.Firstname + " " + f.User.Person.Othername,
+                    UserId = f.UserId,
+                    Email = f.User.Person.Email,
+                    Department = f.Department,
+                    CourseCode = f.CourseAllocation != null ? f.CourseAllocation.Course.CourseCode : null,
+                    CourseTitle = f.CourseAllocation != null ? f.CourseAllocation.Course.CourseTitle : null,
+                    CourseId = f.CourseAllocation != null ? f.CourseAllocation.CourseId : 0
+                })
+
+                .Distinct()
+                .ToListAsync();
+        }
         public async Task<GetSessionSemesterDto> GetActiveSessionSemester()
         {
             return await _context.SESSION_SEMESTER.Where(a => a.Active)

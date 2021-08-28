@@ -1,4 +1,5 @@
 ﻿using DataLayer.Dtos;
+using DataLayer.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,7 @@ namespace BusinessLayer.Interface
     {
         Task<AssignmentDto> AddAssignment(AddAssignmentDto addAssignmentDto, string filePath, string directory);
         Task<AssignmentDto> GetAssignmentByAssignmentId(long AssignmentId);
-        Task<AssignmentSubmissionDto> AddAssignmentSubmission(StudentAssignmentSubmissionDto studentAssignmentSubmissionDto, string filePath, string directory);
+        Task<ResponseModel> AddAssignmentSubmission(StudentAssignmentSubmissionDto studentAssignmentSubmissionDto, string filePath, string directory);
         Task<AssignmentSubmissionDto> GradeAssignment(GradeAssignmentDto gradeAssignmentDto);
         Task<IEnumerable<AssignmentListDto>> ListAssignmentByCourseId(long courseId);
         Task<IEnumerable<AssignmentListDto>> ListAssignmentByInstructorUserId(long userId);
@@ -20,5 +21,6 @@ namespace BusinessLayer.Interface
         Task<int> AssignmentCountBy(long UserId);
         Task<AssignmentDto> EditAssignment(UpdateAssignmentDto updateAssignmentDto);
         Task<AssignmentSubmissionDto> GetAssignmentSubmissionById(long AssignmentSubmissionId);
+        Task<StudentPersonDetailCountDto> StudentPersonStats(long PersonId);
     }
 }

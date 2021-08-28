@@ -30,5 +30,7 @@ namespace APIs.Controllers
         public async Task<IEnumerable<GetInstructorDto>> GetAllDepartmentHeads() => await _service.GetAllDepartmentHeads();
         [HttpGet("[action]")]
         public async Task<IEnumerable<InstructorCoursesDto>> GetInstructorCoursesByUserId(long instructorUserId) => await _service.GetInstructorCoursesByUserId(instructorUserId);
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<GetInstructorDto>> GetInstructorsByFacultyId(long facultyId) => await _service.GetInstructorsByFacultyId(facultyId);
     }
 }

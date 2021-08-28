@@ -73,8 +73,9 @@ namespace BusinessLayer.Services
 
         }
      
-        public async Task<AssignmentSubmissionDto> AddAssignmentSubmission(StudentAssignmentSubmissionDto studentAssignmentSubmissionDto, string filePath, string directory)
+        public async Task<ResponseModel> AddAssignmentSubmission(StudentAssignmentSubmissionDto studentAssignmentSubmissionDto, string filePath, string directory)
         {
+            ResponseModel response = new ResponseModel();
             if (studentAssignmentSubmissionDto == null)
                 return null;
             if (studentAssignmentSubmissionDto?.AssignmentId == 0)
@@ -92,6 +93,14 @@ namespace BusinessLayer.Services
                 .Where(f => f.Id == studentAssignmentSubmissionDto.StudentUserId).FirstOrDefaultAsync();
             if (user == null)
                 throw new NullReferenceException("Student does not exist");
+            var isSubmitted = await _context.ASSIGNMENT_SUBMISSION.Where(a => a.AssignmentId == studentAssignmentSubmissionDto.AssignmentId).FirstOrDefaultAsync();
+            if(isSubmitted != null)
+            {
+                response.Message = "Error! Assignment Aready Submitted";
+                response.StatusCode = StatusCodes.Status208AlreadyReported;
+                return response;
+            }
+
             var saveAssignmentLink = string.Empty;
             if (studentAssignmentSubmissionDto.AssignmentUpload != null)
             {
@@ -116,7 +125,8 @@ namespace BusinessLayer.Services
             var isSuccessful = await _context.SaveChangesAsync();
             if (isSuccessful > 0)
             {
-                return await GetAssignmentSubmissionById(assignmentSubmission.Id);
+                return response;
+
             }
             return null;
         }
@@ -212,6 +222,7 @@ namespace BusinessLayer.Services
             //get all the assignment for the student based on the registered course
             foreach (var item in courseRegistration)
             {
+                var submssionStatus = await _context.ASSIGNMENT_SUBMISSION.Where(x => x.CourseRegistrationId == item.Id).FirstOrDefaultAsync();
                 var assignments = await _context.ASSIGNMENT
                .Include(f => f.CourseAllocation)
                .ThenInclude(c => c.Course)
@@ -229,7 +240,8 @@ namespace BusinessLayer.Services
                    DueDate = f.DueDate,
                    InstructorName = (f.CourseAllocation.Instructor.Person.Surname + " " + f.CourseAllocation.Instructor.Person.Firstname + " " + f.CourseAllocation.Instructor.Person.Othername),
                    IsPublished = f.PublishResult,
-                   MaxScore = f.MaxScore
+                   MaxScore = f.MaxScore,
+                   IsSubmitted = submssionStatus != null ? true : false
                })
                .ToListAsync();
                 allAssgnment.AddRange(assignments);
@@ -274,6 +286,40 @@ namespace BusinessLayer.Services
                  .ThenInclude(f => f.Instructor)
                  .ThenInclude(f => f.Person)
                  .Where(f => f.CourseAllocation.InstructorId == UserId && f.CourseAllocation.SessionSemester.Active && !f.IsDelete).CountAsync();
+
+        }
+        public async Task<StudentPersonDetailCountDto> StudentPersonStats(long PersonId)
+        {
+            if (PersonId == 0)
+                throw new NullReferenceException("No User Id");
+            StudentPersonDetailCountDto detailCountDto = new StudentPersonDetailCountDto();
+            AssignmentSubmission assignmentSubmission = new AssignmentSubmission();
+            long _assignmentAttempted = 0;
+            var studentPerson = await _context.STUDENT_PERSON.Where(p => p.PersonId == PersonId).FirstOrDefaultAsync();
+            var _activeSessionSemester = await GetActiveSessionSemester();
+            var courseRegistrationCount = await _context.COURSE_REGISTRATION.Where(x => x.StudentPersonId == studentPerson.Id && x.SessionSemester.Active).ToListAsync();
+            if(courseRegistrationCount.Count > 0)
+            {
+                foreach(var item in courseRegistrationCount)
+                {
+                    assignmentSubmission = await _context.ASSIGNMENT_SUBMISSION.Where(x => x.CourseRegistrationId == item.Id).FirstOrDefaultAsync();
+                    if(assignmentSubmission != null)
+                    {
+                        _assignmentAttempted += 1;
+                    }
+                }
+            }
+            detailCountDto.CoursesRegistered = courseRegistrationCount.Count;
+            detailCountDto.AssignmentsAttempted = _assignmentAttempted;
+            return detailCountDto;
+            //return await _context.ASSIGNMENT
+            //     .Include(f => f.CourseAllocation)
+            //     .ThenInclude(c => c.Course)
+            //     .Include(f => f.CourseAllocation)
+            //     .ThenInclude(f => f.Instructor)
+            //     .ThenInclude(f => f.Person)
+            //     .Include(c => c.co)
+            //     .Where(f => f.CourseAllocation.InstructorId == UserId && f.CourseAllocation.SessionSemester.Active && !f.IsDelete).CountAsync();
 
         }
 
