@@ -13,5 +13,6 @@ namespace DataLayer.Dtos
         public long PersonId { get; set; }
         public long UserId { get; set; }
         public string FullName { get; set; }
+        public bool IsHOD { get; set; }
     }
 }

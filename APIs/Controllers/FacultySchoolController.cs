@@ -30,7 +30,7 @@ namespace APIs.Controllers
         [HttpGet("[action]")]
         public async Task<IEnumerable<FacultyDto>> GetFaculties()
         {
-            return await _context.FACULTY_SCHOOL.Where(a => a.Id > 0)
+            return await _context.FACULTY_SCHOOL.Where(a => a.Active)
                 .Select(f => new FacultyDto
                 {
                     Name = f.Name,
@@ -40,9 +40,9 @@ namespace APIs.Controllers
         }
         [HttpGet("{id}")]
         public FacultySchool GetBy(long id) => _service.GetById(id);
-        [HttpPut]
+        [HttpPost("[action]")]
         public async Task<ResponseModel> UpdateFacultySchool(FacultyDto model) => await _service.UpdateFacultySchool(model);
-        //[HttpDelete]
-        //public async Task<ResponseModel> DeleteFacultySchool(long id) => await _service.DeleteFacultySchool(id);
+        [HttpPost("[action]")]
+        public async Task<ResponseModel> DeleteFacultySchool(long id) => await _service.DeleteFacultySchool(id);
     }
 }

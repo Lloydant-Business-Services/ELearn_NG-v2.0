@@ -14,5 +14,7 @@ namespace DataLayer.Dtos
         public DateTime StartTime { get; set; }
         //public int NumberOfViews { get; set; }
         public string ContentTitle { get; set; }
+        public long TopicId { get; set; }
+        public long ContentId { get; set; }
     }
 }

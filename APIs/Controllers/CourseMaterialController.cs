@@ -43,5 +43,11 @@ namespace APIs.Controllers
         public async Task<bool> DeleteCourseContent(long courseContentId) => await _service.DeleteCourseContent(courseContentId);
         [HttpPost("[action]")]
         public async Task<bool> DeleteCourseTopic(long TopicId) => await _service.DeleteCourseTopic(TopicId);
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<GetCourseContentDto>> GetCourseMaterialByInstructorId(long InstructorId) => await _service.GetCourseMaterialByInstructorId(InstructorId);
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<GetCourseContentDto>> GetCourseMaterialByCourseId(long CourseId) => await _service.GetCourseMaterialByCourseId(CourseId);
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<GetCourseContentDto>> GetCourseMaterialByDepartmentId(long DepartmentId) => await _service.GetCourseMaterialByDepartmentId(DepartmentId);
     }
 }

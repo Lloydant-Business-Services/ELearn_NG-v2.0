@@ -133,23 +133,23 @@ namespace BusinessLayer.Services
                 throw new NullReferenceException("Please provide query parameter");
             var courseContentDtos = await _context.COURSE_CONTENT
                 .Include(f => f.CourseTopic)
-                .Where(f => f.CourseTopicId == TopicId && f.CourseTopic.IsArchieved == false && !f.IsArchieved)
+                .Where(f => f.CourseTopicId == TopicId && !f.IsArchieved)
                 .Select(f => new GetCourseContentDto
                 {
                     LiveStreamLink = f.LiveStream,
-                    NoteLink = baseUrl + f.Material,
+                    NoteLink = f.Material != null ? baseUrl + f.Material : null,
                     TopicDescription = f.CourseTopic.Description,
                     StartTime = f.CourseTopic.StartDate,
                     TopicName = f.CourseTopic.Topic,
                     VideoLink = f.Link,
-                    ContentTitle = f.ContentTitle
-
+                    ContentTitle = f.ContentTitle,
+                    
                 })
                 .ToListAsync();
             return courseContentDtos;
         }
-
-        public async Task<bool> DeleteCourseContent(long courseContentId)
+        
+            public async Task<bool> DeleteCourseContent(long courseContentId)
         {
             if (courseContentId == 0)
                 throw new NullReferenceException("Please provide query parameter");
@@ -169,9 +169,20 @@ namespace BusinessLayer.Services
         {
             if (TopicId == 0)
                 throw new NullReferenceException("Please provide query parameter");
-            var courseTopic = await _context.COURSE_CONTENT.Where(f => f.Id == TopicId).FirstOrDefaultAsync();
+            var courseTopic = await _context.COURSE_TOPIC.Where(f => f.Id == TopicId).FirstOrDefaultAsync();
             if (courseTopic?.Id > 0)
             {
+                var courseContent = await _context.COURSE_CONTENT.Where(f => f.CourseTopicId == TopicId).ToListAsync();
+                if(courseContent != null && courseContent.Count > 0)
+                {
+                    foreach(var item in courseContent)
+                    {
+                        item.IsArchieved = true;
+                        _context.Update(item);
+                    }
+                    
+
+                }
                 courseTopic.IsArchieved = true;
                 _context.Update(courseTopic);
                 await _context.SaveChangesAsync();
@@ -259,6 +270,84 @@ namespace BusinessLayer.Services
                 .ToListAsync();
         }
 
-  
+        public async Task<IEnumerable<GetCourseContentDto>> GetCourseMaterialByInstructorId(long InstructorId)
+        {
+            var courseContentDtos = await _context.COURSE_CONTENT
+                .Include(f => f.CourseTopic)
+                .ThenInclude(c => c.CourseAllocation)
+                .Where(f => f.CourseTopic.CourseAllocation.InstructorId == InstructorId && f.CourseTopic.IsArchieved == false && !f.IsArchieved)
+                .Select(f => new GetCourseContentDto
+                {
+                    LiveStreamLink = f.LiveStream,
+                    NoteLink = f.Material != null ? baseUrl + f.Material : null,
+                    TopicDescription = f.CourseTopic.Description,
+                    StartTime = f.CourseTopic.StartDate,
+                    TopicName = f.CourseTopic.Topic,
+                    VideoLink = f.Link,
+                    ContentTitle = f.ContentTitle,
+                    TopicId = f.CourseTopic.Id,
+                    ContentId = f.Id
+
+                })
+                .ToListAsync();
+            return courseContentDtos;
+        }
+
+        public async Task<IEnumerable<GetCourseContentDto>> GetCourseMaterialByCourseId(long CourseId)
+        {
+            var courseContentDtos = await _context.COURSE_CONTENT
+                .Include(f => f.CourseTopic)
+                .ThenInclude(c => c.CourseAllocation)
+                .Where(f => f.CourseTopic.CourseAllocation.CourseId == CourseId && f.CourseTopic.IsArchieved == false && !f.IsArchieved)
+                .Select(f => new GetCourseContentDto
+                {
+                    LiveStreamLink = f.LiveStream,
+                    NoteLink = f.Material != null ? baseUrl + f.Material : null,
+                    TopicDescription = f.CourseTopic.Description,
+                    StartTime = f.CourseTopic.StartDate,
+                    TopicName = f.CourseTopic.Topic,
+                    VideoLink = f.Link,
+                    ContentTitle = f.ContentTitle,
+                    TopicId = f.CourseTopic.Id,
+                    ContentId = f.Id
+
+                })
+                .ToListAsync();
+            return courseContentDtos;
+        }
+        public async Task<IEnumerable<GetCourseContentDto>> GetCourseMaterialByDepartmentId(long DepartmentId)
+        {
+            List<GetCourseContentDto> aggList = new List<GetCourseContentDto>();
+            var instructorDept = await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.DepartmentId == DepartmentId).ToListAsync();
+
+            if (instructorDept.Count > 0)
+            {
+                foreach (var item in instructorDept)
+                {
+                    var courseContentDtos = await _context.COURSE_CONTENT
+                        .Include(f => f.CourseTopic)
+                        .ThenInclude(c => c.CourseAllocation)
+                        .Where(f => f.CourseTopic.CourseAllocationId == item.CourseAllocationId && f.CourseTopic.IsArchieved == false && !f.IsArchieved)
+                        .Select(f => new GetCourseContentDto
+                        {
+                            LiveStreamLink = f.LiveStream,
+                            NoteLink = baseUrl + f.Material,
+                            TopicDescription = f.CourseTopic.Description,
+                            StartTime = f.CourseTopic.StartDate,
+                            TopicName = f.CourseTopic.Topic,
+                            VideoLink = f.Link,
+                            ContentTitle = f.ContentTitle,
+                            TopicId = f.CourseTopic.Id,
+                            ContentId = f.Id
+
+                        })
+                        .ToListAsync();
+                    aggList.AddRange(courseContentDtos);
+                }
+                return aggList;
+            }
+            return null;
+        }
+
     }
 }

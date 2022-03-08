@@ -56,15 +56,22 @@ namespace APIs.Controllers
         public async Task<IEnumerable<AssignmentListDto>> ListAssignmentByStudentId(long StudentUserId) => await _service.ListAssignmentByStudentId(StudentUserId);
         [HttpPost("[action]")]
         public async Task PublishResultAssignment(AssignmentPublishDto assignmentPublishDto) => await _service.PublishResultAssignment(assignmentPublishDto);
-        [HttpDelete("[action]")]
+        [HttpPost("[action]")]
         public async Task DeleteAssignment(DeleteRecordDto deleteRecordDto) => await _service.DeleteAssignment(deleteRecordDto);
         [HttpGet("[action]")]
         public async Task<int> AssignmentCountBy(long UserId) => await _service.AssignmentCountBy(UserId);
-        [HttpPut("[action]")]
+        [HttpPost("[action]")]
         public async Task<AssignmentDto> EditAssignment(UpdateAssignmentDto updateAssignmentDto) => await _service.EditAssignment(updateAssignmentDto);
         [HttpGet("[action]")]
         public async Task<AssignmentSubmissionDto> GetAssignmentSubmissionById(long AssignmentSubmissionId) => await _service.GetAssignmentSubmissionById(AssignmentSubmissionId);
         [HttpGet("[action]")]
         public async Task<StudentPersonDetailCountDto> StudentPersonStats(long PersonId) => await _service.StudentPersonStats(PersonId);
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<AssignmentSubmissionDto>> GetAllAssignmentSubmissionByAssignemntId(long AssignmentId) => await _service.GetAllAssignmentSubmissionByAssignemntId(AssignmentId);
+
+        [HttpGet("[action]")]
+        public async Task<AssignmentSubmissionDto> GetAssignmentSubmissionBy(long AssignmentId, long StudentUserId) => await _service.GetAssignmentSubmissionBy(AssignmentId, StudentUserId);
+        [HttpPost("[action]")]
+        public async Task<ResponseModel> ExtendAssignmentDueDate(AssignmentDueDateDto dto) => await _service.ExtendAssignmentDueDate(dto);
     }
 }

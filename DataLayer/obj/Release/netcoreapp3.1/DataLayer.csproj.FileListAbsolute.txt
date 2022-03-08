@@ -22,3 +22,15 @@ C:\Users\macbook\Documents\Projects\ELearnNG_2.0\DataLayer\obj\Release\netcoreap
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\DataLayer\obj\Release\netcoreapp3.1\DataLayer.dll
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\DataLayer\obj\Release\netcoreapp3.1\DataLayer.pdb
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\DataLayer\obj\Release\netcoreapp3.1\DataLayer.genruntimeconfig.cache
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\bin\Release\netcoreapp3.1\DataLayer.deps.json
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\bin\Release\netcoreapp3.1\DataLayer.runtimeconfig.json
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\bin\Release\netcoreapp3.1\DataLayer.runtimeconfig.dev.json
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\bin\Release\netcoreapp3.1\DataLayer.dll
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\bin\Release\netcoreapp3.1\DataLayer.pdb
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\obj\Release\netcoreapp3.1\DataLayer.csprojAssemblyReference.cache
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\obj\Release\netcoreapp3.1\DataLayer.AssemblyInfoInputs.cache
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\obj\Release\netcoreapp3.1\DataLayer.AssemblyInfo.cs
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\obj\Release\netcoreapp3.1\DataLayer.csproj.CoreCompileInputs.cache
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\obj\Release\netcoreapp3.1\DataLayer.dll
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\obj\Release\netcoreapp3.1\DataLayer.pdb
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\obj\Release\netcoreapp3.1\DataLayer.genruntimeconfig.cache

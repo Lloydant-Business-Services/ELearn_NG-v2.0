@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using RestSharp;
+using RestSharp.Authenticators;
 
 namespace BusinessLayer.Services
 {
@@ -73,6 +75,7 @@ namespace BusinessLayer.Services
             dto.UserId = user.Id;
             dto.PersonId = user.PersonId;
             dto.FullName = user.Person.Surname + " " + user.Person.Firstname + " " + user.Person.Othername;
+            dto.IsHOD = user.RoleId == 4 ? true : false;
             
             return dto;
         }
@@ -262,8 +265,57 @@ namespace BusinessLayer.Services
             }
         }
 
-       
-        
+        public async Task<int> ResetPassword(string Username)
+        {
+            try
+            {
+                var _username = Username.Trim();
+                var getUser = await _context.USER.Where(x => x.Username == _username.Trim()).FirstOrDefaultAsync();
+                if(getUser != null)
+                {                   
+                    string generateGuid = Convert.ToString(Guid.NewGuid());
+                    var splitGuid = generateGuid.Split("-");
+                    var guid = splitGuid[1];
+                    getUser.Guid = guid;
+                    _context.Update(getUser);
+                    await _context.SaveChangesAsync();
+                    return StatusCodes.Status200OK;
+                }
+                return 0;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> AscertainMultiRole(long userId, long sessionSemesterId)
+        {
+            var isDoubleRole = await _context.COURSE_ALLOCATION.Where(x => x.InstructorId == userId && x.SessionSemesterId == sessionSemesterId).ToListAsync();
+            if (isDoubleRole != null && isDoubleRole.Count > 0) return true;
+            else return false;
+        }
+
+        public static IRestResponse SendSimpleMessage(string to, string body)
+        {
+            string _body = "Your Verification code is : " + body;
+            RestClient client = new RestClient();
+            client.BaseUrl = new Uri("https://api.mailgun.net/v3/");
+            client.Authenticator =
+                new HttpBasicAuthenticator("api", "key-8540f3ef6a66cdaf8d9121f11c99aa6b");
+            RestRequest request = new RestRequest();
+            request.AddParameter("domain", "nrf.lloydant.com", ParameterType.UrlSegment);
+            request.Resource = "{domain}/messages";
+            request.AddParameter("from", "ABSU Elearn NG <mailgun@absuelearn.com>");
+            request.AddParameter("to", to);
+            //request.AddParameter("to", "YOU@YOUR_DOMAIN_NAME");
+            request.AddParameter("subject", "Account Verification");
+            request.AddParameter("text", _body);
+            request.Method = Method.POST;
+            var stat = client.Execute(request);
+            return stat;
+        }
+
     }
 
 }

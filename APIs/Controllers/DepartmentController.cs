@@ -34,12 +34,13 @@ namespace APIs.Controllers
         //[Authorize]
         public async Task<IEnumerable<DepartmentDto>> GetDepartments()
         {
-            return await _context.DEPARTMENT.Where(a => a.Id > 0).Include(f => f.FacultySchool)
+            return await _context.DEPARTMENT.Where(a => a.Active).Include(f => f.FacultySchool)
                 .Select(f => new DepartmentDto
                 {
                     Name = f.Name,
                     FacultyId = f.FacultySchoolId,
-                    Id = f.Id
+                    Id = f.Id,
+                    DateCreated = f.DateCreated
                 })
                 .ToListAsync();
         }
@@ -47,7 +48,7 @@ namespace APIs.Controllers
         public async Task<IEnumerable<DepartmentDto>> GetDepartmentsByFacultyId(long facultyId) => await _service.GetDepartmentsByFacultyId(facultyId);
         [HttpGet("{id}")]
         public Department GetById(long id) => _service.GetById(id);
-        [HttpPut]
+        [HttpPost]
         public async Task<ResponseModel> UpdateDepartment(DepartmentDto model) => await _service.UpdateDepartment(model);
         [HttpGet("GetDepartmentHeadsByFacultyId")]
         public async Task<IEnumerable<GetDepartmentHeadDto>> GetDepartmentHeadsByFaculty(long facultyId) => await _service.GetDepartmentHeadsByFaculty(facultyId);
@@ -57,8 +58,14 @@ namespace APIs.Controllers
         public async Task<IEnumerable<GetDepartmentHeadDto>> GetAllDepartmentHeads() => await _service.GetAllDepartmentHeads();
         [HttpPost("[action]")]
         public async Task<ResponseModel> AssignDepartmentHead(AddDepartmentHeadDto dto) => await _service.AssignDepartmentHead(dto);
-        //[HttpDelete]
-        //public async Task<ResponseModel> DeleteDepartment(long id) => await _service.DeleteDepartment(id);
-        //public async Task<long> UpdateById([FromBody]Department department) => await _service.Update(department);
+        /// <summary>
+        /// Delete Department by the Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("[action]")]
+        public async Task<ResponseModel> DeleteDepartment(long id) => await _service.DeleteDepartment(id);
+        [HttpPost("[action]")]
+        public async Task<ResponseModel> UpdateById(DepartmentDto department) => await _service.UpdateDepartment(department);
     }
 }

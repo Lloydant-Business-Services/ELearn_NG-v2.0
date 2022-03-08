@@ -164,6 +164,53 @@ namespace APIs.Migrations
                     b.ToTable("ASSIGNMENT_SUBMISSION");
                 });
 
+            modelBuilder.Entity("DataLayer.Model.ClassMeetings", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Agenda")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long>("CourseAllocationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Duration")
+                        .HasMaxLength(5)
+                        .HasColumnType("int");
+
+                    b.Property<string>("Join_Meeting_Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Start_Meeting_Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Time")
+                        .HasMaxLength(5)
+                        .HasColumnType("int");
+
+                    b.Property<string>("Topic")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseAllocationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CLASS_MEETINGS");
+                });
+
             modelBuilder.Entity("DataLayer.Model.Course", b =>
                 {
                     b.Property<long>("Id")
@@ -1054,6 +1101,25 @@ namespace APIs.Migrations
                     b.Navigation("Assignment");
 
                     b.Navigation("CourseRegistration");
+                });
+
+            modelBuilder.Entity("DataLayer.Model.ClassMeetings", b =>
+                {
+                    b.HasOne("DataLayer.Model.CourseAllocation", "CourseAllocation")
+                        .WithMany()
+                        .HasForeignKey("CourseAllocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataLayer.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CourseAllocation");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataLayer.Model.Course", b =>

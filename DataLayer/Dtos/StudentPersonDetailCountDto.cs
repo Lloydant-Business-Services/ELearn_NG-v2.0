@@ -8,5 +8,6 @@ namespace DataLayer.Dtos
     {
         public long CoursesRegistered { get; set; }
         public long AssignmentsAttempted { get; set; }
+        public long TotalAssignmentsAvailable { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\APIs.exe
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.Development.json
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.json
+C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\UserDetails.json
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\APIs.dll
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\APIs.runtimeconfig.json
 C:\Users\macbook\Documents\Projects\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\APIs.pdb

@@ -60,7 +60,7 @@ namespace BusinessLayer.Services
                 
                 if(userDto.RoleId == (int)Roles.DepartmentAdministrator)
                 {
-                    var doesExist = await _context.DEPARTMENT_HEADS.Where(d => d.DepartmentId == userDto.DepartmentId).FirstOrDefaultAsync();
+                    var doesExist = await _context.DEPARTMENT_HEADS.Where(d => d.DepartmentId == userDto.DepartmentId && d.Active).FirstOrDefaultAsync();
                     if (doesExist != null)
                     {
                         response.Message = "HOD already exists for the selected department";
@@ -106,20 +106,29 @@ namespace BusinessLayer.Services
         {
             try
             {
-                var activeSessionSemester = await GetActiveSessionSemester();
+                List<InstructorCoursesDto> dtoList = new List<InstructorCoursesDto>();
                 var instructorCourses = await _context.COURSE_ALLOCATION
                     .Include(c => c.Course)
-                    .Where(x => x.InstructorId == instructorUserId && x.SessionSemesterId == activeSessionSemester.Id)
-                    .Select(f => new InstructorCoursesDto
-                    {
-                        CourseTitle = f.Course.CourseTitle,
-                        CourseCode = f.Course.CourseCode,
-                        Level = f.Level.Name,
-                        CourseId = f.Course.Id,
-                        CourseAllocationId = f.Id
-                    })
+                    .Include(l => l.Level)
+                    .Where(x => x.InstructorId == instructorUserId && x.SessionSemester.Active)
                     .ToListAsync();
-                return instructorCourses;
+
+                foreach (var item in instructorCourses)
+                {
+                    InstructorCoursesDto dto = new InstructorCoursesDto();
+                    var isRegistered = await _context.COURSE_REGISTRATION.Where(s => s.SessionSemester.Active && s.CourseAllocationId == item.Id).ToListAsync();
+                    dto.CourseAllocationId = item.Id;
+                    dto.CourseTitle = item.Course.CourseTitle;
+                    dto.CourseCode = item.Course.CourseCode;
+                    dto.CourseId = item.Course.Id;
+                    dto.Level = item?.Level?.Name;
+                    dto.RegisteredStudents = isRegistered.Count();
+
+                    dtoList.Add(dto);
+
+                }
+               
+                return dtoList;
             }
             catch(Exception ex)
             {
@@ -182,13 +191,15 @@ namespace BusinessLayer.Services
         {
             var activeSessionSemester = await GetActiveSessionSemester();
             //return await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.DepartmentId == departmentId && d.CourseAllocation.SessionSemester.Active)
-            return await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.DepartmentId == departmentId)
+            return await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.DepartmentId == departmentId && d.CourseAllocation.SessionSemester.Id == activeSessionSemester.Id)
                 .Include(d => d.User)
                 .ThenInclude(p => p.Person)
                 .Include(d => d.Department)
                 .ThenInclude(f => f.FacultySchool)
                 .Include(c => c.CourseAllocation)
                 .ThenInclude(c => c.Course)
+                .Include(c => c.CourseAllocation)
+                .ThenInclude(c => c.SessionSemester)
                 .Select(f => new GetInstructorDto
                 {
                     FullName = f.User.Person.Surname + " " + f.User.Person.Firstname + " " + f.User.Person.Othername,
@@ -199,7 +210,6 @@ namespace BusinessLayer.Services
                     CourseTitle = f.CourseAllocation != null ? f.CourseAllocation.Course.CourseTitle : null,
                     CourseId = f.CourseAllocation != null ? f.CourseAllocation.CourseId : 0
                 })
-                
                 .Distinct()
                 .ToListAsync();
         }
@@ -207,13 +217,15 @@ namespace BusinessLayer.Services
         {
             var activeSessionSemester = await GetActiveSessionSemester();
             //return await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.DepartmentId == departmentId && d.CourseAllocation.SessionSemester.Active)
-            return await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.Department.FacultySchoolId == facultyId)
+            return await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.Department.FacultySchoolId == facultyId && d.CourseAllocation.SessionSemester.Id == activeSessionSemester.Id)
                 .Include(d => d.User)
                 .ThenInclude(p => p.Person)
                 .Include(d => d.Department)
                 .ThenInclude(f => f.FacultySchool)
                 .Include(c => c.CourseAllocation)
                 .ThenInclude(c => c.Course)
+                .Include(c => c.CourseAllocation)
+                .ThenInclude(c => c.SessionSemester)
                 .Select(f => new GetInstructorDto
                 {
                     FullName = f.User.Person.Surname + " " + f.User.Person.Firstname + " " + f.User.Person.Othername,
@@ -243,5 +255,88 @@ namespace BusinessLayer.Services
                 })
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<HODDashboardSummaryDto> HODDashboardSummary(long DepartmentId)
+        {
+            HODDashboardSummaryDto summary = new HODDashboardSummaryDto();
+            long courseCount = 0;
+            long courseMaterialCount = 0;
+            var studentDept = await _context.STUDENT_PERSON.Where(d => d.DepartmentId == DepartmentId).ToListAsync();
+            var departmentInstructors = await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.DepartmentId == DepartmentId && d.CourseAllocation.SessionSemester.Active).Include(c => c.CourseAllocation)
+                .ToListAsync();
+
+            foreach(var item in departmentInstructors)
+            {
+                var courseAllocation = await _context.COURSE_ALLOCATION.Where(x => x.InstructorId == item.CourseAllocation.InstructorId)
+                    .ToListAsync();
+                var courseTopic = await _context.COURSE_TOPIC.Where(x => x.CourseAllocation.InstructorId == item.CourseAllocation.InstructorId)
+                    .Include(c => c.CourseAllocation)
+                    .ToListAsync();
+                if(courseAllocation.Count > 0)
+                {
+                    courseCount += courseAllocation.Count();
+                }
+                if(courseTopic.Count > 0)
+                {
+                    courseMaterialCount += courseTopic.Count();
+                }
+            }
+
+            summary.AllDepartmentInstructors = departmentInstructors.Count();
+            summary.AllDepartmentCourses = courseCount;
+            summary.AllDepartmentStudents = studentDept.Count();
+            summary.AllDepartmentCourseMaterials = courseMaterialCount;
+            return summary;
+        }
+        public async Task<InstructorSummaryDto> InstructorDashboardSummary(long InstructorId)
+        {
+            InstructorSummaryDto summary = new InstructorSummaryDto();
+            long StudentCount = 0;
+
+            var courseAllocation = await _context.COURSE_ALLOCATION.Where(x => x.InstructorId == InstructorId && x.SessionSemester.Active).ToListAsync();
+            var _assignments = await _context.ASSIGNMENT.Where(c => c.CourseAllocation.InstructorId == InstructorId).ToListAsync();
+
+
+
+            foreach (var item in courseAllocation)
+            {
+                var isRegistered = await _context.COURSE_REGISTRATION.Where(s => s.SessionSemester.Active && s.CourseAllocationId == item.Id).ToListAsync();
+                
+                if (isRegistered.Count > 0)
+                {
+                    StudentCount += courseAllocation.Count();
+                }
+            
+            }
+
+            summary.Students = StudentCount;
+            summary.Courses = courseAllocation.Count();
+            summary.Assignments = _assignments.Count();
+            return summary;
+        }
+
+
+        public async Task<bool> RemoveHod(long DepartmentId)
+        {
+            try
+            {
+                var getHod = await _context.DEPARTMENT_HEADS.Where(x => x.DepartmentId == DepartmentId).ToListAsync();
+                if(getHod != null && getHod.Count > 0)
+                {
+                    foreach(var item in getHod)
+                    {
+                        _context.Remove(item);
+                        await _context.SaveChangesAsync();
+                    }
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

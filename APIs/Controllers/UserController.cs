@@ -41,6 +41,9 @@ namespace APIs.Controllers
         public async Task<GetUserProfileDto> GetUserProfile(long userId) => await _userService.GetUserProfile(userId);
         [HttpPost("[action]")]
         public async Task<ResponseModel> ProfileUpdate(UpdateUserProfileDto dto) => await _userService.ProfileUpdate(dto);
-        
+        [HttpGet("[action]")]
+        public async Task<bool> AscertainMultiRole(long userId, long sessionSemesterId) => await _userService.AscertainMultiRole(userId, sessionSemesterId);
+
+
     }
 }

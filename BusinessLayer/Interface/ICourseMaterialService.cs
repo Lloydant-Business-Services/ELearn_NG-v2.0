@@ -15,5 +15,8 @@ namespace BusinessLayer.Interface
         Task<bool> DeleteCourseContent(long courseContentId);
         Task<bool> DeleteCourseTopic(long TopicId);
         Task<IEnumerable<AssignmentListDto>> ListAssignmentByCourseId(long courseId);
+        Task<IEnumerable<GetCourseContentDto>> GetCourseMaterialByInstructorId(long InstructorId);
+       Task<IEnumerable<GetCourseContentDto>> GetCourseMaterialByCourseId(long CourseId);
+       Task<IEnumerable<GetCourseContentDto>> GetCourseMaterialByDepartmentId(long DepartmentId);
     }
 }

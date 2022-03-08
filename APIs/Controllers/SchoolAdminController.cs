@@ -88,5 +88,7 @@ namespace APIs.Controllers
         public async Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents() => await _service.GetAllStudents();
         [HttpGet("[action]")]
         public async Task<DetailCountDto> InstitutionDetailCount() => await _service.InstitutionDetailCount();
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<GetInstitutionUsersDto>> GetStudentsDepartmentId(long DepartmentId) => await _service.GetStudentsDepartmentId(DepartmentId);
     }
 }

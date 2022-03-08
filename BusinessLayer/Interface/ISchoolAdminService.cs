@@ -12,5 +12,6 @@ namespace BusinessLayer.Interface
         Task<ExcelSheetUploadAggregation> ProcessStudentUpload(IEnumerable<StudentUploadModel> studentList, long departmentId);
         Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents();
         Task<DetailCountDto> InstitutionDetailCount();
+        Task<IEnumerable<GetInstitutionUsersDto>> GetStudentsDepartmentId(long DepartmentId);
     }
 }

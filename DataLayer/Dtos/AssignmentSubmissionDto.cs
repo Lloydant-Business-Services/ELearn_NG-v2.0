@@ -10,11 +10,13 @@ namespace DataLayer.Dtos
         public string AssignmentSubmissionUploadLink { get; set; }
         public string AssignmentSubmissionHostedLink { get; set; }
         public long AssignmentSubmissionId { get; set; }
+        public long AssignmentId { get; set; }
         public string InstructorRemark { get; set; }
         public decimal Score { get; set; }
         public DateTime DateSubmitted { get; set; }
         public bool Active { get; set; }
         public string StudentName { get; set; }
         public string MatricNumber { get; set; }
+        public bool IsPublished { get; set; }
     }
 }

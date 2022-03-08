@@ -2,12 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>03342341-3a1d-4d31-885f-6f6d9b771de9</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="MeetingResponsePath.json" />
+    <Content Remove="OauthToken.json" />
+  </ItemGroup>
 	<!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<Optimize>false</Optimize>
 	</PropertyGroup>-->
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MeetingResponsePath.json" />
+    <None Include="OauthToken.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +40,4 @@
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
     <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
   </ItemGroup>
-
-
 </Project>

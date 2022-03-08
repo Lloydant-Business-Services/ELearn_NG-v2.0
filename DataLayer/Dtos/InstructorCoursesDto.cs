@@ -11,5 +11,6 @@ namespace DataLayer.Dtos
         public string CourseCode { get; set; }
         public long CourseId { get; set; }
         public string Level { get; set; }
+        public long RegisteredStudents { get; set; }
     }
 }

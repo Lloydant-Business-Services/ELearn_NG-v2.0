@@ -67,6 +67,10 @@ namespace BusinessLayer.Services
                 var d_slug = Utility.GenerateSlug(model.Name);
                 dept.Name = model.Name;
                 dept.slug = d_slug;
+                if(model.FacultyId > 0)
+                {
+                    dept.FacultySchoolId = model.FacultyId;
+                }
                 dept.Active = true;
                 _context.Update(dept);
                 await _context.SaveChangesAsync();
@@ -84,7 +88,8 @@ namespace BusinessLayer.Services
                 Department dept = await _context.DEPARTMENT.Where(f => f.Id == id).FirstOrDefaultAsync();
                 if (dept != null)
                 {
-                    _context.Remove(dept);
+                    dept.Active = false;
+                    _context.Update(dept);
                     await _context.SaveChangesAsync();
                     response.StatusCode = StatusCodes.Status200OK;
                     response.Message = "deleted";
@@ -102,7 +107,7 @@ namespace BusinessLayer.Services
             try
             {
                 ResponseModel response = new ResponseModel();
-                var doesExist = await _context.DEPARTMENT_HEADS.Where(d => d.DepartmentId == dto.DepartmentId).FirstOrDefaultAsync();
+                var doesExist = await _context.DEPARTMENT_HEADS.Where(d => d.DepartmentId == dto.DepartmentId && d.Active).FirstOrDefaultAsync();
                 if (doesExist != null)
                 {
                     response.Message = "HOD already assigned";
@@ -137,7 +142,8 @@ namespace BusinessLayer.Services
                     UserId = f.UserId,
                     DepartmentId = f.DepartmentId,
                     DepartmentName = f.Department.Name,
-                    HodName = f.User.Person.Surname + " " + f.User.Person.Firstname + " " + f.User.Person.Othername
+                    HodName = f.User.Person.Surname + " " + f.User.Person.Firstname + " " + f.User.Person.Othername,
+                    Email = f.User.Username
                 })
                 .ToListAsync();
         }
@@ -192,11 +198,12 @@ namespace BusinessLayer.Services
 
         public async Task<IEnumerable<DepartmentDto>> GetDepartmentsByFacultyId(long facultyId)
         {
-            return await _context.DEPARTMENT.Where(d => d.FacultySchoolId == facultyId)
+            return await _context.DEPARTMENT.Where(d => d.FacultySchoolId == facultyId && d.Active)
                 .Select(d => new DepartmentDto
                 {
                     Name = d.Name,
-                    Id = d.Id
+                    Id = d.Id,
+                    DateCreated = d.DateCreated
                 }).ToListAsync();
                 
         }

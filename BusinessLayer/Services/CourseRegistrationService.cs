@@ -116,7 +116,8 @@ namespace BusinessLayer.Services
                     CourseCode = f.CourseAllocation.Course.CourseCode,
                     CourseLecturer = f.CourseAllocation.Instructor.Person.Surname + " " + f.CourseAllocation.Instructor.Person.Firstname + " " + f.CourseAllocation.Instructor.Person.Othername,
                     CourseId = f.CourseAllocation.CourseId,
-                    CourseAllocationId = f.CourseAllocation.Id
+                    CourseAllocationId = f.CourseAllocation.Id,
+                    DateRegistered = f.DateRegistered
                 })
                 .ToListAsync();
             return courseRegistartion;

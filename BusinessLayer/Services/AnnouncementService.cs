@@ -42,8 +42,7 @@ namespace BusinessLayer.Services
                 announcement.Active = true;
                 _context.Add(announcement);
                 await _context.SaveChangesAsync();
-                return StatusCodes.Status200OK;
-                
+                return StatusCodes.Status200OK;               
             }
             catch(Exception ex)
             {

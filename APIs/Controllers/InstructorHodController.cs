@@ -32,5 +32,11 @@ namespace APIs.Controllers
         public async Task<IEnumerable<InstructorCoursesDto>> GetInstructorCoursesByUserId(long instructorUserId) => await _service.GetInstructorCoursesByUserId(instructorUserId);
         [HttpGet("[action]")]
         public async Task<IEnumerable<GetInstructorDto>> GetInstructorsByFacultyId(long facultyId) => await _service.GetInstructorsByFacultyId(facultyId);
+        [HttpGet("[action]")]
+        public async Task<HODDashboardSummaryDto> HODDashboardSummary(long DepartmentId) => await _service.HODDashboardSummary(DepartmentId);
+        [HttpGet("[action]")]
+        public async Task<InstructorSummaryDto> InstructorDashboardSummary(long InstructorId) => await _service.InstructorDashboardSummary(InstructorId);
+        [HttpPost("[action]")]
+        public async Task<bool> RemoveHod(long DepartmentId) => await _service.RemoveHod(DepartmentId);
     }
 }

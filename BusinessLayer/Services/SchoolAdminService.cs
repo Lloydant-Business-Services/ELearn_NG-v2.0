@@ -141,6 +141,20 @@ namespace BusinessLayer.Services
                 })
                 .ToListAsync();
         }
+        public async Task<IEnumerable<GetInstitutionUsersDto>> GetStudentsDepartmentId(long DepartmentId)
+        {
+            return await _context.STUDENT_PERSON.Where(a => a.DepartmentId == DepartmentId)
+                .Include(p => p.Person)
+                .Select(f => new GetInstitutionUsersDto
+                {
+                    FullName = f.Person.Surname + " " + f.Person.Firstname + " " + f.Person.Othername,
+                    MatricNumber = f.MatricNo,
+                    PersonId = f.PersonId,
+                    StudentPersonId = f.Id
+
+                })
+                .ToListAsync();
+        }
 
         public async Task<DetailCountDto> InstitutionDetailCount()
         {
@@ -154,5 +168,10 @@ namespace BusinessLayer.Services
             return countDto;
         }
 
+        //public async Task<CourseMaterialDto> GetCourseMaterialsBy(long departmentId, long courseId, long instructorId)
+        //{
+        //    SchoolAdminStatsDto summary = new SchoolAdminStatsDto();
+        //    var courseMaterials = await _context.COURSE_CONTENT.Where(x => x.CourseTopic.CourseAllocation.Instructor)
+        //}
     }
 }

@@ -15,5 +15,8 @@ namespace BusinessLayer.Interface
         Task<IEnumerable<GetInstructorDto>> GetAllDepartmentHeads();
         Task<IEnumerable<InstructorCoursesDto>> GetInstructorCoursesByUserId(long instructorUserId);
         Task<IEnumerable<GetInstructorDto>> GetInstructorsByFacultyId(long facultyId);
+        Task<HODDashboardSummaryDto> HODDashboardSummary(long DepartmentId);
+        Task<InstructorSummaryDto> InstructorDashboardSummary(long InstructorId);
+       Task<bool> RemoveHod(long DepartmentId);
     }
 }

@@ -71,7 +71,8 @@ namespace BusinessLayer.Services
                 FacultySchool facultySchool = await _context.FACULTY_SCHOOL.Where(f => f.Id == id).FirstOrDefaultAsync();
                 if(facultySchool != null)
                 {
-                    _context.Remove(facultySchool);
+                    facultySchool.Active = false;
+                    _context.Update(facultySchool);
                     await _context.SaveChangesAsync();
                     response.StatusCode = StatusCodes.Status200OK;
                     response.Message = "deleted";

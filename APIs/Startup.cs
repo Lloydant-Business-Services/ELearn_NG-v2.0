@@ -54,6 +54,10 @@ namespace APIs
             services.AddScoped<ICourseMaterialService, CourseMaterialService>();
             services.AddScoped<IAssignment_Service, Assignment_Service>();
             services.AddScoped<IAnnouncementService, AnnouncementService>();
+            services.AddScoped<ILiveLectureService, LiveLectureService>();
+            services.AddScoped<ISubInstructorService, SubInstructorService>();
+            services.AddScoped<IDeveloperPatchService, DeveloperPatchService>();
+            services.AddScoped<IReportingSevice, ReportingService>();
             //services.AddScoped<ICourseAssignment, AssignmentService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             
@@ -101,7 +105,7 @@ namespace APIs
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            UpdateDatabase(app);
+            //UpdateDatabase(app);
 
             //to serve static files
 

@@ -8341,23 +8341,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\macbook\\.nuget\\packages\\": {},
+    "C:\\Users\\root\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\APIs\\APIs.csproj",
+      "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\APIs\\APIs.csproj",
       "projectName": "APIs",
-      "projectPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\APIs\\APIs.csproj",
-      "packagesPath": "C:\\Users\\macbook\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\APIs\\obj\\",
+      "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\APIs\\APIs.csproj",
+      "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
+      "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\APIs\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\macbook\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\root\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8371,11 +8371,11 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj": {
-              "projectPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj"
+            "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj": {
+              "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj"
             },
-            "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {
-              "projectPath": "C:\\Users\\macbook\\Documents\\Projects\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj"
+            "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {
+              "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj"
             }
           }
         }
@@ -8443,6 +8443,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.1.15, 3.1.15]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -8451,7 +8457,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }

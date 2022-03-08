@@ -294,7 +294,9 @@ namespace BusinessLayer.Services
                 throw new NullReferenceException("No User Id");
             StudentPersonDetailCountDto detailCountDto = new StudentPersonDetailCountDto();
             AssignmentSubmission assignmentSubmission = new AssignmentSubmission();
+            Assignment assignment = new Assignment();
             long _assignmentAttempted = 0;
+            long _assignmentAvailable = 0;
             var studentPerson = await _context.STUDENT_PERSON.Where(p => p.PersonId == PersonId).FirstOrDefaultAsync();
             var _activeSessionSemester = await GetActiveSessionSemester();
             var courseRegistrationCount = await _context.COURSE_REGISTRATION.Where(x => x.StudentPersonId == studentPerson.Id && x.SessionSemester.Active).ToListAsync();
@@ -302,6 +304,11 @@ namespace BusinessLayer.Services
             {
                 foreach(var item in courseRegistrationCount)
                 {
+                    assignment = await _context.ASSIGNMENT.Where(x => x.CourseAllocationId == item.CourseAllocationId && x.CourseAllocation.SessionSemesterId == _activeSessionSemester.Id).FirstOrDefaultAsync();
+                    if(assignment != null)
+                    {
+                        _assignmentAvailable += 1;
+                    }
                     assignmentSubmission = await _context.ASSIGNMENT_SUBMISSION.Where(x => x.CourseRegistrationId == item.Id).FirstOrDefaultAsync();
                     if(assignmentSubmission != null)
                     {
@@ -310,6 +317,7 @@ namespace BusinessLayer.Services
                 }
             }
             detailCountDto.CoursesRegistered = courseRegistrationCount.Count;
+            detailCountDto.TotalAssignmentsAvailable = _assignmentAvailable;
             detailCountDto.AssignmentsAttempted = _assignmentAttempted;
             return detailCountDto;
             //return await _context.ASSIGNMENT
@@ -350,7 +358,8 @@ namespace BusinessLayer.Services
         {
             if (AssignmentSubmissionId == 0)
                 throw new NullReferenceException("No Assignment Submission Id");
-            return await _context.ASSIGNMENT_SUBMISSION
+             //var isPublished = await _context
+           return await _context.ASSIGNMENT_SUBMISSION
                 .Include(f => f.Assignment)
                 .ThenInclude(f => f.CourseAllocation.Course)
                 .ThenInclude(f => f.User)
@@ -370,7 +379,9 @@ namespace BusinessLayer.Services
                     Score = f.Score,
                     StudentName = (f.CourseRegistration.StudentPerson.Person.Surname + " " + f.CourseRegistration.StudentPerson.Person.Firstname + " " + f.CourseRegistration.StudentPerson.Person.Othername),
                     MatricNumber = f.CourseRegistration.StudentPerson.MatricNo,
-                    AssignmentSubmissionHostedLink = f.AssignmentSubmissionHostedLink
+                    AssignmentSubmissionHostedLink = f.AssignmentSubmissionHostedLink,
+                    IsPublished = f.Assignment.PublishResult,
+                    AssignmentId = f.Assignment.Id
 
                 })
                 .FirstOrDefaultAsync();
@@ -480,6 +491,102 @@ namespace BusinessLayer.Services
             }
             return noteUrl;
         }
+        public async Task<IEnumerable<AssignmentSubmissionDto>> GetAllAssignmentSubmissionByAssignemntId(long AssignmentId)
+        {
+            if (AssignmentId == 0)
+                throw new NullReferenceException("No Assignment Id");
+            //var isPublished = await _context
+            return await _context.ASSIGNMENT_SUBMISSION
+                 .Include(f => f.Assignment)
+                 .ThenInclude(f => f.CourseAllocation.Course)
+                 .ThenInclude(f => f.User)
+                 .ThenInclude(f => f.Person)
+                 .Include(f => f.CourseRegistration)
+                 .ThenInclude(f => f.StudentPerson)
+                 .ThenInclude(f => f.Person)
+                 .Where(f => f.AssignmentId == AssignmentId)
+                 .Select(f => new AssignmentSubmissionDto
+                 {
+                     Active = f.Active,
+                     DateSubmitted = f.DateSubmitted,
+                     AssignmentInTextSubmission = f.AssignmentInTextSubmission,
+                     AssignmentSubmissionId = f.Id,
+                     AssignmentSubmissionUploadLink = baseUrl + f.AssignmentSubmissionUploadLink,
+                     InstructorRemark = f.InstructorRemark,
+                     Score = f.Score,
+                     StudentName = (f.CourseRegistration.StudentPerson.Person.Surname + " " + f.CourseRegistration.StudentPerson.Person.Firstname + " " + f.CourseRegistration.StudentPerson.Person.Othername),
+                     MatricNumber = f.CourseRegistration.StudentPerson.MatricNo,
+                     AssignmentSubmissionHostedLink = f.AssignmentSubmissionHostedLink,
+                     IsPublished = f.Assignment.PublishResult,
+                     AssignmentId = f.Assignment.Id
+                 })
+                 .ToListAsync();
+        }
 
+        public async Task<AssignmentSubmissionDto> GetAssignmentSubmissionBy(long AssignmentId, long StudentUserId)
+        {
+            try
+            {
+                if (AssignmentId == 0 || StudentUserId == 0)
+                    throw new NullReferenceException("No Assignment Submission Id");
+                var getUser = await _context.USER.Where(i => i.Id == StudentUserId).Include(p => p.Person).FirstOrDefaultAsync();
+
+                //var isPublished = await _context
+                return await _context.ASSIGNMENT_SUBMISSION
+                     .Include(f => f.Assignment)
+                     .ThenInclude(f => f.CourseAllocation.Course)
+                     .ThenInclude(f => f.User)
+                     .ThenInclude(f => f.Person)
+                     .Include(f => f.CourseRegistration)
+                     .ThenInclude(f => f.StudentPerson)
+                     .ThenInclude(f => f.Person)
+                     .Where(f => f.AssignmentId == AssignmentId && f.CourseRegistration.StudentPerson.Person.Id == getUser.Person.Id)
+                     .Select(f => new AssignmentSubmissionDto
+                     {
+                         Active = f.Active,
+                         DateSubmitted = f.DateSubmitted,
+                         AssignmentInTextSubmission = f.AssignmentInTextSubmission,
+                         AssignmentSubmissionId = f.Id,
+                         AssignmentSubmissionUploadLink = baseUrl + f.AssignmentSubmissionUploadLink,
+                         InstructorRemark = f.InstructorRemark,
+                         Score = f.Score,
+                         StudentName = (f.CourseRegistration.StudentPerson.Person.Surname + " " + f.CourseRegistration.StudentPerson.Person.Firstname + " " + f.CourseRegistration.StudentPerson.Person.Othername),
+                         MatricNumber = f.CourseRegistration.StudentPerson.MatricNo,
+                         AssignmentSubmissionHostedLink = f.AssignmentSubmissionHostedLink,
+                         IsPublished = f.Assignment.PublishResult,
+                         AssignmentId = f.Assignment.Id
+                     })
+                     .FirstOrDefaultAsync();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+           
+        }
+
+        public async Task<ResponseModel> ExtendAssignmentDueDate(AssignmentDueDateDto dto)
+        {
+            ResponseModel response = new ResponseModel();
+
+            try
+            {
+                var assignment = await _context.ASSIGNMENT.Where(x => x.Id == dto.AssignmentId).FirstOrDefaultAsync();
+                if(assignment != null)
+                {
+                    assignment.DueDate = dto.DueDate;
+                    _context.Update(assignment);
+                    await _context.SaveChangesAsync();                    
+                    return response;
+                }
+                return null;
+            }
+            catch(Exception ex)
+            {
+                response.Message = ex.Message;
+                response.StatusCode = StatusCodes.Status500InternalServerError;
+                return response;
+            }
+        }       
     }
 }

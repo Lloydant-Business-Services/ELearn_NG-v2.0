@@ -10,5 +10,6 @@ namespace DataLayer.Dtos
         public long DepartmentId { get; set; }
         public string DepartmentName { get; set; }
         public string HodName { get; set; }
+        public string Email { get; set; }
     }
 }

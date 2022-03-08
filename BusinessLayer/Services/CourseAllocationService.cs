@@ -44,7 +44,7 @@ namespace BusinessLayer.Services
                     response.Message = "Course Already assigned for the specified session semester";
                     return response;
                 }
-                if (course != null && user != null && instructor != null && sessionSemester != null)
+                if (course != null && user != null && instructor != null && sessionSemester != null && dto.LevelId > 0)
                 {
 
                     CourseAllocation courseAllocation = new CourseAllocation()
@@ -67,6 +67,12 @@ namespace BusinessLayer.Services
                     await transaction.CommitAsync();
                     return response;
 
+                }
+                else
+                {
+                    response.Message = "Bad Request! One of either LevelId, CourseId, or instructorId is null. Kindly recheck";
+                    response.StatusCode = StatusCodes.Status400BadRequest;
+                    return response;
                 }
                 return null;
             }

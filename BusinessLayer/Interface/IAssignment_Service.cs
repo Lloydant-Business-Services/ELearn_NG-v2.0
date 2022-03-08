@@ -22,5 +22,8 @@ namespace BusinessLayer.Interface
         Task<AssignmentDto> EditAssignment(UpdateAssignmentDto updateAssignmentDto);
         Task<AssignmentSubmissionDto> GetAssignmentSubmissionById(long AssignmentSubmissionId);
         Task<StudentPersonDetailCountDto> StudentPersonStats(long PersonId);
+        Task<IEnumerable<AssignmentSubmissionDto>> GetAllAssignmentSubmissionByAssignemntId(long AssignmentId);
+        Task<AssignmentSubmissionDto> GetAssignmentSubmissionBy(long AssignmentId, long StudentUserId);
+       Task<ResponseModel> ExtendAssignmentDueDate(AssignmentDueDateDto dto);
     }
 }
