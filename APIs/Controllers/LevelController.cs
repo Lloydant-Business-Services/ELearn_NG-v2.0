@@ -1,10 +1,10 @@
-﻿using BusinessLayer.Interface;
+﻿using APIs.Middleware;
+using BusinessLayer.Infrastructure;
+using BusinessLayer.Interface;
 using DataLayer.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PayPlat.Api.MidddleWares;
-using PayPlat.Logic.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;

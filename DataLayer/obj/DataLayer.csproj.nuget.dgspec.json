@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {}
+    "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\DataLayer.csproj": {}
   },
   "projects": {
-    "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {
+    "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj",
+        "projectUniqueName": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\DataLayer.csproj",
         "projectName": "DataLayer",
-        "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj",
-        "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\obj\\",
+        "projectPath": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\DataLayer.csproj",
+        "packagesPath": "C:\\Users\\udevalentine\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\root\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\udevalentine\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -101,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

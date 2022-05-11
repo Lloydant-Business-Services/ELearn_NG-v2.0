@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BusinessLayer.Infrastructure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -37,7 +38,7 @@ namespace APIs.Middleware
             {
 
                 JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-                byte[] key = Encoding.ASCII.GetBytes(_config["Jwt:Key"]);
+                byte[] key = Encoding.ASCII.GetBytes(_config["AppSettings:Key"]);
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -62,9 +63,10 @@ namespace APIs.Middleware
                 // attach account to context on successful jwt validation
                 //context.Items["UserId"] = accountId;
                 context.Items["Token"] = token;
-                //context.Items["Role"] = jwtToken.Claims.First(x => x.Type == CustomClaim.USER_ROLE).Value;
+                context.Items["Role"] = jwtToken.Claims.First(x => x.Type == CustomClaim.USER_ROLE).Value;
                 context.Items["TokenExpirationDateInSeconds"] = tokenExpiry;
                 context.Items["CurrentTimeInSconds"] = currentTimeInSeconds;
+
             }
             catch (Exception)
             {

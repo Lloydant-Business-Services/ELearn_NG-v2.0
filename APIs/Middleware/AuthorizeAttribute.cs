@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PayPlat.Api.MidddleWares
+namespace APIs.Middleware
 {
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
@@ -113,16 +113,16 @@ namespace PayPlat.Api.MidddleWares
                     roleInText = "superadmin";
                     break;
                 case 2:
-                    roleInText = "bursar";
+                    roleInText = "schooladmin";
                     break;
                 case 3:
-                    roleInText = "reportofficer";
+                    roleInText = "instructor";
                     break;
                 case 4:
-                    roleInText = "superteller";
+                    roleInText = "departmentadministrator";
                     break;
                 case 5:
-                    roleInText = "teller";
+                    roleInText = "student";
                     break;
                 default:
                     roleInText = string.Empty;

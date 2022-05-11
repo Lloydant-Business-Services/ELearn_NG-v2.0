@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using APIs.Middleware;
+using BusinessLayer.Infrastructure;
 using BusinessLayer.Interface;
 using DataLayer.Dtos;
 using DataLayer.Model;
@@ -11,8 +13,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using OfficeOpenXml;
-using PayPlat.Api.MidddleWares;
-using PayPlat.Logic.Infrastructure;
 
 namespace APIs.Controllers
 {

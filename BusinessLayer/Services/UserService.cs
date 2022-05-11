@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using BusinessLayer.Infrastructure;
 using BusinessLayer.Interface;
 using DataLayer.Dtos;
 using DataLayer.Model;
@@ -50,25 +51,27 @@ namespace BusinessLayer.Services
                 throw new Exception("Account has not been verified!");
             if (!VerifyPasswordHash(dto.Password, user.PasswordHash, user.PasswordSalt))
                 return null;
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(injectkey);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Username),
-                    new Claim(ClaimTypes.Role, user.Role.Name),
+            //var tokenHandler = new JwtSecurityTokenHandler();
+            //var key = Encoding.ASCII.GetBytes(injectkey);
+            //var tokenDescriptor = new SecurityTokenDescriptor
+            //{
+            //    Subject = new ClaimsIdentity(new Claim[]
+            //    {
+            //        new Claim(ClaimTypes.Name, user.Username),
+            //        new Claim(ClaimTypes.Role, user.Role.Name),
 
-                }),
-                Expires = DateTime.UtcNow.AddDays(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            //    }),
+            //    Expires = DateTime.UtcNow.AddDays(1),
+            //    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
 
-            };
+            //};
+            var token = GenerateJSONWebToken(user);
             user.LastLogin = DateTime.UtcNow;
             _context.Update(user);
             await _context.SaveChangesAsync();
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            dto.Token = tokenHandler.WriteToken(token);
+            //var token = tokenHandler.CreateToken(tokenDescriptor);
+            //dto.Token = tokenHandler.WriteToken(token);
+            dto.Token = token;
             dto.Password = null;
             dto.UserName = user.Username;
             dto.RoleName = user.Role.Name;
@@ -314,6 +317,32 @@ namespace BusinessLayer.Services
             request.Method = Method.POST;
             var stat = client.Execute(request);
             return stat;
+        }
+        private string GenerateJSONWebToken(User userInfo)
+        {
+            var expiryDate = DateTime.Now.AddHours(48);
+            ClaimsIdentity claims = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(CustomClaim.USER_ID, userInfo.Id.ToString()),
+                    new Claim(CustomClaim.USER_ROLE, userInfo.Role.Id.ToString()),
+                    new Claim(CustomClaim.USER_NAME, userInfo.Username),
+                    new Claim(CustomClaim.NAME, $"{userInfo.Person.Firstname}  {userInfo.Person.Othername}"),
+                    new Claim(CustomClaim.TOKEN_EXPIRY_DATE, expiryDate.ToString("yyyy-MM-dd")),
+                    new Claim(CustomClaim.TOKEN_ISSUANCE_DATE, DateTime.Now.ToString("yyyy-MM-dd"))
+                });
+
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            byte[] key = Encoding.ASCII.GetBytes(_configuration["AppSettings:Key"]);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = claims,
+                Expires = expiryDate,
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
 
     }

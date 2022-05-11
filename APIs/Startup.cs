@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using APIs.Middleware;
 using BusinessLayer.Interface;
 using BusinessLayer.Services;
 using DataLayer.Model;
@@ -125,6 +126,7 @@ namespace APIs
                 RequestPath = "/Resources"
 
             });
+            app.UseMiddleware<JWTMiddleware>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

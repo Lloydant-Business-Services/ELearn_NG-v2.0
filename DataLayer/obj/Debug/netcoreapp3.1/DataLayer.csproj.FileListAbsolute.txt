@@ -34,3 +34,14 @@ Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\obj\Debug\netcoreapp3.1\
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.dll
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.pdb
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.genruntimeconfig.cache
+C:\Users\udevalentine\Documents\Office\ELearn_NG-v2.0\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.deps.json
+C:\Users\udevalentine\Documents\Office\ELearn_NG-v2.0\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.runtimeconfig.json
+C:\Users\udevalentine\Documents\Office\ELearn_NG-v2.0\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.runtimeconfig.dev.json
+C:\Users\udevalentine\Documents\Office\ELearn_NG-v2.0\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.dll
+C:\Users\udevalentine\Documents\Office\ELearn_NG-v2.0\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.pdb
+C:\Users\udevalentine\Documents\Office\ELearn_NG-v2.0\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.AssemblyInfoInputs.cache
+C:\Users\udevalentine\Documents\Office\ELearn_NG-v2.0\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.AssemblyInfo.cs
+C:\Users\udevalentine\Documents\Office\ELearn_NG-v2.0\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.csproj.CoreCompileInputs.cache
+C:\Users\udevalentine\Documents\Office\ELearn_NG-v2.0\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.dll
+C:\Users\udevalentine\Documents\Office\ELearn_NG-v2.0\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.pdb
+C:\Users\udevalentine\Documents\Office\ELearn_NG-v2.0\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.genruntimeconfig.cache

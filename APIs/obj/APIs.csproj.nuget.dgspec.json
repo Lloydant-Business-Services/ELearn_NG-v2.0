@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\APIs\\APIs.csproj": {}
+    "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\APIs\\APIs.csproj": {}
   },
   "projects": {
-    "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\APIs\\APIs.csproj": {
+    "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\APIs\\APIs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\APIs\\APIs.csproj",
+        "projectUniqueName": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\APIs\\APIs.csproj",
         "projectName": "APIs",
-        "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\APIs\\APIs.csproj",
-        "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\APIs\\obj\\",
+        "projectPath": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\APIs\\APIs.csproj",
+        "packagesPath": "C:\\Users\\udevalentine\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\APIs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\root\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\udevalentine\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -31,11 +31,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj": {
-                "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj"
+              "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\BusinessLayer\\BusinessLayer.csproj": {
+                "projectPath": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\BusinessLayer\\BusinessLayer.csproj"
               },
-              "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {
-                "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj"
+              "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\DataLayer.csproj"
               }
             }
           }
@@ -107,12 +107,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[3.1.15, 3.1.15]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -121,24 +115,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj": {
+    "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\BusinessLayer\\BusinessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj",
+        "projectUniqueName": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\BusinessLayer\\BusinessLayer.csproj",
         "projectName": "BusinessLayer",
-        "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj",
-        "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\BusinessLayer\\obj\\",
+        "projectPath": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\BusinessLayer\\BusinessLayer.csproj",
+        "packagesPath": "C:\\Users\\udevalentine\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\BusinessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\root\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\udevalentine\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -152,8 +146,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {
-                "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj"
+              "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\DataLayer.csproj"
               }
             }
           }
@@ -226,24 +220,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj": {
+    "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj",
+        "projectUniqueName": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\DataLayer.csproj",
         "projectName": "DataLayer",
-        "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\DataLayer.csproj",
-        "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\DataLayer\\obj\\",
+        "projectPath": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\DataLayer.csproj",
+        "packagesPath": "C:\\Users\\udevalentine\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\udevalentine\\Documents\\Office\\ELearn_NG-v2.0\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\root\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\udevalentine\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -327,7 +321,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
