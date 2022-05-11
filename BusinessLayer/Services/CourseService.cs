@@ -160,7 +160,8 @@ namespace BusinessLayer.Services
                     CourseId = f.CourseAllocation.Course.Id,
                     CourseCode = f.CourseAllocation.Course.CourseCode,
                     CourseTitle = f.CourseAllocation.Course.CourseTitle,
-                    CourseAllocationId = f.CourseAllocation.Id
+                    CourseAllocationId = f.CourseAllocation.Id,
+                    InstructorUserId = f.UserId
                     
                 })
                 .ToListAsync();

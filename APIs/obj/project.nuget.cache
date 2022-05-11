@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5oCwGUe5TPYS1up2565Dsx+2HvD1ECOLvma6vu+FHlu3KwEDqYQU7G1D1cSPzdFQv3I2f3xSoshhMz5RZ3TSlQ==",
+  "dgSpecHash": "FRimShIQTq6MLyT2Lfo1Vxj7vaW/lG/ZBCmmKhmSi9VK3YRePXSrGmv1PTxiMSf01QMdBpkTmIB5RPGC0lETGA==",
   "success": true,
   "projectFilePath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\APIs\\APIs.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\root\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\epplus\\5.7.0\\epplus.5.7.0.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\root\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.25\\microsoft.aspnetcore.authentication.jwtbearer.3.1.25.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",

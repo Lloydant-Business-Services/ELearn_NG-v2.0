@@ -43,6 +43,7 @@ namespace BusinessLayer.Services
                     Firstname = userDto.Firstname,
                     Othername = userDto.Othername,
                     Email = userDto.Email,
+                    Active = true
                 };
                 _context.Add(person);
                 await _context.SaveChangesAsync();
@@ -70,7 +71,8 @@ namespace BusinessLayer.Services
                     DepartmentHeads departmentHead = new DepartmentHeads()
                     {
                         DepartmentId = userDto.DepartmentId,
-                        UserId = user.Id
+                        UserId = user.Id,
+                        Active = true
                     };
                     _context.Add(departmentHead);
                     await _context.SaveChangesAsync();
@@ -125,7 +127,6 @@ namespace BusinessLayer.Services
                     dto.RegisteredStudents = isRegistered.Count();
 
                     dtoList.Add(dto);
-
                 }
                
                 return dtoList;
@@ -190,8 +191,8 @@ namespace BusinessLayer.Services
         public async Task<IEnumerable<GetInstructorDto>> GetInstructorsByDepartmentId(long departmentId)
         {
             var activeSessionSemester = await GetActiveSessionSemester();
-            //return await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.DepartmentId == departmentId && d.CourseAllocation.SessionSemester.Active)
-            return await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.DepartmentId == departmentId && d.CourseAllocation.SessionSemester.Id == activeSessionSemester.Id)
+            //return await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.DepartmentId == departmentId && d.CourseAllocation.SessionSemester.Id == activeSessionSemester.Id)
+            return await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.DepartmentId == departmentId)
                 .Include(d => d.User)
                 .ThenInclude(p => p.Person)
                 .Include(d => d.Department)

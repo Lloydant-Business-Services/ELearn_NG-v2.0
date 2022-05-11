@@ -3,6 +3,8 @@ using DataLayer.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PayPlat.Api.MidddleWares;
+using PayPlat.Logic.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +24,12 @@ namespace APIs.Controllers
             _context = context;
         }
 
-
+        [AuthorizeRole(ElearnRole.SCHOOLADMIN)]
         [HttpGet("GetLevels")]
         public IEnumerable<Level> Levels() => _repo.GetAll();
+        
+        
+        
         [HttpPost("PostLevel")]
         public async Task<int> AddLevel(Level level)
         {

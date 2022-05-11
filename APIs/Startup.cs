@@ -7,6 +7,7 @@ using BusinessLayer.Interface;
 using BusinessLayer.Services;
 using DataLayer.Model;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -67,45 +68,52 @@ namespace APIs
                 
                 c.SwaggerDoc("v1", new OpenApiInfo { 
                     Title = "ELearn NG API", 
-                    Version = "v2.1" });
+                    Version = "v2.1",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Godspeed Miracle",
+                        Email = "miracleoghenemado@gmail.com"
+                    }
+                });
 
-                //c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
-                //{
-                //    Name = "Authorization",
-                //    Type = SecuritySchemeType.Http,
-                //    Scheme = "basic",
-                //    In = ParameterLocation.Header,
-                //    Description = "Basic Auth Header"
-                //});
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "JWT Authentication",
+                    Description = "Enter JWT Bearer token **_only_**",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer", // must be lower case
+                    BearerFormat = "JWT",
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
 
-                //c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                //{
-                //    {
-                //     new OpenApiSecurityScheme
-                //     {
-                //         Reference = new OpenApiReference
-                //         {
-                //             Type = ReferenceType.SecurityScheme,
-                //             Id="basic"
-                //         }
-                //     },
-                //     new string[]{}
-                //     }
-                //});
+                c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {securityScheme, new string[] { }}
+                });
+
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+
 
             });
-            //services.AddAuthentication("BasicAuthentication")
-            //    .AddScheme<AuthenticationSchemeOptions, UserService>("BasicAuthentication", null);
-            //services.AddAuthorization(JwtBearerDefaults)
 
             services.AddControllers();
 
             services.AddRouting();
+            services.AddHttpClient();
+            services.AddAuthentication();
+
+            services.AddHealthChecks();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //UpdateDatabase(app);
+            UpdateDatabase(app);
 
             //to serve static files
 
@@ -131,7 +139,7 @@ namespace APIs
          //.WithOrigins(MyAllowSpecificOrigins)
          );
             app.UseRouting();
-            app.UseAuthorization();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

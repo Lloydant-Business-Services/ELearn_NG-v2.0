@@ -42,7 +42,7 @@ namespace BusinessLayer.Services
             var user = await _context.USER
                .Include(r => r.Role)
                .Include(r => r.Person)
-               .Where(f => f.Active && f.Username == dto.UserName).FirstOrDefaultAsync();
+               .Where(f => f.Active && f.Person.Email == dto.UserName).Include(p => p.Person).FirstOrDefaultAsync();
 
             if (user == null)
                 return null;

@@ -161,7 +161,7 @@ namespace BusinessLayer.Services
         {
             MeetingDto meetingDto = new MeetingDto();
             List<ClassMeetings> classMeetings = new List<ClassMeetings>();
-            return await _context.CLASS_MEETINGS.Where(m => m.CourseAllocation.CourseId == courseId && m.CourseAllocation.SessionSemester.Active && m.Date >= DateTime.Now)
+            return await _context.CLASS_MEETINGS.Where(m => m.CourseAllocation.CourseId == courseId && m.CourseAllocation.SessionSemester.Active && m.Date.Day >= DateTime.Now.Day)
                  .Include(c => c.CourseAllocation)
                  .ThenInclude(s => s.Course)
                  .Select(f => new MeetingDto

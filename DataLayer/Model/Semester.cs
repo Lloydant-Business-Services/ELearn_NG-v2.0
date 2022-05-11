@@ -10,5 +10,7 @@ namespace DataLayer.Model
         [MaxLength(100)]
         public string Name { get; set; }
         public bool Active { get; set; }
+        public int? SortOrder { get; set; }
+
     }
 }

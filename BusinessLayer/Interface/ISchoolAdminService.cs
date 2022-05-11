@@ -13,5 +13,6 @@ namespace BusinessLayer.Interface
         Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents();
         Task<DetailCountDto> InstitutionDetailCount();
         Task<IEnumerable<GetInstitutionUsersDto>> GetStudentsDepartmentId(long DepartmentId);
+        Task<bool> DeleteStudent(long studentPersonId);
     }
 }

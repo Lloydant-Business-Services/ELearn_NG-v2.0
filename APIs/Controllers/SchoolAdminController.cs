@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using OfficeOpenXml;
+using PayPlat.Api.MidddleWares;
+using PayPlat.Logic.Infrastructure;
 
 namespace APIs.Controllers
 {
@@ -60,6 +62,7 @@ namespace APIs.Controllers
                                 studentDetail.Surname = worksheet.Cells[i, 3].Value != null ? worksheet.Cells[i, 3].Value.ToString() : " ";
                                 studentDetail.Firstname = worksheet.Cells[i, 4].Value != null ? worksheet.Cells[i, 4].Value.ToString() : " ";
                                 studentDetail.Othername = worksheet.Cells[i, 5].Value != null ? worksheet.Cells[i, 5].Value.ToString() : " ";
+                                studentDetail.email = worksheet.Cells[i, 6].Value != null ? worksheet.Cells[i, 6].Value.ToString() : " ";
 
                                 studentList.Add(studentDetail);
                             }
@@ -83,12 +86,16 @@ namespace APIs.Controllers
             }
             catch (Exception ex) { throw ex; }
         }
-
+       
+        
+        [AuthorizeRole(ElearnRole.SCHOOLADMIN)]
         [HttpGet("[action]")]
         public async Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents() => await _service.GetAllStudents();
         [HttpGet("[action]")]
         public async Task<DetailCountDto> InstitutionDetailCount() => await _service.InstitutionDetailCount();
         [HttpGet("[action]")]
         public async Task<IEnumerable<GetInstitutionUsersDto>> GetStudentsDepartmentId(long DepartmentId) => await _service.GetStudentsDepartmentId(DepartmentId);
+        [HttpPost("[action]")]
+        public async Task<bool> DeleteStudent(long studentPersonId) => await _service.DeleteStudent(studentPersonId);
     }
 }

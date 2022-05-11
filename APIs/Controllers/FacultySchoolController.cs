@@ -28,14 +28,29 @@ namespace APIs.Controllers
         //public async Task<long> AddFacultySchool([FromBody] FacultySchool facultySchool) => await _service.Insert(facultySchool);
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<FacultyDto>> GetFaculties()
+        public async Task<IEnumerable<FacultyDto>> GetFaculties(bool isAdmin)
         {
-            return await _context.FACULTY_SCHOOL.Where(a => a.Active)
+            if (isAdmin)
+            {
+                return await _context.FACULTY_SCHOOL.Where(a => a.Id > 0)
                 .Select(f => new FacultyDto
                 {
                     Name = f.Name,
-                    Id = f.Id
+                    Id = f.Id,
+                    Active = f.Active
                 }).ToListAsync();
+            }
+            else
+            {
+                return await _context.FACULTY_SCHOOL.Where(a => a.Active)
+                .Select(f => new FacultyDto
+                {
+                    Name = f.Name,
+                    Id = f.Id,
+                    Active = f.Active
+                }).ToListAsync();
+            }
+            
                 
         }
         [HttpGet("{id}")]

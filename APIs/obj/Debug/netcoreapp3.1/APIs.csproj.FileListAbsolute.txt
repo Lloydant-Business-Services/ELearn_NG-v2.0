@@ -303,3 +303,4 @@ Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.dll
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.pdb
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.genruntimeconfig.cache
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll

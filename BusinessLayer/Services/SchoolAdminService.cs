@@ -46,9 +46,9 @@ namespace BusinessLayer.Services
                         var firstname = student.Firstname.Trim();
                         var othername = student.Othername.Trim();
                         var matNo = student.MatricNumber.Trim();
+                        var email = student.email.Trim();
                         StudentUploadModel failedUploadSingle = new StudentUploadModel();
 
-                        
                         
                         var studentPerson = await GetStudentPersonBy(matNo);
                         if(studentPerson == null)
@@ -57,7 +57,8 @@ namespace BusinessLayer.Services
                             {
                                 Surname = surname,
                                 Firstname = firstname,
-                                Othername = othername != null ? othername : null
+                                Othername = othername != null ? othername : null,
+                                Email = email
                             };
                             _context.Add(person);
                             await _context.SaveChangesAsync();
@@ -69,7 +70,8 @@ namespace BusinessLayer.Services
                                 PersonId = person.Id,
                                 MatricNoSlug = mat_no_slug,
                                 Active = true,
-                                DepartmentId = departmentId
+                                DepartmentId = departmentId,
+                                
                             };
                             _context.Add(_student_person);
                             await _context.SaveChangesAsync();
@@ -129,7 +131,7 @@ namespace BusinessLayer.Services
         }
         public async Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents()
         {
-            return await _context.STUDENT_PERSON.Where(a => a.Id > 0)
+            return await _context.STUDENT_PERSON.Where(a => a.Id > 0 && a.Active)
                 .Include(p => p.Person)
                 .Select(f => new GetInstitutionUsersDto
                 {
@@ -137,13 +139,12 @@ namespace BusinessLayer.Services
                     MatricNumber = f.MatricNo,
                     PersonId = f.PersonId,
                     StudentPersonId = f.Id
-                    
                 })
                 .ToListAsync();
         }
         public async Task<IEnumerable<GetInstitutionUsersDto>> GetStudentsDepartmentId(long DepartmentId)
         {
-            return await _context.STUDENT_PERSON.Where(a => a.DepartmentId == DepartmentId)
+            return await _context.STUDENT_PERSON.Where(a => a.DepartmentId == DepartmentId && a.Active)
                 .Include(p => p.Person)
                 .Select(f => new GetInstitutionUsersDto
                 {
@@ -154,6 +155,24 @@ namespace BusinessLayer.Services
 
                 })
                 .ToListAsync();
+        }
+        public async Task<bool> DeleteStudent(long studentPersonId)
+        {
+            try
+            {
+                var student = await _context.STUDENT_PERSON.Where(a => a.Id == studentPersonId && a.Active).FirstOrDefaultAsync();
+                var user = await _context.USER.Where(a => a.Id == student.PersonId && a.Active).FirstOrDefaultAsync();
+                student.Active = false;
+                user.Active = false;
+                _context.Update(student);
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<DetailCountDto> InstitutionDetailCount()

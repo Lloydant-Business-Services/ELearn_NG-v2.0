@@ -16,6 +16,6 @@ namespace BusinessLayer.Interface
         Task<GetDepartmentHeadDto> GetDepartmentHeadByDepartmentId(long departmentId);
         Task<ResponseModel> AssignDepartmentHead(AddDepartmentHeadDto dto);
         Task<IEnumerable<GetDepartmentHeadDto>> GetAllDepartmentHeads();
-        Task<IEnumerable<DepartmentDto>> GetDepartmentsByFacultyId(long facultyId);
+        Task<IEnumerable<DepartmentDto>> GetDepartmentsByFacultyId(long facultyId, bool isAdmin);
     }
 }

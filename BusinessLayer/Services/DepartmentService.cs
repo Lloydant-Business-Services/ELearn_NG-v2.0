@@ -88,7 +88,7 @@ namespace BusinessLayer.Services
                 Department dept = await _context.DEPARTMENT.Where(f => f.Id == id).FirstOrDefaultAsync();
                 if (dept != null)
                 {
-                    dept.Active = false;
+                    dept.Active = dept.Active ? false : true;
                     _context.Update(dept);
                     await _context.SaveChangesAsync();
                     response.StatusCode = StatusCodes.Status200OK;
@@ -196,15 +196,32 @@ namespace BusinessLayer.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<DepartmentDto>> GetDepartmentsByFacultyId(long facultyId)
+        public async Task<IEnumerable<DepartmentDto>> GetDepartmentsByFacultyId(long facultyId, bool isAdmin)
         {
-            return await _context.DEPARTMENT.Where(d => d.FacultySchoolId == facultyId && d.Active)
+
+            if (isAdmin)
+            {
+                return await _context.DEPARTMENT.Where(d => d.FacultySchoolId == facultyId)
                 .Select(d => new DepartmentDto
                 {
                     Name = d.Name,
                     Id = d.Id,
-                    DateCreated = d.DateCreated
+                    DateCreated = d.DateCreated,
+                    Active = d.Active
                 }).ToListAsync();
+            }
+            else
+            {
+                return await _context.DEPARTMENT.Where(d => d.FacultySchoolId == facultyId && d.Active)
+                .Select(d => new DepartmentDto
+                {
+                    Name = d.Name,
+                    Id = d.Id,
+                    DateCreated = d.DateCreated,
+                    Active = d.Active
+                }).ToListAsync();
+            }
+            
                 
         }
     }

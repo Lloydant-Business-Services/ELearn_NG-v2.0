@@ -71,7 +71,7 @@ namespace BusinessLayer.Services
                 FacultySchool facultySchool = await _context.FACULTY_SCHOOL.Where(f => f.Id == id).FirstOrDefaultAsync();
                 if(facultySchool != null)
                 {
-                    facultySchool.Active = false;
+                    facultySchool.Active = facultySchool.Active ? false : true;
                     _context.Update(facultySchool);
                     await _context.SaveChangesAsync();
                     response.StatusCode = StatusCodes.Status200OK;

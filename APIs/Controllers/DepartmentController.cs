@@ -45,7 +45,7 @@ namespace APIs.Controllers
                 .ToListAsync();
         }
         [HttpGet("[action]")]
-        public async Task<IEnumerable<DepartmentDto>> GetDepartmentsByFacultyId(long facultyId) => await _service.GetDepartmentsByFacultyId(facultyId);
+        public async Task<IEnumerable<DepartmentDto>> GetDepartmentsByFacultyId(long facultyId, bool isAdmin) => await _service.GetDepartmentsByFacultyId(facultyId, isAdmin);
         [HttpGet("{id}")]
         public Department GetById(long id) => _service.GetById(id);
         [HttpPost]
