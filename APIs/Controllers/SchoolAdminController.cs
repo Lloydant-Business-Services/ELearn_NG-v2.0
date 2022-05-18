@@ -16,6 +16,7 @@ using OfficeOpenXml;
 
 namespace APIs.Controllers
 {
+    [AuthorizeRole(ElearnRole.SCHOOLADMIN, ElearnRole.INSTRUCTOR, ElearnRole.HOD)]
     [Route("api/[controller]")]
     [ApiController]
     public class SchoolAdminController : ControllerBase
@@ -88,7 +89,6 @@ namespace APIs.Controllers
         }
        
         
-        [AuthorizeRole(ElearnRole.SCHOOLADMIN)]
         [HttpGet("[action]")]
         public async Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents() => await _service.GetAllStudents();
         [HttpGet("[action]")]

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using BusinessLayer.Infrastructure;
 using BusinessLayer.Interface;
+using BusinessLayer.Services.Email.Interface;
 using DataLayer.Dtos;
 using DataLayer.Model;
 using Microsoft.AspNetCore.Http;
@@ -24,17 +25,20 @@ namespace BusinessLayer.Services
     {
         //private readonly ELearnContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IEmailService _emailService;
         private readonly string baseUrl;
         private readonly string defualtPassword = "1234567";
         ResponseModel response = new ResponseModel();
 
-        public UserService(ELearnContext context, IConfiguration configuration)
+        public UserService(ELearnContext context, IConfiguration configuration, IEmailService emailService)
              : base(context)
         {
            // _context = context;
             _configuration = configuration;
             baseUrl = _configuration.GetValue<string>("Url:root");
-            
+            _emailService = emailService;
+
+
 
         }
 
@@ -43,28 +47,15 @@ namespace BusinessLayer.Services
             var user = await _context.USER
                .Include(r => r.Role)
                .Include(r => r.Person)
-               .Where(f => f.Active && f.Person.Email == dto.UserName).Include(p => p.Person).FirstOrDefaultAsync();
+               .Where(f => f.Active && f.Username == dto.UserName).Include(p => p.Person).FirstOrDefaultAsync();
 
             if (user == null)
                 return null;
             if (!user.IsVerified)
                 throw new Exception("Account has not been verified!");
             if (!VerifyPasswordHash(dto.Password, user.PasswordHash, user.PasswordSalt))
-                return null;
-            //var tokenHandler = new JwtSecurityTokenHandler();
-            //var key = Encoding.ASCII.GetBytes(injectkey);
-            //var tokenDescriptor = new SecurityTokenDescriptor
-            //{
-            //    Subject = new ClaimsIdentity(new Claim[]
-            //    {
-            //        new Claim(ClaimTypes.Name, user.Username),
-            //        new Claim(ClaimTypes.Role, user.Role.Name),
-
-            //    }),
-            //    Expires = DateTime.UtcNow.AddDays(1),
-            //    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-
-            //};
+                throw new Exception("Inavlid Username/Password!"); ;
+          
             var token = GenerateJSONWebToken(user);
             user.LastLogin = DateTime.UtcNow;
             _context.Update(user);
@@ -272,6 +263,10 @@ namespace BusinessLayer.Services
         {
             try
             {
+                EmailDto emailDto = new EmailDto()
+                {
+                    ReceiverEmail = "miracleoghenemado@gmail.com"
+                };
                 var _username = Username.Trim();
                 var getUser = await _context.USER.Where(x => x.Username == _username.Trim()).FirstOrDefaultAsync();
                 if(getUser != null)
@@ -280,8 +275,9 @@ namespace BusinessLayer.Services
                     var splitGuid = generateGuid.Split("-");
                     var guid = splitGuid[1];
                     getUser.Guid = guid;
-                    _context.Update(getUser);
-                    await _context.SaveChangesAsync();
+                    await _emailService.EmailFormatter(emailDto);
+                    //_context.Update(getUser);
+                    //await _context.SaveChangesAsync();
                     return StatusCodes.Status200OK;
                 }
                 return 0;

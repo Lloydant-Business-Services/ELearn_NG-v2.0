@@ -9,8 +9,8 @@ namespace BusinessLayer.Infrastructure
 {
     public static class ElearnRole
     {
-        public const string SCHOOLADMIN = "1";
-        public const string HOD = "2";
+        public const string SCHOOLADMIN = "2";
+        public const string HOD = "4";
         public const string INSTRUCTOR = "3";
         public const string STUDENT = "4";
 

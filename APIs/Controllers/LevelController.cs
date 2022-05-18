@@ -24,7 +24,6 @@ namespace APIs.Controllers
             _context = context;
         }
 
-        [AuthorizeRole(ElearnRole.SCHOOLADMIN)]
         [HttpGet("GetLevels")]
         public IEnumerable<Level> Levels() => _repo.GetAll();
         

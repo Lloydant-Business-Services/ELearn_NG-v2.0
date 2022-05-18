@@ -26,7 +26,6 @@ namespace APIs.Controllers
             _userService = userService;
             _configuration = configuration;
             key = _configuration.GetValue<string>("AppSettings:Key");
-
         }
 
         [HttpPost("Authenticate")]
@@ -43,6 +42,8 @@ namespace APIs.Controllers
         public async Task<ResponseModel> ProfileUpdate(UpdateUserProfileDto dto) => await _userService.ProfileUpdate(dto);
         [HttpGet("[action]")]
         public async Task<bool> AscertainMultiRole(long userId, long sessionSemesterId) => await _userService.AscertainMultiRole(userId, sessionSemesterId);
+        [HttpPost("[action]")]
+        public async Task<int> ResetPassword(string Username) => await _userService.ResetPassword(Username);
 
 
     }

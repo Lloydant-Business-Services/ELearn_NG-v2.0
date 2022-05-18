@@ -1,6 +1,9 @@
-﻿using BusinessLayer.Interface;
+﻿using APIs.Middleware;
+using BusinessLayer.Infrastructure;
+using BusinessLayer.Interface;
 using DataLayer.Dtos;
 using DataLayer.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace APIs.Controllers
 {
+    [AuthorizeRole(ElearnRole.SCHOOLADMIN, ElearnRole.INSTRUCTOR, ElearnRole.HOD)]
     [Route("api/[controller]")]
     [ApiController]
     public class InstructorHodController : ControllerBase

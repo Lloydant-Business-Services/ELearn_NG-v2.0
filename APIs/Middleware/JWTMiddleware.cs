@@ -64,6 +64,7 @@ namespace APIs.Middleware
                 //context.Items["UserId"] = accountId;
                 context.Items["Token"] = token;
                 context.Items["Role"] = jwtToken.Claims.First(x => x.Type == CustomClaim.USER_ROLE).Value;
+                var tt = jwtToken.Claims.First(x => x.Type == CustomClaim.USER_ROLE).Value;
                 context.Items["TokenExpirationDateInSeconds"] = tokenExpiry;
                 context.Items["CurrentTimeInSconds"] = currentTimeInSeconds;
 
