@@ -93,39 +93,39 @@ namespace BusinessLayer.Services
 
         public async Task<int> CreateMeeting(MeetingDto meetingDto)
         {
-            var token = JObject.Parse(System.IO.File.ReadAllText(tokenFilePath));
-            var userDetails = JObject.Parse(System.IO.File.ReadAllText(userTokenFilePath));
-            var access_token = token["access_token"];
-            var userId = userDetails["id"];
+            //var token = JObject.Parse(System.IO.File.ReadAllText(tokenFilePath));
+            //var userDetails = JObject.Parse(System.IO.File.ReadAllText(userTokenFilePath));
+            //var access_token = token["access_token"];
+            //var userId = userDetails["id"];
 
-            var meetingModel = new JObject();
-            meetingModel["topic"] = meetingDto.Topic;
-            meetingModel["agenda"] = meetingDto.Agenda;
-            meetingModel["start_time"] = meetingDto.Date.ToString("yyyy-mm-dd") + "T" + TimeSpan.FromHours(meetingDto.Time).ToString();
-            meetingModel["duration"] = meetingDto.Duration;
+            //var meetingModel = new JObject();
+            //meetingModel["topic"] = meetingDto.Topic;
+            //meetingModel["agenda"] = meetingDto.Agenda;
+            //meetingModel["start_time"] = meetingDto.Date.ToString("yyyy-mm-dd") + "T" + TimeSpan.FromHours(meetingDto.Time).ToString();
+            //meetingModel["duration"] = meetingDto.Duration;
 
-            var meeting_url = $"https://api.zoom.us/v2/users/{userId}/meetings";
+            //var meeting_url = $"https://api.zoom.us/v2/users/{userId}/meetings";
 
-            var model = JsonConvert.SerializeObject(meetingModel);
-            RestRequest restRequest = new RestRequest();
-            restRequest.AddHeader("Content-Type", "application/json");
-            restRequest.AddHeader("Authorization", string.Format("Bearer {0}", access_token));
-            restRequest.AddParameter("application/json", model, ParameterType.RequestBody);
+            //var model = JsonConvert.SerializeObject(meetingModel);
+            //RestRequest restRequest = new RestRequest();
+            //restRequest.AddHeader("Content-Type", "application/json");
+            //restRequest.AddHeader("Authorization", string.Format("Bearer {0}", access_token));
+            //restRequest.AddParameter("application/json", model, ParameterType.RequestBody);
 
-            RestClient restClient = new RestClient();
-            restClient.BaseUrl = new Uri(meeting_url);
-            var response = restClient.Post(restRequest);
-            if (response.StatusCode == System.Net.HttpStatusCode.Created)
-            {
+            //RestClient restClient = new RestClient();
+            //restClient.BaseUrl = new Uri(meeting_url);
+            //var response = restClient.Post(restRequest);
+            //if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            //{
                 ClassMeetings classMeetings = new ClassMeetings();
                 var courseExists = await _context.COURSE_ALLOCATION.Where(c => c.Id == meetingDto.CourseAllocationId).FirstOrDefaultAsync();
                 var userExists = await _context.USER.Where(c => c.Id == meetingDto.UserId).FirstOrDefaultAsync();
 
                 if ((courseExists != null && courseExists.Id > 0) && (userExists != null && userExists.Id > 0))
                 {
-                    var json_response = JObject.Parse(response.Content);
-                    var join_url = json_response["join_url"].ToString();
-                    var start_url = json_response["start_url"].ToString();
+                    //var json_response = JObject.Parse(response.Content);
+                    //var join_url = json_response["join_url"].ToString();
+                    //var start_url = json_response["start_url"].ToString();
                     //var json_response = JsonConvert.SerializeObject(response.Content);
 
                     classMeetings.Topic = meetingDto.Topic;
@@ -135,23 +135,23 @@ namespace BusinessLayer.Services
                     classMeetings.Agenda = meetingDto.Agenda;
                     classMeetings.UserId = meetingDto.UserId;
                     classMeetings.CourseAllocationId = meetingDto.CourseAllocationId;
-                    classMeetings.Start_Meeting_Url = start_url;
-                    classMeetings.Join_Meeting_Url = join_url;
+                    classMeetings.Start_Meeting_Url = meetingDto.Join_Meeting_Url;
+                    classMeetings.Join_Meeting_Url = meetingDto.Join_Meeting_Url;
                     _context.Add(classMeetings);
                     await _context.SaveChangesAsync();
                 }
 
-                System.IO.File.WriteAllText(meetingRsponsePath, response.Content);
+                //System.IO.File.WriteAllText(meetingRsponsePath, response.Content);
                 return StatusCodes.Status200OK;
-            }
-            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-            {
-                var isRefreshed = await RefreshToken(meetingDto);
-                if (isRefreshed)
-                {
-                    return StatusCodes.Status200OK;
-                }
-            }
+            //}
+            //else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            //{
+            //    var isRefreshed = await RefreshToken(meetingDto);
+            //    if (isRefreshed)
+            //    {
+            //        return StatusCodes.Status200OK;
+            //    }
+            //}
             return StatusCodes.Status400BadRequest;
 
         }
@@ -312,6 +312,77 @@ namespace BusinessLayer.Services
             {
                 throw ex;
             }
+        }
+
+        public async Task<int> ToggleClassOnlineStatus(long liveLectureId, bool status)
+        {
+            try
+            {
+                var getItem = await _context.CLASS_MEETINGS.Where(c => c.Id == liveLectureId).FirstOrDefaultAsync();
+                getItem.IsLive = status;
+                 _context.Update(getItem);
+                await _context.SaveChangesAsync();
+                return StatusCodes.Status200OK;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<IEnumerable<MeetingDto>> GetActiveLiveLectures()
+        {
+            return await _context.CLASS_MEETINGS.Where(x => x.IsLive == true)
+                .Select(c => new MeetingDto
+                {
+                    CourseName = c.CourseAllocation.Course.CourseTitle,
+                    CourseId = c.CourseAllocation.CourseId,
+                    Start_Meeting_Url = c.Start_Meeting_Url,
+                    Join_Meeting_Url = c.Join_Meeting_Url,
+                    Date = c.Date,
+                    Time = c.Time,
+                    Topic = c.Topic,
+                    Agenda = c.Agenda,
+                    Duration = c.Duration,
+                    UserId = c.UserId,
+                    LiveLectureId = c.Id
+
+
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<MeetingDto>> GetActiveLiveLecturesByDepartment(long departmentId)
+        {
+            List<MeetingDto> returnList = new List<MeetingDto>();
+            var getInstructors = await _context.INSTRUCTOR_DEPARTMENT.Where(x => x.DepartmentId == departmentId && x.CourseAllocation.SessionSemester.Active).ToListAsync();
+            if (getInstructors.Any())
+            {
+                for(var i = 0; i < getInstructors.Count(); i++)
+                {
+                    var activeLiveClasses = await _context.CLASS_MEETINGS.Where(x => x.IsLive == true && x.UserId == getInstructors[i].UserId)
+                        .Select(c => new MeetingDto
+                        {
+                            CourseName = c.CourseAllocation.Course.CourseTitle,
+                            CourseId = c.CourseAllocation.CourseId,
+                            Start_Meeting_Url = c.Start_Meeting_Url,
+                            Join_Meeting_Url = c.Join_Meeting_Url,
+                            Date = c.Date,
+                            Time = c.Time,
+                            Topic = c.Topic,
+                            Agenda = c.Agenda,
+                            Duration = c.Duration,
+                            UserId = c.UserId,
+                            LiveLectureId = c.Id
+                        })
+                        .ToListAsync();
+                    if (activeLiveClasses.Any())
+                    {
+                        returnList.AddRange(activeLiveClasses);
+                    }
+                }
+            }
+            return returnList;
         }
     }
 }

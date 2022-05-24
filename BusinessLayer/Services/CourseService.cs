@@ -166,6 +166,38 @@ namespace BusinessLayer.Services
                 })
                 .ToListAsync();
         }
+        public async Task<IEnumerable<GetDepartmentCourseDto>> GetAllocatedCoursesByDepartment(long departmentId)
+        {
+            List<GetDepartmentCourseDto> returnList = new List<GetDepartmentCourseDto>();
+            var activeSessionSemester = await GetActiveSessionSemester();
+            var Instructors =  await _context.INSTRUCTOR_DEPARTMENT.Where(d => d.DepartmentId == departmentId && d.CourseAllocation.SessionSemester.Active)
+                .ToListAsync();
+            if (Instructors.Any())
+            {
+                for(var i = 0; i < Instructors.Count(); i++)
+                {
+                    var allocatedCourses = await _context.COURSE_ALLOCATION.Where(x => x.InstructorId == Instructors[i].UserId)
+                         .Include(d => d.Instructor)
+                        .ThenInclude(p => p.Person)
+                        .Include(s => s.SessionSemester)
+                        .Include(c => c.Course)
+                        .Select(f => new GetDepartmentCourseDto {
+                            CourseLecturer = f.Instructor.Person.Surname + " " + f.Instructor.Person.Firstname + " " + f.Instructor.Person.Othername,
+                            CourseId = f.Course.Id,
+                            CourseCode = f.Course.CourseCode,
+                            CourseTitle = f.Course.CourseTitle,
+                            CourseAllocationId = f.Id,
+                            InstructorUserId = f.InstructorId
+                        })
+                        .ToListAsync();
+                    if (allocatedCourses.Any())
+                    {
+                        returnList.AddRange(allocatedCourses);
+                    }
+                }
+            }
+            return returnList;
+        }
         public async Task<GetSessionSemesterDto> GetActiveSessionSemester()
         {
             return await _context.SESSION_SEMESTER.Where(a => a.Active)

@@ -16,5 +16,8 @@ namespace BusinessLayer.Interface
         Task<string> ZoomSignIn();
        Task<IEnumerable<MeetingDto>> GetAllLiveLectures();
        Task<int> DeleteLiveLecture(long LiveLectureId);
+       Task<int> ToggleClassOnlineStatus(long liveLectureId, bool status);
+       Task<IEnumerable<MeetingDto>> GetActiveLiveLectures();
+       Task<IEnumerable<MeetingDto>> GetActiveLiveLecturesByDepartment(long departmentId);
     }
 }

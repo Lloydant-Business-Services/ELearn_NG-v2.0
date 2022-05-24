@@ -57,6 +57,7 @@ namespace DataLayer.Model
         public DbSet<DepartmentHeads> DEPARTMENT_HEADS { get; set; }
         public DbSet<Announcement> ANNOUNCEMENT { get; set; }
         public DbSet<ClassMeetings> CLASS_MEETINGS { get; set; }
+        public DbSet<Otp_Code> OTP_CODE { get; set; }
 
 
     }

@@ -143,7 +143,7 @@ namespace APIs
 
             });
             app.UseMiddleware<JWTMiddleware>();
-            if (env.IsDevelopment())
+            if (!env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }

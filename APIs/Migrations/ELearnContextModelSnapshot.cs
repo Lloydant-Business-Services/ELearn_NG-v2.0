@@ -185,6 +185,9 @@ namespace APIs.Migrations
                         .HasMaxLength(5)
                         .HasColumnType("int");
 
+                    b.Property<bool?>("IsLive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Join_Meeting_Url")
                         .HasColumnType("nvarchar(max)");
 
@@ -705,6 +708,32 @@ namespace APIs.Migrations
                     b.HasIndex("ExaminationId");
 
                     b.ToTable("OBJECTIVE_EXAMINATION");
+                });
+
+            modelBuilder.Entity("DataLayer.Model.Otp_Code", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OTPStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Otp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OTP_CODE");
                 });
 
             modelBuilder.Entity("DataLayer.Model.Person", b =>
@@ -1351,6 +1380,16 @@ namespace APIs.Migrations
                     b.Navigation("AnswerOptions");
 
                     b.Navigation("Examination");
+                });
+
+            modelBuilder.Entity("DataLayer.Model.Otp_Code", b =>
+                {
+                    b.HasOne("DataLayer.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataLayer.Model.Person", b =>

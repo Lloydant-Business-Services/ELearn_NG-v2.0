@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "TETj7pG/gdQYjL1OuwJis9gbldxf+0YFBLPRTw4PW32wnousXcvvxSWdjVFTlXD141nRWlQN4b85LLCpBkIClQ==",
+  "dgSpecHash": "hScnoOBWYazd79kbAh2zRmDZCnnJ/5WVVOFkbbGkLUSP4QQ1gverlbiNmO8qhx/fkFn6X9vTnVvvlktc9GXbTw==",
   "success": true,
   "projectFilePath": "Z:\\Users\\godspeedmiracle\\Miracle\\ELearnNG_2.0\\BusinessLayer\\BusinessLayer.csproj",
   "expectedPackageFiles": [
@@ -11,8 +11,10 @@
     "C:\\Users\\root\\.nuget\\packages\\fluentemail.core\\3.0.2\\fluentemail.core.3.0.2.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\fluentemail.mailgun\\3.0.2\\fluentemail.mailgun.3.0.2.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\fluentemail.razor\\3.0.2\\fluentemail.razor.3.0.2.nupkg.sha512",
+    "C:\\Users\\root\\.nuget\\packages\\fluentemail.smtp\\3.0.2\\fluentemail.smtp.3.0.2.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\3.1.5\\microsoft.aspnetcore.mvc.razor.extensions.3.1.5.nupkg.sha512",
+    "C:\\Users\\root\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.runtimecompilation\\3.1.0\\microsoft.aspnetcore.mvc.razor.runtimecompilation.3.1.0.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\3.1.5\\microsoft.aspnetcore.razor.language.3.1.5.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\2.9.3\\microsoft.codeanalysis.analyzers.2.9.3.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\microsoft.codeanalysis.common\\3.3.0\\microsoft.codeanalysis.common.3.3.0.nupkg.sha512",

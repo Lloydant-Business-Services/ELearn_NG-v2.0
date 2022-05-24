@@ -16,6 +16,7 @@ namespace BusinessLayer.Interface
         Task<IEnumerable<GetDepartmentCourseDto>> GetDepartmentalCourses(long departmentId);
         Task<AllCoursesDto> GetCourseByCourseId(long courseId);
         Task<AllCoursesDto> AllocatedCourseByAllocationId(long courseAllocationId);
+        Task<IEnumerable<GetDepartmentCourseDto>> GetAllocatedCoursesByDepartment(long departmentId);
         //Task<ResponseModel> AllocateCourse(AllocateCourseDto dto);
     }
 }

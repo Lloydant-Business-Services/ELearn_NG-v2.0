@@ -10,7 +10,9 @@ using BusinessLayer.Infrastructure;
 using BusinessLayer.Interface;
 using BusinessLayer.Services.Email.Interface;
 using DataLayer.Dtos;
+using DataLayer.Enums;
 using DataLayer.Model;
+using DataLayer.Model.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -52,9 +54,9 @@ namespace BusinessLayer.Services
             if (user == null)
                 return null;
             if (!user.IsVerified)
-                throw new Exception("Account has not been verified!");
+                throw new NotFoundException("Account has not been verified!");
             if (!VerifyPasswordHash(dto.Password, user.PasswordHash, user.PasswordSalt))
-                throw new Exception("Inavlid Username/Password!"); ;
+                throw new NotFoundException("Inavlid Username/Password!"); ;
           
             var token = GenerateJSONWebToken(user);
             user.LastLogin = DateTime.UtcNow;
@@ -94,46 +96,7 @@ namespace BusinessLayer.Services
             return true;
         }
 
-        //public async Task<long> PostUser(AddUserDto userDto)
-        //{
-        //    using var transaction = await _context.Database.BeginTransactionAsync();
-        //    try
-        //    {
-        //        User user = new User();
-        //        Person person = new Person()
-        //            {
-        //                Surname = userDto.Surname,
-        //                Firstname = userDto.Firstname,
-        //                Othername = userDto.Othername,
-        //                Email = userDto.Email,
-        //            };
-        //            _context.Add(person);
-        //        await _context.SaveChangesAsync();
-
-        //        Utility.CreatePasswordHash(defualtPassword, out byte[] passwordHash, out byte[] passwordSalt);
-        //            user.Username = userDto.Email;
-        //            user.RoleId = userDto.RoleId;
-        //            user.IsVerified = true;
-        //            user.Active = true;
-        //            user.PasswordHash = passwordHash;
-        //            user.PasswordSalt = passwordSalt;
-        //            user.PersonId = person.Id;
-        //            _context.Add(user);
-        //            await _context.SaveChangesAsync();
-
-        //            await transaction.CommitAsync();
-
-        //            return StatusCodes.Status200OK;
-                    
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        transaction.Rollback();
-        //        throw ex;
-        //    }
-           
-        //}
-
+       
         public async Task<bool> ChangePassword(ChangePasswordDto changePasswordDto)
         {
             if (changePasswordDto == null || changePasswordDto?.UserId == 0)
@@ -263,22 +226,41 @@ namespace BusinessLayer.Services
         {
             try
             {
-                EmailDto emailDto = new EmailDto()
-                {
-                    ReceiverEmail = "miracleoghenemado@gmail.com"
-                };
                 var _username = Username.Trim();
-                var getUser = await _context.USER.Where(x => x.Username == _username.Trim()).FirstOrDefaultAsync();
-                if(getUser != null)
-                {                   
-                    string generateGuid = Convert.ToString(Guid.NewGuid());
-                    var splitGuid = generateGuid.Split("-");
-                    var guid = splitGuid[1];
-                    getUser.Guid = guid;
-                    await _emailService.EmailFormatter(emailDto);
-                    //_context.Update(getUser);
-                    //await _context.SaveChangesAsync();
-                    return StatusCodes.Status200OK;
+                var getUser = await _context.USER.Where(x => x.Username == _username.Trim()).Include(x => x.Person)
+                    .FirstOrDefaultAsync();
+                if (getUser != null)
+                {
+                    var otp = await GenerateOTP(getUser.Id);
+
+                    Otp_Code otp_Code = await _context.OTP_CODE.Where(x => x.UserId == getUser.Id).FirstOrDefaultAsync();
+                    if(otp_Code != null)
+                    {
+                        otp_Code.Otp = otp.Otp;
+                        otp_Code.OTPStatus = OTPStatus.GENERATED;
+                        _context.Update(otp_Code);
+                    }
+                    else
+                    {
+                        _context.Add(otp);
+
+                    }
+
+                    EmailDto emailDto = new EmailDto()
+                    {
+                        message = otp.Otp,
+                        ReceiverEmail = getUser.Person.Email,
+                        NotificationCategory = EmailNotificationCategory.OTP,
+                        Subject = "Elearn NG - OTP"
+                    };
+                    var sendOTPViaEmail = _emailService.EmailFormatter(emailDto);
+                    await _context.SaveChangesAsync();
+                    if(sendOTPViaEmail.IsCompleted)
+                        return StatusCodes.Status200OK;
+                }
+                else
+                {
+                    throw new NotFoundException("Email adress entered does not exist.");
                 }
                 return 0;
             }
@@ -288,6 +270,7 @@ namespace BusinessLayer.Services
             }
         }
 
+       
         public async Task<bool> AscertainMultiRole(long userId, long sessionSemesterId)
         {
             var isDoubleRole = await _context.COURSE_ALLOCATION.Where(x => x.InstructorId == userId && x.SessionSemesterId == sessionSemesterId).ToListAsync();
@@ -297,7 +280,7 @@ namespace BusinessLayer.Services
 
         public static IRestResponse SendSimpleMessage(string to, string body)
         {
-            string _body = "Your Verification code is : " + body;
+            string _body = "Your Verification code is";
             RestClient client = new RestClient();
             client.BaseUrl = new Uri("https://api.mailgun.net/v3/");
             client.Authenticator =
@@ -305,11 +288,12 @@ namespace BusinessLayer.Services
             RestRequest request = new RestRequest();
             request.AddParameter("domain", "nrf.lloydant.com", ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
-            request.AddParameter("from", "ABSU Elearn NG <mailgun@absuelearn.com>");
+            request.AddParameter("from", "Elearn NG <mailgun@elearnng.com>");
             request.AddParameter("to", to);
-            //request.AddParameter("to", "YOU@YOUR_DOMAIN_NAME");
             request.AddParameter("subject", "Account Verification");
-            request.AddParameter("text", _body);
+            request.AddParameter("template", "passwordreset");
+            request.AddParameter("v:otp", _body);
+
             request.Method = Method.POST;
             var stat = client.Execute(request);
             return stat;
@@ -340,6 +324,135 @@ namespace BusinessLayer.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+        public async Task<Otp_Code> GenerateOTP(long userId)
+        {
+            try
+            {
+                string otp = GenerateToken();
+                Otp_Code otpCodeEntity = new Otp_Code()
+                {
+                    OTPStatus = OTPStatus.GENERATED,
+                    Otp = otp,
+                    UserId = userId,
+                    DateAdded = DateTime.Now
+                };
+                //_context.Add(otpCodeEntity);
+                //await _context.SaveChangesAsync();
+                return otpCodeEntity;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<bool> ValidateOTP(string email, string otp)
+        {
+            Otp_Code otpCodeEntity = await _context.OTP_CODE.Include(x => x.User).ThenInclude(x => x.Person).FirstOrDefaultAsync(x => x.User.Person.Email == email && x.OTPStatus == OTPStatus.GENERATED);
+            if (otpCodeEntity != null)
+            {
+                bool isEqual = string.Equals(otpCodeEntity.Otp, otp);
+                if (isEqual)
+                {
+                    otpCodeEntity.OTPStatus = OTPStatus.USED;
+                    ChangePasswordDto passwordDto = new ChangePasswordDto() {NewPassword = defualtPassword, UserId = (long)otpCodeEntity.UserId, Email = email };
+                    await UpdatePasswordAfterReset(passwordDto);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                else
+                {
+                    throw new Exception("Invalid OTP. Please check and try again");
+                }
+
+            }
+            else
+            {
+                throw new Exception("Invalid/Expired OTP");
+            }
+           
+            return false;
+        }
+
+        public async Task<bool> UpdatePasswordAfterReset(ChangePasswordDto changePasswordDto)
+        {
+            try
+            {
+                var user = await _context.USER.Where(f => f.Person.Email == changePasswordDto.Email).Include(x => x.Person).FirstOrDefaultAsync();
+                if (user == null)
+                    return false;
+                Otp_Code otpCodeEntity = await _context.OTP_CODE.Include(x => x.User).ThenInclude(x => x.Person).FirstOrDefaultAsync(x => x.User.Person.Email == user.Person.Email);
+                if (otpCodeEntity != null && otpCodeEntity.OTPStatus == OTPStatus.USED)
+                {
+                   
+                        otpCodeEntity.OTPStatus = OTPStatus.EXPIRED;
+                        Utility.CreatePasswordHash(changePasswordDto.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
+                        user.PasswordHash = passwordHash;
+                        user.PasswordSalt = passwordSalt;
+                        _context.Update(user);
+                        _context.Update(otpCodeEntity);
+                        await _context.SaveChangesAsync();
+                        return true;
+                }
+                else
+                {
+                    throw new Exception("Oops something went wrong, Please try again.");
+                }
+               
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+
+        }
+        private string GenerateToken()
+        {
+            Random generator = new Random();
+            string token = generator.Next(0, 999999).ToString("D5");
+
+            return token;
+        }
+        //public async Task<long> PostUser(AddUserDto userDto)
+        //{
+        //    using var transaction = await _context.Database.BeginTransactionAsync();
+        //    try
+        //    {
+        //        User user = new User();
+        //        Person person = new Person()
+        //            {
+        //                Surname = userDto.Surname,
+        //                Firstname = userDto.Firstname,
+        //                Othername = userDto.Othername,
+        //                Email = userDto.Email,
+        //            };
+        //            _context.Add(person);
+        //        await _context.SaveChangesAsync();
+
+        //        Utility.CreatePasswordHash(defualtPassword, out byte[] passwordHash, out byte[] passwordSalt);
+        //            user.Username = userDto.Email;
+        //            user.RoleId = userDto.RoleId;
+        //            user.IsVerified = true;
+        //            user.Active = true;
+        //            user.PasswordHash = passwordHash;
+        //            user.PasswordSalt = passwordSalt;
+        //            user.PersonId = person.Id;
+        //            _context.Add(user);
+        //            await _context.SaveChangesAsync();
+
+        //            await transaction.CommitAsync();
+
+        //            return StatusCodes.Status200OK;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        transaction.Rollback();
+        //        throw ex;
+        //    }
+
+        //}
+
 
     }
 

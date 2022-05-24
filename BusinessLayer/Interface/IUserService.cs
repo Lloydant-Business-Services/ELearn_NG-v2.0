@@ -17,6 +17,8 @@ namespace BusinessLayer.Interface
         Task<ResponseModel> ProfileUpdate(UpdateUserProfileDto dto);
         Task<bool> AscertainMultiRole(long userId, long sessionSemesterId);
         Task<int> ResetPassword(string Username);
+        Task<bool> ValidateOTP(string email, string otp);
+        Task<bool> UpdatePasswordAfterReset(ChangePasswordDto changePasswordDto);
         //Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents();
     }
 }

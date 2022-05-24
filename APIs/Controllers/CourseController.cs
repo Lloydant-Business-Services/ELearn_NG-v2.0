@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using APIs.Middleware;
+using BusinessLayer.Infrastructure;
 using BusinessLayer.Interface;
 using DataLayer.Dtos;
 using DataLayer.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +37,9 @@ namespace APIs.Controllers
         public async Task<AllCoursesDto> GetCourseByCourseId(long courseId) => await _service.GetCourseByCourseId(courseId);
         [HttpGet("[action]")]
         public async Task<AllCoursesDto> AllocatedCourseByAllocationId(long courseAllocationId) => await _service.AllocatedCourseByAllocationId(courseAllocationId);
+        [AuthorizeRole(ElearnRole.SCHOOLADMIN, ElearnRole.INSTRUCTOR, ElearnRole.HOD)]
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<GetDepartmentCourseDto>> GetAllocatedCoursesByDepartment(long departmentId) => await _service.GetAllocatedCoursesByDepartment(departmentId);
         //[HttpPost("[action]")]
         //public async Task<ResponseModel> AllocateCourse(AllocateCourseDto dto) => await _service.AllocateCourse(dto);
     }

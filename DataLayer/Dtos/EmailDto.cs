@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,13 +11,13 @@ namespace DataLayer.Dtos
         public string ReceiverEmail { get; set; }
         public string ReceiverName { get; set; }
         public string Subject { get; set; }
-        public string CTAUrl { get; set; }
-        public string SenderEmail { get; set; } = "noreply@unizik.edu.ng";
-        public string SenderName { get; set; } = "UNIZIK HR";
-        public int VerificationCategory { get; set; }
-        public string Body { get; set; }
-        public string AccessCode { get; set; }
-        public string ButtonText { get; set; } = "Reset Password";
-        public long Id { get; set; }
+        public string SenderEmail { get; set; } = "support@elearnng.com";
+        public string SenderName { get; set; } = "ElearnNG";
+        public string message { get; set; }
+        public string OTP { get; set; }
+        public string ButtonText { get; set; }
+        public string MailGunTemplate { get; set; }
+        public EmailNotificationCategory NotificationCategory { get; set; }
+        public EmailTemplate EmailTemplate { get; set; }
     }
 }

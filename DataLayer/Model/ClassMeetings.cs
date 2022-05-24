@@ -22,5 +22,6 @@ namespace DataLayer.Model
         public virtual User User { get; set; }
         public string Start_Meeting_Url { get; set; }
         public string Join_Meeting_Url { get; set; }
+        public bool? IsLive { get; set; }
     }
 }

@@ -44,6 +44,10 @@ namespace APIs.Controllers
         public async Task<bool> AscertainMultiRole(long userId, long sessionSemesterId) => await _userService.AscertainMultiRole(userId, sessionSemesterId);
         [HttpPost("[action]")]
         public async Task<int> ResetPassword(string Username) => await _userService.ResetPassword(Username);
+        [HttpPost("[action]")]
+        public async Task<bool> ValidateOTP(string email, string otp) => await _userService.ValidateOTP(email, otp);
+        [HttpPost("[action]")]
+        public async Task<bool> UpdatePasswordAfterReset(ChangePasswordDto changePasswordDto) => await _userService.UpdatePasswordAfterReset(changePasswordDto);
 
 
     }

@@ -38,7 +38,9 @@
           "FluentEmail.Core": "3.0.2",
           "FluentEmail.Mailgun": "3.0.2",
           "FluentEmail.Razor": "3.0.2",
+          "FluentEmail.Smtp": "3.0.2",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.25",
+          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "3.1.0",
           "Microsoft.EntityFrameworkCore": "5.0.7",
           "Microsoft.EntityFrameworkCore.Proxies": "5.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.7",
@@ -437,6 +439,20 @@
           "lib/netstandard2.0/FluentEmail.Razor.dll": {}
         }
       },
+      "FluentEmail.Smtp/3.0.2": {
+        "dependencies": {
+          "FluentEmail.Core": "3.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FluentEmail.Smtp.dll": {
+            "assemblyVersion": "3.0.2.0",
+            "fileVersion": "3.0.2.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/FluentEmail.Smtp.dll": {}
+        }
+      },
       "Humanizer.Core/2.8.26": {},
       "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.25": {
         "dependencies": {
@@ -465,6 +481,22 @@
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/3.1.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Razor.Extensions": "3.1.5",
+          "Microsoft.CodeAnalysis.Razor": "3.1.5",
+          "Microsoft.Extensions.DependencyModel": "3.1.5"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll": {
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.100.19.56601"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll": {}
         }
       },
       "Microsoft.AspNetCore.Razor.Language/3.1.5": {
@@ -2392,6 +2424,8 @@
           "FluentEmail.Core": "3.0.2",
           "FluentEmail.Mailgun": "3.0.2",
           "FluentEmail.Razor": "3.0.2",
+          "FluentEmail.Smtp": "3.0.2",
+          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "3.1.0",
           "Microsoft.EntityFrameworkCore": "5.0.7",
           "Microsoft.EntityFrameworkCore.Proxies": "5.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.7",
@@ -2414,6 +2448,8 @@
           "FluentEmail.Core": "3.0.2",
           "FluentEmail.Mailgun": "3.0.2",
           "FluentEmail.Razor": "3.0.2",
+          "FluentEmail.Smtp": "3.0.2",
+          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "3.1.0",
           "Microsoft.EntityFrameworkCore": "5.0.7",
           "Microsoft.EntityFrameworkCore.Proxies": "5.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.7",
@@ -4034,6 +4070,13 @@
       "path": "fluentemail.razor/3.0.2",
       "hashPath": "fluentemail.razor.3.0.2.nupkg.sha512"
     },
+    "FluentEmail.Smtp/3.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Y5pZKS/mXSl7D5WJWecvfo1kpIMDc6U0VRU6wRbE9wEv2IqMH3cQXa/97Pwi+m31COepIqc6dMhGMtAJ2Qh7rw==",
+      "path": "fluentemail.smtp/3.0.2",
+      "hashPath": "fluentemail.smtp.3.0.2.nupkg.sha512"
+    },
     "Humanizer.Core/2.8.26": {
       "type": "package",
       "serviceable": true,
@@ -4054,6 +4097,13 @@
       "sha512": "sha512-ivgajTn4hjmkIgOx6OkanC6o72PBR6QJQdkkIHp3N28/0ABqD1RxpWYk5a4kJz7KReMKwiTJDdRqz7OMKbxlDQ==",
       "path": "microsoft.aspnetcore.mvc.razor.extensions/3.1.5",
       "hashPath": "microsoft.aspnetcore.mvc.razor.extensions.3.1.5.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/3.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SihuJFWfV6pRz5/yQm46luEQcoFIaDW+TDQBgAuRZeSKYJiGPmnUqpLX95ZcCwP7bd2pg5CwFA5el4C3KpfSGg==",
+      "path": "microsoft.aspnetcore.mvc.razor.runtimecompilation/3.1.0",
+      "hashPath": "microsoft.aspnetcore.mvc.razor.runtimecompilation.3.1.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Language/3.1.5": {
       "type": "package",
