@@ -58,6 +58,10 @@ namespace DataLayer.Model
         public DbSet<Announcement> ANNOUNCEMENT { get; set; }
         public DbSet<ClassMeetings> CLASS_MEETINGS { get; set; }
         public DbSet<Otp_Code> OTP_CODE { get; set; }
+        public DbSet<Quiz> QUIZ { get; set; }
+        public DbSet<QuizSubmission> QUIZ_SUBMISSION { get; set; }
+        public DbSet<StudentPayment> STUDENT_PAYMENT { get; set; }
+        public DbSet<NotificationTracker> NOTIFICATION_TRACKER { get; set; }
 
 
     }

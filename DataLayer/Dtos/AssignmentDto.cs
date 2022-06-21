@@ -22,4 +22,24 @@ namespace DataLayer.Dtos
         public string AssignmentName { get; set; }
         public string InstructorName { get; set; }
     }
+
+
+    public class QuizDto
+    {
+        public long QuizId { get; set; }
+        public string QuizInstruction { get; set; }
+        public string QuizInText { get; set; }
+        public string QuizVideoLink { get; set; }
+        public string QuizUploadLink { get; set; }
+        public DateTime DueDate { get; set; }
+        public DateTime SetDate { get; set; }
+        public decimal MaxScore { get; set; }
+        public bool Active { get; set; }
+        public bool IsPublished { get; set; }
+        public bool IsDeleted { get; set; }
+        public string CourseCode { get; set; }
+        public string CourseTitle { get; set; }
+        public string QuizName { get; set; }
+        public string InstructorName { get; set; }
+    }
 }

@@ -16,4 +16,18 @@ namespace DataLayer.Dtos
         public decimal MaxScore { get; set; }
         public long CourseAllocationId { get; set; }
     }
+
+
+
+    public class AddQuizDto
+    {
+        public string Name { get; set; }
+        public string QuizInstruction { get; set; }
+        public string QuizInText { get; set; }
+        public string QuizVideoLink { get; set; }
+        public IFormFile QuizUpload { get; set; }
+        public DateTime DueDate { get; set; }
+        public decimal MaxScore { get; set; }
+        public long CourseAllocationId { get; set; }
+    }
 }

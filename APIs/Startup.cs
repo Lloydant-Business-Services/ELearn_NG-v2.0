@@ -62,6 +62,10 @@ namespace APIs
             services.AddScoped<ISubInstructorService, SubInstructorService>();
             services.AddScoped<IDeveloperPatchService, DeveloperPatchService>();
             services.AddScoped<IReportingSevice, ReportingService>();
+            services.AddScoped<IAuditService, AuditService>();
+            services.AddScoped<IQuizService, QuizService>();
+
+
             services.AddScoped<IEmailService, EmailService>();
             //services.AddScoped<ICourseAssignment, AssignmentService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

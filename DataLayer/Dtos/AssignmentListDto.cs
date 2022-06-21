@@ -17,4 +17,18 @@ namespace DataLayer.Dtos
         public DateTime DueDate { get; set; }
         public bool Active { get; set; }
     }
+
+    public class QuizListDto
+    {
+        public long QuizId { get; set; }
+        public string CourseCode { get; set; }
+        public string CourseTitle { get; set; }
+        public string QuizName { get; set; }
+        public string InstructorName { get; set; }
+        public decimal MaxScore { get; set; }
+        public bool IsPublished { get; set; }
+        public bool IsSubmitted { get; set; }
+        public DateTime DueDate { get; set; }
+        public bool Active { get; set; }
+    }
 }

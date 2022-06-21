@@ -37,8 +37,11 @@ namespace APIs.Controllers
                 {
                     Name = f.Name,
                     Id = f.Id,
-                    Active = f.Active
-                }).ToListAsync();
+                    Active = f.Active,
+                    DateCreated = f.DateCreated
+                })
+                .OrderBy(a => a.Name)
+                .ToListAsync();
             }
             else
             {
@@ -47,7 +50,8 @@ namespace APIs.Controllers
                 {
                     Name = f.Name,
                     Id = f.Id,
-                    Active = f.Active
+                    Active = f.Active,
+                    DateCreated = f.DateCreated
                 }).ToListAsync();
             }
             

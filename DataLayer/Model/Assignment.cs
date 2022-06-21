@@ -18,6 +18,7 @@ namespace DataLayer.Model
         public bool Active { get; set; }
         public bool IsDelete { get; set; }
         public long CourseAllocationId { get; set; }
+        public long? CharacterLimit { get; set; }
         public CourseAllocation CourseAllocation { get; set; }
     }
 }

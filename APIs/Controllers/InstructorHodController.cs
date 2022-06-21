@@ -42,5 +42,10 @@ namespace APIs.Controllers
         public async Task<InstructorSummaryDto> InstructorDashboardSummary(long InstructorId) => await _service.InstructorDashboardSummary(InstructorId);
         [HttpPost("[action]")]
         public async Task<bool> RemoveHod(long DepartmentId) => await _service.RemoveHod(DepartmentId);
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<GetInstructorDto>> GetInstututionInstructorsAndHodPerson(string searchInput)
+        {
+            return await _service.GetInstututionInstructorsAndHodPerson(searchInput);
+        }
     }
 }

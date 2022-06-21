@@ -93,6 +93,9 @@ namespace APIs.Migrations
                     b.Property<string>("AssignmentVideoLink")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("CharacterLimit")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("CourseAllocationId")
                         .HasColumnType("bigint");
 
@@ -150,6 +153,9 @@ namespace APIs.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("IsGraded")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsLateSubmission")
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Score")
@@ -636,6 +642,9 @@ namespace APIs.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<long?>("CourseAllocationId")
                         .HasColumnType("bigint");
 
@@ -673,6 +682,35 @@ namespace APIs.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("LEVEL");
+                });
+
+            modelBuilder.Entity("DataLayer.Model.NotificationTracker", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool?>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmailNotificationCategory")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NotificationDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("PersonId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("NOTIFICATION_TRACKER");
                 });
 
             modelBuilder.Entity("DataLayer.Model.ObjectiveExamination", b =>
@@ -821,6 +859,108 @@ namespace APIs.Migrations
                     b.HasIndex("ObjectiveExaminationId");
 
                     b.ToTable("QUESTION_OPTION");
+                });
+
+            modelBuilder.Entity("DataLayer.Model.Quiz", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<long?>("CharacterLimit")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CourseAllocationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("MaxScore")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("PublishResult")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("QuizInText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QuizInstruction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QuizName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QuizUploadLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QuizVideoLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SetDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseAllocationId");
+
+                    b.ToTable("QUIZ");
+                });
+
+            modelBuilder.Entity("DataLayer.Model.QuizSubmission", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("CourseRegistrationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("DateSubmitted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InstructorRemark")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsGraded")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsLateSubmission")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("QuizId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("QuizInTextSubmission")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QuizSubmissionHostedLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QuizSubmissionUploadLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Score")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseRegistrationId");
+
+                    b.HasIndex("QuizId");
+
+                    b.ToTable("QUIZ_SUBMISSION");
                 });
 
             modelBuilder.Entity("DataLayer.Model.Role", b =>
@@ -981,6 +1121,88 @@ namespace APIs.Migrations
                     b.HasIndex("StudentPersonId");
 
                     b.ToTable("STUDENT_EXAMINATION");
+                });
+
+            modelBuilder.Entity("DataLayer.Model.StudentPayment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool?>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal?>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ClientPortalIdentifier")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DatePaid")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DepartmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("GatewayCode")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool?>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<long?>("LevelId")
+                        .IsRequired()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PaymentGateway")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PaymentMode")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("ProgrammeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("SessionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("StatusCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<long>("StudentPersonId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SystemCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("SystemPaymentReference")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("LevelId");
+
+                    b.HasIndex("SessionId");
+
+                    b.HasIndex("StudentPersonId");
+
+                    b.ToTable("STUDENT_PAYMENT");
                 });
 
             modelBuilder.Entity("DataLayer.Model.StudentPerson", b =>
@@ -1363,6 +1585,17 @@ namespace APIs.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DataLayer.Model.NotificationTracker", b =>
+                {
+                    b.HasOne("DataLayer.Model.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Person");
+                });
+
             modelBuilder.Entity("DataLayer.Model.ObjectiveExamination", b =>
                 {
                     b.HasOne("DataLayer.Model.AnswerOptions", "AnswerOptions")
@@ -1421,6 +1654,36 @@ namespace APIs.Migrations
                     b.Navigation("ObjectiveExamination");
                 });
 
+            modelBuilder.Entity("DataLayer.Model.Quiz", b =>
+                {
+                    b.HasOne("DataLayer.Model.CourseAllocation", "CourseAllocation")
+                        .WithMany()
+                        .HasForeignKey("CourseAllocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CourseAllocation");
+                });
+
+            modelBuilder.Entity("DataLayer.Model.QuizSubmission", b =>
+                {
+                    b.HasOne("DataLayer.Model.CourseRegistration", "CourseRegistration")
+                        .WithMany()
+                        .HasForeignKey("CourseRegistrationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataLayer.Model.Quiz", "Quiz")
+                        .WithMany()
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CourseRegistration");
+
+                    b.Navigation("Quiz");
+                });
+
             modelBuilder.Entity("DataLayer.Model.SessionSemester", b =>
                 {
                     b.HasOne("DataLayer.Model.Semester", "Semester")
@@ -1474,6 +1737,39 @@ namespace APIs.Migrations
                         .IsRequired();
 
                     b.Navigation("Examination");
+
+                    b.Navigation("StudentPerson");
+                });
+
+            modelBuilder.Entity("DataLayer.Model.StudentPayment", b =>
+                {
+                    b.HasOne("DataLayer.Model.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("DataLayer.Model.Level", "Level")
+                        .WithMany()
+                        .HasForeignKey("LevelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataLayer.Model.Session", "Session")
+                        .WithMany()
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("DataLayer.Model.StudentPerson", "StudentPerson")
+                        .WithMany()
+                        .HasForeignKey("StudentPersonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Level");
+
+                    b.Navigation("Session");
 
                     b.Navigation("StudentPerson");
                 });

@@ -12,6 +12,7 @@ namespace DataLayer.Model
         public Department Department { get; set; }
         public long DepartmentId { get; set; }
         public long UserId { get; set; }
+        public bool Active { get; set; }
 
     }
 }

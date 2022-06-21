@@ -74,6 +74,7 @@ namespace DataLayer.Model
                {
                 new Session{ Active = true, Name = "2019/2020"},
                 new Session{ Active = true, Name = "2020/2021"},
+                new Session{ Active = true, Name = "2021/2022"},
                };
             foreach (Session session in sessions)
             {

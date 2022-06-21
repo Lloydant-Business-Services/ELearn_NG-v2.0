@@ -13,4 +13,13 @@ namespace DataLayer.Dtos
         public IFormFile AssignmentUpload { get; set; }
         public long AssignmentId { get; set; }
     }
+
+    public class StudentQuizSubmissionDto
+    {
+        public long StudentUserId { get; set; }
+        public string QuizInText { get; set; }
+        public string QuizHostedLink { get; set; }
+        public IFormFile QuizUpload { get; set; }
+        public long QuizId { get; set; }
+    }
 }

@@ -24,7 +24,7 @@ namespace APIs.Controllers
             _context = context;
         }
         [HttpPost("[action]")]
-        public async Task<ResponseModel> SetSessionSemester(long sessionId, long semesterId) => await _service.SetSessionSemester(sessionId, semesterId);
+        public async Task<ResponseModel> SetSessionSemester(long sessionId, long semesterId, long userId) => await _service.SetSessionSemester(sessionId, semesterId, userId);
         [HttpGet("[action]")]
         public async Task<GetSessionSemesterDto> GetActiveSessionSemester() => await _service.GetActiveSessionSemester();
 

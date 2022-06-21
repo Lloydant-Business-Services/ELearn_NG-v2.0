@@ -145,6 +145,7 @@ namespace BusinessLayer.Services
                     HodName = f.User.Person.Surname + " " + f.User.Person.Firstname + " " + f.User.Person.Othername,
                     Email = f.User.Username
                 })
+                .OrderBy(d => d.HodName)
                 .ToListAsync();
         }
         public async Task<GetDepartmentHeadDto> GetDepartmentHeadByDepartmentId(long departmentId)
@@ -161,6 +162,7 @@ namespace BusinessLayer.Services
                     DepartmentName = f.Department.Name,
                     HodName = f.User.Person.Surname + " " + f.User.Person.Firstname + " " + f.User.Person.Othername
                 })
+                .OrderBy(d => d.HodName)
                 .FirstOrDefaultAsync();
         }
         public async Task<IEnumerable<GetDepartmentHeadDto>> GetAllDepartmentHeads()
@@ -177,6 +179,7 @@ namespace BusinessLayer.Services
                     DepartmentName = f.Department.Name,
                     HodName = f.User.Person.Surname + " " + f.User.Person.Firstname + " " + f.User.Person.Othername
                 })
+                .OrderBy(d => d.HodName)
                 .ToListAsync();
         }
         
@@ -208,7 +211,9 @@ namespace BusinessLayer.Services
                     Id = d.Id,
                     DateCreated = d.DateCreated,
                     Active = d.Active
-                }).ToListAsync();
+                })
+                .OrderBy(d => d.Name)
+                .ToListAsync();
             }
             else
             {
@@ -219,7 +224,9 @@ namespace BusinessLayer.Services
                     Id = d.Id,
                     DateCreated = d.DateCreated,
                     Active = d.Active
-                }).ToListAsync();
+                })
+                .OrderBy(d => d.Name)
+                .ToListAsync();
             }
             
                 

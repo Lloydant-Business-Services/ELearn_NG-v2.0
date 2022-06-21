@@ -42,6 +42,7 @@ namespace APIs.Controllers
                     Id = f.Id,
                     DateCreated = f.DateCreated
                 })
+                .OrderBy(a => a.Name)
                 .ToListAsync();
         }
         [HttpGet("[action]")]

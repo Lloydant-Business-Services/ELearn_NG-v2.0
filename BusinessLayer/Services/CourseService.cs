@@ -113,6 +113,7 @@ namespace BusinessLayer.Services
                     UserId = f.UserId,
                     DateCreated = f.DateCreated,
                     Id = f.Id,
+                    CourseDetail = f.CourseCode + " - " + f.CourseTitle
                     //LevelId = f.LevelId,
                 })
                 .ToListAsync();

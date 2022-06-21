@@ -35,7 +35,6 @@ Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\bin\Debug\netcoreapp
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\bin\Debug\netcoreapp3.1\BusinessLayer.pdb
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\bin\Debug\netcoreapp3.1\DataLayer.dll
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\bin\Debug\netcoreapp3.1\DataLayer.pdb
-Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csprojAssemblyReference.cache
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.AssemblyInfoInputs.cache
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.AssemblyInfo.cs
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csproj.CoreCompileInputs.cache
@@ -316,3 +315,5 @@ Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\bin\Debug\netcoreapp
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\bin\Debug\netcoreapp3.1\refs\System.Xml.XPath.dll
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\bin\Debug\netcoreapp3.1\refs\System.Xml.XPath.XDocument.dll
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\bin\Debug\netcoreapp3.1\refs\WindowsBase.dll
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csproj.AssemblyReference.cache
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig

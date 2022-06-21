@@ -16,7 +16,7 @@ using OfficeOpenXml;
 
 namespace APIs.Controllers
 {
-    [AuthorizeRole(ElearnRole.SCHOOLADMIN, ElearnRole.INSTRUCTOR, ElearnRole.HOD)]
+    //[AuthorizeRole(ElearnRole.SCHOOLADMIN, ElearnRole.INSTRUCTOR, ElearnRole.HOD)]
     [Route("api/[controller]")]
     [ApiController]
     public class SchoolAdminController : ControllerBase
@@ -97,5 +97,7 @@ namespace APIs.Controllers
         public async Task<IEnumerable<GetInstitutionUsersDto>> GetStudentsDepartmentId(long DepartmentId) => await _service.GetStudentsDepartmentId(DepartmentId);
         [HttpPost("[action]")]
         public async Task<bool> DeleteStudent(long studentPersonId) => await _service.DeleteStudent(studentPersonId);
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<GeneralAudit>> GetAudits() => await _service.GetAudits();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Interface;
 using DataLayer.Dtos;
+using DataLayer.Enums;
 using DataLayer.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -30,13 +31,20 @@ namespace BusinessLayer.Services
             try
             {
                 User user = new User();
+                var doesEmailExist = await _context.USER.Where(x => x.Person.Email == userDto.Email).Include(x => x.Person).FirstOrDefaultAsync();
+                if(doesEmailExist != null)
+                {
+                    response.Message = "Email already exists";
+                    response.StatusCode = StatusCodes.Status208AlreadyReported;
+                    return response;
+                }
                 if (userDto.DepartmentId <= 0)
                 {
                     response.Message = "Department not Specified";
                     response.StatusCode = StatusCodes.Status400BadRequest;
                     return response;
                 }
-
+                
                 Person person = new Person()
                 {
                     Surname = userDto.Surname,
@@ -129,7 +137,7 @@ namespace BusinessLayer.Services
                     dtoList.Add(dto);
                 }
                
-                return dtoList;
+                return dtoList.OrderBy(a => a.CourseTitle);
             }
             catch(Exception ex)
             {
@@ -160,6 +168,7 @@ namespace BusinessLayer.Services
                     Level = f.CourseAllocation != null ? f.CourseAllocation.Level.Name : null
 
                 })
+                .OrderBy(x => x.FullName)
                 .ToListAsync();
             }
             catch(Exception ex)
@@ -167,6 +176,45 @@ namespace BusinessLayer.Services
                 throw ex;
             }
             
+        }
+        public async Task<IEnumerable<GetInstructorDto>> GetInstututionInstructorsAndHodPerson(string searchInput)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(searchInput))
+                {
+                    return await _context.USER.Where(f => (f.RoleId == (int)SystemRole.Instructor || f.RoleId == (int)SystemRole.HOD) && (f.Person.Firstname.Contains(searchInput.ToLower()) || f.Person.Surname.Contains(searchInput.ToLower())))
+                    .Include(p => p.Person)
+                   .Select(f => new GetInstructorDto
+                   {
+                       FullName = f.Person.Surname + " " + f.Person.Firstname + " " + f.Person.Othername,
+                       UserId = f.Id,
+                       Email = f.Person.Email,
+                   })
+                   .OrderByDescending(x => x.UserId)
+                   .ToListAsync();
+                }
+                else
+                {
+                    return await _context.USER.Where(f => f.RoleId == (int)SystemRole.Instructor || f.RoleId == (int)SystemRole.HOD)
+                   .Include(p => p.Person)
+                   .Select(f => new GetInstructorDto
+                   {
+                       FullName = f.Person.Surname + " " + f.Person.Firstname + " " + f.Person.Othername,
+                       UserId = f.Id,
+                       Email = f.Person.Email,
+                   })
+                   .OrderByDescending(x => x.UserId)
+                   .Take(50)
+                   .ToListAsync();
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         public async Task<IEnumerable<GetInstructorDto>> GetAllDepartmentHeads()

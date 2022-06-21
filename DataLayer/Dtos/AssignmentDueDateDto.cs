@@ -9,4 +9,9 @@ namespace DataLayer.Dtos
         public long AssignmentId { get; set; }
         public DateTime DueDate { get; set; }
     }
+    public class QuizDueDateDto
+    {
+        public long QuizId { get; set; }
+        public DateTime DueDate { get; set; }
+    }
 }

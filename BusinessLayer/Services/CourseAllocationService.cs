@@ -35,7 +35,10 @@ namespace BusinessLayer.Services
                 User instructor = await _context.USER.Where(f => f.Id == dto.InstructorId).FirstOrDefaultAsync();
                 var activeSesionSemester = await GetActiveSessionSemester();
                 SessionSemester sessionSemester = await _context.SESSION_SEMESTER.Where(s => s.Id == activeSesionSemester.Id).FirstOrDefaultAsync();
-                var doesExist = await _context.COURSE_ALLOCATION.Where(c => c.CourseId == dto.CourseId && c.SessionSemesterId == activeSesionSemester.Id && c.InstructorId == dto.InstructorId).FirstOrDefaultAsync();
+                var doesExist = await _context.COURSE_ALLOCATION.Where(c => c.CourseId == dto.CourseId && c.SessionSemesterId == activeSesionSemester.Id
+                //&& c.InstructorId == dto.InstructorId
+                )
+                    .FirstOrDefaultAsync();
                 InstructorDepartment instructorDepartment = await _context.INSTRUCTOR_DEPARTMENT.Where(x => x.UserId == instructor.Id).FirstOrDefaultAsync();
 
                 if (doesExist != null)

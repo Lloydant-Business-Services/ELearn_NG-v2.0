@@ -10,4 +10,11 @@ namespace DataLayer.Dtos
         public decimal Score { get; set; }
         public string Remark { get; set; }
     }
+
+    public class GradeQuizDto
+    {
+        public long QuizSubmissionId { get; set; }
+        public decimal Score { get; set; }
+        public string Remark { get; set; }
+    }
 }

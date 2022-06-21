@@ -9,7 +9,7 @@ namespace BusinessLayer.Interface
 {
     public interface ISessionSemesterService
     {
-        Task<ResponseModel> SetSessionSemester(long sessionId, long semesterId);
+        Task<ResponseModel> SetSessionSemester(long sessionId, long semesterId, long userId);
         Task<GetSessionSemesterDto> GetActiveSessionSemester();
     }
 }

@@ -29,7 +29,7 @@ namespace APIs
 
                 try
                 {
-                    //DBInitializer.Initialize(services);
+                   // DBInitializer.Initialize(services);
                 }
                 catch (Exception ex)
                 {

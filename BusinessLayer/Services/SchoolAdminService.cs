@@ -174,7 +174,10 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
-
+        public async Task<IEnumerable<GeneralAudit>> GetAudits()
+        {
+            return await _context.GENERAL_AUDIT.OrderBy(x => x.ActionTime).Include(x => x.User).Where(x => x.Id > 0).ToListAsync(); 
+        }
         public async Task<DetailCountDto> InstitutionDetailCount()
         {
             DetailCountDto countDto = new DetailCountDto();

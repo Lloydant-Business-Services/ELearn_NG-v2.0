@@ -9,4 +9,9 @@ namespace DataLayer.Dtos
         public long AssignmentId { get; set; }
         public bool Publish { get; set; }
     }
+    public class QuizPublishDto
+    {
+        public long QuizId { get; set; }
+        public bool Publish { get; set; }
+    }
 }

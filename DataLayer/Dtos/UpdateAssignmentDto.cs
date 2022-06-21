@@ -12,7 +12,17 @@ namespace DataLayer.Dtos
         public DateTime DueDate { get; set; }
         public DateTime SetDate { get; set; }
         public decimal MaxScore { get; set; }
-
         public string AssignmentName { get; set; }
+    }
+
+    public class UpdateQuizDto
+    {
+        public long QuizId { get; set; }
+        public string QuizInstruction { get; set; }
+        public string QuizInText { get; set; }
+        public DateTime DueDate { get; set; }
+        public DateTime SetDate { get; set; }
+        public decimal MaxScore { get; set; }
+        public string QuizName { get; set; }
     }
 }

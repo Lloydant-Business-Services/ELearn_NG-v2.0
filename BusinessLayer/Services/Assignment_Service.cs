@@ -93,7 +93,10 @@ namespace BusinessLayer.Services
                 .Where(f => f.Id == studentAssignmentSubmissionDto.StudentUserId).FirstOrDefaultAsync();
             if (user == null)
                 throw new NullReferenceException("Student does not exist");
-            var isSubmitted = await _context.ASSIGNMENT_SUBMISSION.Where(a => a.AssignmentId == studentAssignmentSubmissionDto.AssignmentId).FirstOrDefaultAsync();
+
+            var courseRegistration = await _context.COURSE_REGISTRATION.Where(f => f.CourseAllocation.CourseId == assignment.CourseAllocation.CourseId && f.StudentPerson.PersonId == user.PersonId).FirstOrDefaultAsync();
+
+            var isSubmitted = await _context.ASSIGNMENT_SUBMISSION.Where(a => a.AssignmentId == studentAssignmentSubmissionDto.AssignmentId && a.CourseRegistrationId == courseRegistration.Id).FirstOrDefaultAsync();
             if(isSubmitted != null)
             {
                 response.Message = "Error! Assignment Aready Submitted";
@@ -108,7 +111,7 @@ namespace BusinessLayer.Services
                 string fileNamePrefix = user.Person.Surname + "_" + user.Person.Firstname + "_" + assignment.CourseAllocation.Course.CourseCode + "_" + DateTime.Now.Millisecond;
                 saveAssignmentLink = await GetNoteUploadLink(studentAssignmentSubmissionDto.AssignmentUpload, filePath, directory, fileNamePrefix);
             }
-            var courseRegistration = await _context.COURSE_REGISTRATION.Where(f => f.CourseAllocation.CourseId == assignment.CourseAllocation.CourseId && f.StudentPerson.PersonId == user.PersonId).FirstOrDefaultAsync();
+        
             if (courseRegistration == null)
                 throw new NullReferenceException("Student did not register this course");
             AssignmentSubmission assignmentSubmission = new AssignmentSubmission()
@@ -295,13 +298,18 @@ namespace BusinessLayer.Services
             StudentPersonDetailCountDto detailCountDto = new StudentPersonDetailCountDto();
             AssignmentSubmission assignmentSubmission = new AssignmentSubmission();
             Assignment assignment = new Assignment();
+            Quiz Quiz = new Quiz();
+            QuizSubmission QuizSubmission = new QuizSubmission();
             long _assignmentAttempted = 0;
             long _assignmentAvailable = 0;
+            long _QuizAttempted = 0;
+            long _QuizAvailable = 0;
             var studentPerson = await _context.STUDENT_PERSON.Where(p => p.PersonId == PersonId).FirstOrDefaultAsync();
             var _activeSessionSemester = await GetActiveSessionSemester();
             var courseRegistrationCount = await _context.COURSE_REGISTRATION.Where(x => x.StudentPersonId == studentPerson.Id && x.SessionSemester.Active).ToListAsync();
             if(courseRegistrationCount.Count > 0)
             {
+                //Assignments
                 foreach(var item in courseRegistrationCount)
                 {
                     assignment = await _context.ASSIGNMENT.Where(x => x.CourseAllocationId == item.CourseAllocationId && x.CourseAllocation.SessionSemesterId == _activeSessionSemester.Id).FirstOrDefaultAsync();
@@ -315,20 +323,26 @@ namespace BusinessLayer.Services
                         _assignmentAttempted += 1;
                     }
                 }
+
+                //Quiz
+                foreach (var item in courseRegistrationCount)
+                {
+                    Quiz = await _context.QUIZ.Where(x => x.CourseAllocationId == item.CourseAllocationId && x.CourseAllocation.SessionSemesterId == _activeSessionSemester.Id).FirstOrDefaultAsync();
+                    if (Quiz != null)
+                    {
+                        _QuizAvailable += 1;
+                    }
+                    QuizSubmission = await _context.QUIZ_SUBMISSION.Where(x => x.CourseRegistrationId == item.Id).FirstOrDefaultAsync();
+                    if (QuizSubmission != null)
+                    {
+                        _QuizAttempted += 1;
+                    }
+                }
             }
             detailCountDto.CoursesRegistered = courseRegistrationCount.Count;
             detailCountDto.TotalAssignmentsAvailable = _assignmentAvailable;
             detailCountDto.AssignmentsAttempted = _assignmentAttempted;
             return detailCountDto;
-            //return await _context.ASSIGNMENT
-            //     .Include(f => f.CourseAllocation)
-            //     .ThenInclude(c => c.Course)
-            //     .Include(f => f.CourseAllocation)
-            //     .ThenInclude(f => f.Instructor)
-            //     .ThenInclude(f => f.Person)
-            //     .Include(c => c.co)
-            //     .Where(f => f.CourseAllocation.InstructorId == UserId && f.CourseAllocation.SessionSemester.Active && !f.IsDelete).CountAsync();
-
         }
 
         public async Task<AssignmentDto> EditAssignment(UpdateAssignmentDto updateAssignmentDto)
