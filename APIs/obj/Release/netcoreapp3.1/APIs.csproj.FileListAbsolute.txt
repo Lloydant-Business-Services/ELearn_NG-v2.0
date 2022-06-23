@@ -600,3 +600,4 @@ Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\bin\Release\netcoreapp3.1\Flu
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\APIs.csproj.AssemblyReference.cache
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\APIs.GeneratedMSBuildEditorConfig.editorconfig
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\bin\Release\netcoreapp3.1\PayStackDotNetSDK.dll

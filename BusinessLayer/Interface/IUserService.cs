@@ -19,6 +19,9 @@ namespace BusinessLayer.Interface
         Task<int> ResetPassword(string Username);
         Task<bool> ValidateOTP(string email, string otp);
         Task<bool> UpdatePasswordAfterReset(ChangePasswordDto changePasswordDto);
+        Task<bool> CreateNotificationTracker(NotificationTracker model);
+        Task<IEnumerable<GetNotificationTrackerDto>> GetNotificationTrackersByUserId(long userId);
+       Task<bool> ToggleMailRead(long notificationTrackerId);
         //Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents();
     }
 }

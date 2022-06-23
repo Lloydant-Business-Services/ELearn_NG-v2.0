@@ -28,17 +28,19 @@ namespace BusinessLayer.Services
         //private readonly ELearnContext _context;
         private readonly IConfiguration _configuration;
         private readonly IEmailService _emailService;
+        private readonly IPaymentService _paymentService;
         private readonly string baseUrl;
         private readonly string defualtPassword = "1234567";
         ResponseModel response = new ResponseModel();
 
-        public UserService(ELearnContext context, IConfiguration configuration, IEmailService emailService)
+        public UserService(ELearnContext context, IConfiguration configuration, IEmailService emailService, IPaymentService paymentService)
              : base(context)
         {
            // _context = context;
             _configuration = configuration;
             baseUrl = _configuration.GetValue<string>("Url:root");
             _emailService = emailService;
+            _paymentService = paymentService;
 
 
 
@@ -46,10 +48,21 @@ namespace BusinessLayer.Services
 
         public async Task<UserDto> AuthenticateUser(UserDto dto, string injectkey)
         {
+            PaymentCheck isPaymentSet = PaymentCheck.Disabled;
             var user = await _context.USER
                .Include(r => r.Role)
                .Include(r => r.Person)
                .Where(f => f.Active && f.Username == dto.UserName).Include(p => p.Person).FirstOrDefaultAsync();
+            var defaultSetup = await _context.PAYMENT_SETUP.Where(x => x.Active).FirstOrDefaultAsync();
+            if(defaultSetup != null)
+            {
+                bool paymentStatus = await _paymentService.VerifyPayment(user.Id);
+                if (paymentStatus)
+                    isPaymentSet = PaymentCheck.EnabledAndPaid;
+                else
+                    isPaymentSet = PaymentCheck.EnabledAndNotPaid;
+            }
+
 
             if (user == null)
                 return null;
@@ -72,6 +85,10 @@ namespace BusinessLayer.Services
             dto.PersonId = user.PersonId;
             dto.FullName = user.Person.Surname + " " + user.Person.Firstname + " " + user.Person.Othername;
             dto.IsHOD = user.RoleId == 4 ? true : false;
+            dto.Email = user.Person.Email;
+            dto.IsEmailConfirmed = user.IsVerified;
+            dto.IsPasswordUpdated = user.IsPasswordUpdated;
+            dto.PaymentCheck = isPaymentSet;
             
             return dto;
         }
@@ -101,7 +118,7 @@ namespace BusinessLayer.Services
         {
             if (changePasswordDto == null || changePasswordDto?.UserId == 0)
                 throw new ArgumentNullException("Please, Provide UserID");
-            var user = await _context.USER.Where(f => f.Id == changePasswordDto.UserId).FirstOrDefaultAsync();
+            var user = await _context.USER.Where(f => f.Id == changePasswordDto.UserId).Include(x => x.Person).FirstOrDefaultAsync();
             if (user == null)
                 return false;
             if (!VerifyPasswordHash(changePasswordDto.OldPassword, user.PasswordHash, user.PasswordSalt))
@@ -109,8 +126,29 @@ namespace BusinessLayer.Services
             Utility.CreatePasswordHash(changePasswordDto.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            user.IsPasswordUpdated = true;
             _context.Update(user);
             await _context.SaveChangesAsync();
+            EmailDto emailDto = new EmailDto()
+            {
+                message = "Your password update initiated on " + DateTime.Now.ToLongDateString() + " was successful!",
+                ReceiverEmail = user.Person.Email,
+                ReceiverName = user.Person.Firstname,
+                NotificationCategory = EmailNotificationCategory.PasswordReset,
+                Subject = "Password Update"
+            };
+            var sendOTPViaEmail = _emailService.EmailFormatter(emailDto);
+            NotificationTracker notificationTracker = new NotificationTracker()
+            {
+                PersonId = user.Person.Id,
+                EmailNotificationCategory = EmailNotificationCategory.PasswordReset,
+                NotificationDescription = emailDto.message,
+                TItle = emailDto.Subject,
+                DateAdded = DateTime.Now,
+                Active = true,
+                Person = user.Person
+            };
+            await CreateNotificationTracker(notificationTracker);
             return true;
 
         }
@@ -453,7 +491,60 @@ namespace BusinessLayer.Services
 
         //}
 
+        public async Task<bool> CreateNotificationTracker(NotificationTracker model)
+        {
+            try
+            {
+                if(model.Person.Email != null && model.Person.Email.Contains(".com"))
+                {
+                    _context.Add(model);
+                    await _context.SaveChangesAsync();
+                }
+               
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
+        public async Task<IEnumerable<GetNotificationTrackerDto>> GetNotificationTrackersByUserId(long userId)
+        {
+            try
+            {
+                var userCheck = await _context.USER.Where(x => x.Id == userId).FirstOrDefaultAsync();
+                return await _context.NOTIFICATION_TRACKER.Where(x => x.Person.Email != null && x.PersonId == userCheck.PersonId)
+                    .Include(x => x.Person)
+                    .Select(f => new GetNotificationTrackerDto
+                    {
+                        PersonId = f.PersonId,
+                        NotificationDescription = f.NotificationDescription,
+                        Email = f.Person.Email,
+                        Active = f.Active,
+                        DateAdded = f.DateAdded.ToLongDateString(),
+                        TItle = f.TItle,
+                        Id = f.Id
+
+                    }).ToListAsync();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ToggleMailRead(long notificationTrackerId)
+        {
+            var tracker = await _context.NOTIFICATION_TRACKER.Where(x => x.Id == notificationTrackerId).FirstOrDefaultAsync();
+
+            if (tracker == null)
+                throw new Exception("not found");
+            tracker.Active = false;
+            _context.Update(tracker);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 
 }

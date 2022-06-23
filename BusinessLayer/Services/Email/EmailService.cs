@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BusinessLayer.Services.Email.Interface;
 using DataLayer.Dtos;
 using DataLayer.Enums;
+using DataLayer.Model;
 using FluentEmail.Core;
 using FluentEmail.Mailgun;
 using Microsoft.AspNetCore.Hosting;
@@ -60,7 +61,21 @@ namespace BusinessLayer.Services.Email
         {
             try
             {
-                dto.MailGunTemplate = "passwordreset";
+                dto.MailGunTemplate = "passwordupdate";
+                return await SendMail(dto);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public async Task<bool> LiveLectureAlert(EmailDto dto)
+        {
+            try
+            {
+                dto.MailGunTemplate = "elearnlivelecture";
                 return await SendMail(dto);
             }
             catch (Exception ex)
@@ -77,6 +92,8 @@ namespace BusinessLayer.Services.Email
                     return await SendOneTimePassword(dto);
                 case EmailNotificationCategory.PasswordReset:
                     return await PasswordReset(dto);
+                case EmailNotificationCategory.LiveLectureAlert:
+                    return await LiveLectureAlert(dto);
                 default:
                     throw new Exception("Inavild Email Category");
             }
@@ -96,6 +113,7 @@ namespace BusinessLayer.Services.Email
             request.AddParameter("from", "Elearn NG <mailgun@elearnng.com>");
             request.AddParameter("to", dto.ReceiverEmail);
             request.AddParameter("subject", dto.Subject);
+            request.AddParameter("v:user", dto.ReceiverName);
             request.AddParameter("template", dto.MailGunTemplate);
             request.AddParameter("v:message", dto.message);
 
@@ -108,7 +126,7 @@ namespace BusinessLayer.Services.Email
             return false;
         }
 
-
+    
         //public async Task SendMail(EmailDto sendEmailDto, string template)
         //{
         //    try

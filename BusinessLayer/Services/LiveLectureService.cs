@@ -1,5 +1,7 @@
 ﻿using BusinessLayer.Interface;
+using BusinessLayer.Services.Email.Interface;
 using DataLayer.Dtos;
+using DataLayer.Enums;
 using DataLayer.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +21,10 @@ namespace BusinessLayer.Services
     {
         private readonly ELearnContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IEmailService _emailService;
+        private readonly IUserService _userService;
+
+        
         private readonly string baseUrl;
         ZoomParam zoomParam = new ZoomParam();
         string startupPath = System.IO.Directory.GetCurrentDirectory();
@@ -26,10 +32,12 @@ namespace BusinessLayer.Services
         string userTokenFilePath = Environment.CurrentDirectory + "//UserDetails.json";
         string meetingRsponsePath = Environment.CurrentDirectory + "//MeetingResponsePath.json";
 
-        public LiveLectureService(ELearnContext context, IConfiguration configuration)
+        public LiveLectureService(ELearnContext context, IConfiguration configuration, IEmailService emailService, IUserService userService)
         {
             _context = context;
             _configuration = configuration;
+            _emailService = emailService;
+            _userService = userService;
             baseUrl = _configuration.GetValue<string>("Url:root");
         }
         private string AuthorizationHeader
@@ -140,7 +148,38 @@ namespace BusinessLayer.Services
                     _context.Add(classMeetings);
                     await _context.SaveChangesAsync();
                 }
-
+            List<CourseRegistration> courseRegistration = await _context.COURSE_REGISTRATION.Where(x => x.CourseAllocationId == meetingDto.CourseAllocationId && x.SessionSemester.Active)
+                .Include(x => x.StudentPerson)
+                .ThenInclude(x => x.Person)
+                .Include(x => x.CourseAllocation)
+                .ThenInclude(x => x.Course)
+                .Include(x => x.SessionSemester).ToListAsync();
+            if (courseRegistration.Any())
+            {
+                foreach(var item in courseRegistration)
+                {
+                    EmailDto emailDto = new EmailDto()
+                    {
+                        
+                        Subject = "New Live Lecture",
+                        ReceiverEmail = item.StudentPerson.Person.Email,
+                        NotificationCategory = EmailNotificationCategory.LiveLectureAlert,
+                        ReceiverName = item.StudentPerson.Person.Firstname,
+                        message =  "A live lecture for " + item.CourseAllocation.Course.CourseTitle + " " + item.CourseAllocation.Course.CourseCode + " has been scheduled for " + classMeetings.Date.ToLongDateString()
+                    };
+                    var sendOTPViaEmail = _emailService.EmailFormatter(emailDto);
+                    NotificationTracker notificationTracker = new NotificationTracker()
+                    {
+                        PersonId = item.StudentPerson.Person.Id,
+                        EmailNotificationCategory = EmailNotificationCategory.LiveLectureAlert,
+                        NotificationDescription = emailDto.message,
+                        TItle = emailDto.Subject,
+                        DateAdded = DateTime.Now,
+                        Active = true
+                    };
+                    await _userService.CreateNotificationTracker(notificationTracker);
+                }
+            }
                 //System.IO.File.WriteAllText(meetingRsponsePath, response.Content);
                 return StatusCodes.Status200OK;
             //}

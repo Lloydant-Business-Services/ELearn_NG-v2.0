@@ -61,7 +61,8 @@ namespace BusinessLayer.Services
                 AssignmentVideoLink = addAssignmentDto.AssignmentVideoLink,
                 CourseAllocation = course,
                 MaxScore = addAssignmentDto.MaxScore,
-                PublishResult = false
+                PublishResult = false,
+                MaxCharacters = addAssignmentDto.MaxCharacters
             };
             _context.Add(assignment);
             var isSuccessfull = await _context.SaveChangesAsync();
@@ -114,6 +115,7 @@ namespace BusinessLayer.Services
         
             if (courseRegistration == null)
                 throw new NullReferenceException("Student did not register this course");
+            bool lateSubmission = DateTime.Now > assignment.DueDate ? true : false;
             AssignmentSubmission assignmentSubmission = new AssignmentSubmission()
             {
                 Active = true,
@@ -123,6 +125,7 @@ namespace BusinessLayer.Services
                 AssignmentSubmissionHostedLink = studentAssignmentSubmissionDto.AssignmentHostedLink,
                 AssignmentSubmissionUploadLink = saveAssignmentLink,
                 CourseRegistration = courseRegistration,
+                IsLateSubmission = lateSubmission
             };
             _context.Add(assignmentSubmission);
             var isSuccessful = await _context.SaveChangesAsync();
@@ -170,7 +173,9 @@ namespace BusinessLayer.Services
                     DueDate = f.DueDate,
                     InstructorName = (f.CourseAllocation.Instructor.Person.Surname + " " + f.CourseAllocation.Instructor.Person.Firstname + " " + f.CourseAllocation.Instructor.Person.Othername),
                     IsPublished = f.PublishResult,
-                    MaxScore = f.MaxScore
+                    MaxScore = f.MaxScore,
+                    MaxCharacters = f.MaxCharacters
+
                 })
                 .ToListAsync();
         }
@@ -195,7 +200,8 @@ namespace BusinessLayer.Services
                     DueDate = f.DueDate,
                     InstructorName = (f.CourseAllocation.Instructor.Person.Surname + " " + f.CourseAllocation.Instructor.Person.Firstname + " " + f.CourseAllocation.Instructor.Person.Othername),
                     IsPublished = f.PublishResult,
-                    MaxScore = f.MaxScore
+                    MaxScore = f.MaxScore,
+                    MaxCharacters = f.MaxCharacters
                 })
                 .ToListAsync();
         }
@@ -244,7 +250,8 @@ namespace BusinessLayer.Services
                    InstructorName = (f.CourseAllocation.Instructor.Person.Surname + " " + f.CourseAllocation.Instructor.Person.Firstname + " " + f.CourseAllocation.Instructor.Person.Othername),
                    IsPublished = f.PublishResult,
                    MaxScore = f.MaxScore,
-                   IsSubmitted = submssionStatus != null ? true : false
+                   IsSubmitted = submssionStatus != null ? true : false,
+                   MaxCharacters = f.MaxCharacters
                })
                .ToListAsync();
                 allAssgnment.AddRange(assignments);
@@ -395,7 +402,9 @@ namespace BusinessLayer.Services
                     MatricNumber = f.CourseRegistration.StudentPerson.MatricNo,
                     AssignmentSubmissionHostedLink = f.AssignmentSubmissionHostedLink,
                     IsPublished = f.Assignment.PublishResult,
-                    AssignmentId = f.Assignment.Id
+                    AssignmentId = f.Assignment.Id,
+                    MaxCharacters = f.Assignment.MaxCharacters
+                    
 
                 })
                 .FirstOrDefaultAsync();
@@ -425,6 +434,8 @@ namespace BusinessLayer.Services
                     IsDeleted = f.IsDelete,
                     AssignmentVideoLink = f.AssignmentVideoLink,
                     SetDate = f.SetDate,
+                    MaxCharacters = f.MaxCharacters
+                    
 
                 })
                 .FirstOrDefaultAsync();
@@ -532,7 +543,8 @@ namespace BusinessLayer.Services
                      MatricNumber = f.CourseRegistration.StudentPerson.MatricNo,
                      AssignmentSubmissionHostedLink = f.AssignmentSubmissionHostedLink,
                      IsPublished = f.Assignment.PublishResult,
-                     AssignmentId = f.Assignment.Id
+                     AssignmentId = f.Assignment.Id,
+                     LateSubmission = f.IsLateSubmission
                  })
                  .ToListAsync();
         }
@@ -568,7 +580,8 @@ namespace BusinessLayer.Services
                          MatricNumber = f.CourseRegistration.StudentPerson.MatricNo,
                          AssignmentSubmissionHostedLink = f.AssignmentSubmissionHostedLink,
                          IsPublished = f.Assignment.PublishResult,
-                         AssignmentId = f.Assignment.Id
+                         AssignmentId = f.Assignment.Id,
+                         MaxCharacters = f.Assignment.MaxCharacters
                      })
                      .FirstOrDefaultAsync();
             }

@@ -61,7 +61,8 @@ namespace BusinessLayer.Services
                 QuizVideoLink = addQuizDto.QuizVideoLink,
                 CourseAllocation = course,
                 MaxScore = addQuizDto.MaxScore,
-                PublishResult = false
+                PublishResult = false,
+                CharacterLimit = addQuizDto.MaxCharacters
             };
             _context.Add(Quiz);
             var isSuccessfull = await _context.SaveChangesAsync();
@@ -170,7 +171,8 @@ namespace BusinessLayer.Services
                     DueDate = f.DueDate,
                     InstructorName = (f.CourseAllocation.Instructor.Person.Surname + " " + f.CourseAllocation.Instructor.Person.Firstname + " " + f.CourseAllocation.Instructor.Person.Othername),
                     IsPublished = f.PublishResult,
-                    MaxScore = f.MaxScore
+                    MaxScore = f.MaxScore,
+                    MaxCharacters = f.CharacterLimit
                 })
                 .ToListAsync();
         }
@@ -195,7 +197,8 @@ namespace BusinessLayer.Services
                     DueDate = f.DueDate,
                     InstructorName = (f.CourseAllocation.Instructor.Person.Surname + " " + f.CourseAllocation.Instructor.Person.Firstname + " " + f.CourseAllocation.Instructor.Person.Othername),
                     IsPublished = f.PublishResult,
-                    MaxScore = f.MaxScore
+                    MaxScore = f.MaxScore,
+                    MaxCharacters = f.CharacterLimit
                 })
                 .ToListAsync();
         }

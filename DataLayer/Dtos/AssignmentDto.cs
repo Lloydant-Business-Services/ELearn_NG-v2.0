@@ -21,6 +21,8 @@ namespace DataLayer.Dtos
         public string CourseTitle { get; set; }
         public string AssignmentName { get; set; }
         public string InstructorName { get; set; }
+        public long? MaxCharacters { get; set; }
+
     }
 
 
@@ -41,5 +43,7 @@ namespace DataLayer.Dtos
         public string CourseTitle { get; set; }
         public string QuizName { get; set; }
         public string InstructorName { get; set; }
+        public long? MaxCharacters { get; set; }
+
     }
 }

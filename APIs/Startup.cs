@@ -8,6 +8,8 @@ using BusinessLayer.Interface;
 using BusinessLayer.Services;
 using BusinessLayer.Services.Email;
 using BusinessLayer.Services.Email.Interface;
+using BusinessLayer.Services.PaystackTransaction;
+using BusinessLayer.Services.PaystackTransaction.Interface;
 using DataLayer.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -64,8 +66,11 @@ namespace APIs
             services.AddScoped<IReportingSevice, ReportingService>();
             services.AddScoped<IAuditService, AuditService>();
             services.AddScoped<IQuizService, QuizService>();
+            services.AddScoped<IEmailServiceAlt, EmailServiceAlt>();
+            services.AddScoped<IPaystackService, PaystackService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
-
+            
             services.AddScoped<IEmailService, EmailService>();
             //services.AddScoped<ICourseAssignment, AssignmentService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

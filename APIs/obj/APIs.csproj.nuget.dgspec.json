@@ -236,6 +236,10 @@
               "target": "Package",
               "version": "[13.0.1, )"
             },
+            "PayStackDotNetSDK": {
+              "target": "Package",
+              "version": "[1.4.4, )"
+            },
             "RestSharp": {
               "target": "Package",
               "version": "[106.11.7, )"
@@ -358,6 +362,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"
+            },
+            "PayStackDotNetSDK": {
+              "target": "Package",
+              "version": "[1.4.4, )"
             },
             "RestSharp": {
               "target": "Package",

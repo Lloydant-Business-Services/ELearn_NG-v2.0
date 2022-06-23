@@ -18,6 +18,9 @@ namespace DataLayer.Dtos
         public string StudentName { get; set; }
         public string MatricNumber { get; set; }
         public bool IsPublished { get; set; }
+        public bool? LateSubmission { get; set; }
+        public long? MaxCharacters { get; set; }
+
     }
 
     public class QuizSubmissionDto
@@ -34,7 +37,9 @@ namespace DataLayer.Dtos
         public string StudentName { get; set; }
         public string MatricNumber { get; set; }
         public bool IsPublished { get; set; }
+        public long? MaxCharacters { get; set; }
+
     }
 
-    
+
 }

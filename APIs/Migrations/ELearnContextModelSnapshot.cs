@@ -105,6 +105,9 @@ namespace APIs.Migrations
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
+                    b.Property<long?>("MaxCharacters")
+                        .HasColumnType("bigint");
+
                     b.Property<decimal>("MaxScore")
                         .HasColumnType("decimal(18,2)");
 
@@ -706,6 +709,9 @@ namespace APIs.Migrations
                     b.Property<long>("PersonId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("TItle")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PersonId");
@@ -772,6 +778,27 @@ namespace APIs.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("OTP_CODE");
+                });
+
+            modelBuilder.Entity("DataLayer.Model.PaymentSetup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FeeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PAYMENT_SETUP");
                 });
 
             modelBuilder.Entity("DataLayer.Model.Person", b =>
@@ -1133,8 +1160,8 @@ namespace APIs.Migrations
                     b.Property<bool?>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<decimal?>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int?>("Amount")
+                        .HasColumnType("int");
 
                     b.Property<string>("ClientPortalIdentifier")
                         .HasMaxLength(150)
@@ -1153,16 +1180,8 @@ namespace APIs.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("GatewayCode")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<bool?>("IsPaid")
                         .HasColumnType("bit");
-
-                    b.Property<long?>("LevelId")
-                        .IsRequired()
-                        .HasColumnType("bigint");
 
                     b.Property<string>("PaymentGateway")
                         .HasColumnType("nvarchar(max)");
@@ -1170,18 +1189,24 @@ namespace APIs.Migrations
                     b.Property<int?>("PaymentMode")
                         .HasColumnType("int");
 
+                    b.Property<long>("PaymentSetupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PersonId")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("ProgrammeId")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("SessionId")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("SessionSemesterId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("StatusCode")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<long>("StudentPersonId")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("SystemCode")
                         .HasMaxLength(20)
@@ -1196,11 +1221,13 @@ namespace APIs.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("LevelId");
+                    b.HasIndex("PaymentSetupId");
+
+                    b.HasIndex("PersonId");
 
                     b.HasIndex("SessionId");
 
-                    b.HasIndex("StudentPersonId");
+                    b.HasIndex("SessionSemesterId");
 
                     b.ToTable("STUDENT_PAYMENT");
                 });
@@ -1276,6 +1303,9 @@ namespace APIs.Migrations
 
                     b.Property<string>("Guid")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsPasswordUpdated")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsVerified")
                         .HasColumnType("bit");
@@ -1748,9 +1778,15 @@ namespace APIs.Migrations
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("DataLayer.Model.Level", "Level")
+                    b.HasOne("DataLayer.Model.PaymentSetup", "PaymentSetup")
                         .WithMany()
-                        .HasForeignKey("LevelId")
+                        .HasForeignKey("PaymentSetupId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataLayer.Model.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -1759,19 +1795,21 @@ namespace APIs.Migrations
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("DataLayer.Model.StudentPerson", "StudentPerson")
+                    b.HasOne("DataLayer.Model.SessionSemester", "SessionSemester")
                         .WithMany()
-                        .HasForeignKey("StudentPersonId")
+                        .HasForeignKey("SessionSemesterId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Department");
 
-                    b.Navigation("Level");
+                    b.Navigation("PaymentSetup");
+
+                    b.Navigation("Person");
 
                     b.Navigation("Session");
 
-                    b.Navigation("StudentPerson");
+                    b.Navigation("SessionSemester");
                 });
 
             modelBuilder.Entity("DataLayer.Model.StudentPerson", b =>

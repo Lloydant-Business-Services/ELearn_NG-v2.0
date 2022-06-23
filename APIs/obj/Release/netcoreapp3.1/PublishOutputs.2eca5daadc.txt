@@ -320,6 +320,7 @@ Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\Pub
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.OpenApi.dll
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Win32.SystemEvents.dll
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\Newtonsoft.Json.dll
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\PayStackDotNetSDK.dll
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\RazorLight.dll
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\RestSharp.dll
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Release\netcoreapp3.1\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll

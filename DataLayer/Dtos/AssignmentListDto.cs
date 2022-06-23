@@ -16,6 +16,8 @@ namespace DataLayer.Dtos
         public bool IsSubmitted { get; set; }
         public DateTime DueDate { get; set; }
         public bool Active { get; set; }
+        public long? MaxCharacters { get; set; }
+
     }
 
     public class QuizListDto
@@ -30,5 +32,7 @@ namespace DataLayer.Dtos
         public bool IsSubmitted { get; set; }
         public DateTime DueDate { get; set; }
         public bool Active { get; set; }
+        public long? MaxCharacters { get; set; }
+
     }
 }

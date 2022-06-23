@@ -62,6 +62,7 @@ namespace DataLayer.Model
         public DbSet<QuizSubmission> QUIZ_SUBMISSION { get; set; }
         public DbSet<StudentPayment> STUDENT_PAYMENT { get; set; }
         public DbSet<NotificationTracker> NOTIFICATION_TRACKER { get; set; }
+        public DbSet<PaymentSetup> PAYMENT_SETUP { get; set; }
 
 
     }

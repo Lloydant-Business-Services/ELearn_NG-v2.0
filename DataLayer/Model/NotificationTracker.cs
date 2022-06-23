@@ -11,6 +11,7 @@ namespace DataLayer.Model
         public long PersonId { get; set; }
         public EmailNotificationCategory EmailNotificationCategory { get; set; }
         public string NotificationDescription { get; set; }
+        public string TItle { get; set; }
         public bool? Active { get; set; }
         public DateTime DateAdded { get; set; }
     }

@@ -7,12 +7,9 @@ namespace DataLayer.Model
 {
     public class StudentPayment : BaseModel
     {
-        [Required]
-        public long? LevelId { get; set; }
-        public Level Level { get; set; }
         public long? SessionId { get; set; }
         public Session Session { get; set; }
-        public decimal? Amount { get; set; }
+        public int? Amount { get; set; }
         public bool? Active { get; set; }
         [StringLength(500)]
         public string Description { get; set; }
@@ -24,8 +21,6 @@ namespace DataLayer.Model
         public long? DepartmentId { get; set; }
         public Department Department { get; set; }
         public long? ProgrammeId { get; set; }
-        [StringLength(200)]
-        public string GatewayCode { get; set; }
         [StringLength(20)]
         public string SystemCode { get; set; }
         [StringLength(100)]
@@ -33,11 +28,17 @@ namespace DataLayer.Model
         public string SystemPaymentReference { get; set; }
         public string PaymentGateway { get; set; }
         [Required]
-        public long StudentPersonId { get; set; }
-        public StudentPerson StudentPerson { get; set; }
+        public long PersonId { get; set; }
+        public Person Person { get; set; }
         public int? PaymentMode { get; set; }//eg card, bankteller,transfer
         public DateTime? DatePaid { get; set; }
         public bool? IsPaid { get; set; }
+
+        public PaymentSetup PaymentSetup { get; set; }
+        public long PaymentSetupId { get; set; }
+        public SessionSemester SessionSemester { get; set; }
+        public long SessionSemesterId { get; set; }
+
 
     }
 

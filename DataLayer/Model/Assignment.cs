@@ -20,5 +20,7 @@ namespace DataLayer.Model
         public long CourseAllocationId { get; set; }
         public long? CharacterLimit { get; set; }
         public CourseAllocation CourseAllocation { get; set; }
+        public long? MaxCharacters { get; set; }
+
     }
 }

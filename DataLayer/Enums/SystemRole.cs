@@ -11,4 +11,11 @@ namespace DataLayer.Enums
         HOD,
         Student
     }
+
+    public enum PaymentCheck
+    {
+        EnabledAndPaid = 1,
+        EnabledAndNotPaid,
+        Disabled
+    }
 }

@@ -704,3 +704,4 @@ Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\Micro
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\APIs.Views.dll
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.csproj.AssemblyReference.cache
 Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\obj\Debug\netcoreapp3.1\APIs.GeneratedMSBuildEditorConfig.editorconfig
+Z:\Users\godspeedmiracle\Miracle\ELearnNG_2.0\APIs\bin\Debug\netcoreapp3.1\PayStackDotNetSDK.dll

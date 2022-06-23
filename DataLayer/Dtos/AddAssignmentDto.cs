@@ -15,6 +15,7 @@ namespace DataLayer.Dtos
         public DateTime DueDate { get; set; }
         public decimal MaxScore { get; set; }
         public long CourseAllocationId { get; set; }
+        public long MaxCharacters { get; set; }
     }
 
 
@@ -29,5 +30,7 @@ namespace DataLayer.Dtos
         public DateTime DueDate { get; set; }
         public decimal MaxScore { get; set; }
         public long CourseAllocationId { get; set; }
+        public long MaxCharacters { get; set; }
+
     }
 }

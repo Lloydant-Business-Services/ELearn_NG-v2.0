@@ -32,7 +32,7 @@ namespace APIs.Controllers
 
         [HttpPost("[action]")]
         public async Task<int> OAuthRedirect(string code) => await _service.OAuthRedirect(code);
-        [AuthorizeRole(ElearnRole.SCHOOLADMIN, ElearnRole.INSTRUCTOR, ElearnRole.HOD)]
+        //[AuthorizeRole(ElearnRole.SCHOOLADMIN, ElearnRole.INSTRUCTOR, ElearnRole.HOD)]
         [HttpPost("[action]")]
         public async Task<int> CreateMeeting(MeetingDto meetingDto) => await _service.CreateMeeting(meetingDto);
 

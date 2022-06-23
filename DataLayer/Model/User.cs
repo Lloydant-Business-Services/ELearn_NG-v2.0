@@ -13,6 +13,7 @@ namespace DataLayer.Model
         public byte[] PasswordSalt { get; set; }
         public DateTime LastLogin { get; set; }
         public bool IsVerified { get; set; }
+        public bool? IsPasswordUpdated { get; set; }
         public string Guid { get; set; }
         [MaxLength(50)]
         //public string SecurityAnswer { get; set; }
@@ -24,5 +25,6 @@ namespace DataLayer.Model
         public virtual Role Role { get; set; }
         //public virtual SecurityQuestion SecurityQuestion { get; set; }
         public bool Active { get; set; }
+
     }
 }

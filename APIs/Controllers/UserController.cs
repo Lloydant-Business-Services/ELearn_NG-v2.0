@@ -48,7 +48,10 @@ namespace APIs.Controllers
         public async Task<bool> ValidateOTP(string email, string otp) => await _userService.ValidateOTP(email, otp);
         [HttpPost("[action]")]
         public async Task<bool> UpdatePasswordAfterReset(ChangePasswordDto changePasswordDto) => await _userService.UpdatePasswordAfterReset(changePasswordDto);
-
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<GetNotificationTrackerDto>> GetNotificationTrackersByUserId(long userId) => await _userService.GetNotificationTrackersByUserId(userId);
+        [HttpPost("[action]")]
+        public async Task<bool> ToggleMailRead(long notificationTrackerId) => await _userService.ToggleMailRead(notificationTrackerId);
 
     }
 }
