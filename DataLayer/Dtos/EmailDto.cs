@@ -19,6 +19,8 @@ namespace DataLayer.Dtos
         public string MailGunTemplate { get; set; }
         public EmailNotificationCategory NotificationCategory { get; set; }
         public EmailTemplate EmailTemplate { get; set; }
+        public string RegNumber { get; set; }
+        public string Password { get; set; }
     }
 
 
@@ -33,16 +35,7 @@ namespace DataLayer.Dtos
         public string SenderName { get; set; } = "Kulpay";
         public EmailNotificationCategory EmailCategory { get; set; }
         public string Body { get; set; }
-        public string InstitutionName { get; set; }
-        public string AccessCode { get; set; }
-        public string ButtonText { get; set; } = "Click To Verify";
-        public long Id { get; set; }
-        public string Year { get; set; } = DateTime.Now.Year.ToString();
-        public string CollectionKey { get; set; }
-        public string CollectionName { get; set; }
-        public string Amount { get; set; }
-        public string FixedAmount { get; set; }
-        public string RoleName { get; set; }
+
     }
 
 

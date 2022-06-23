@@ -137,7 +137,7 @@ namespace BusinessLayer.Services
                 .Select(f => new GetCourseContentDto
                 {
                     LiveStreamLink = f.LiveStream,
-                    NoteLink = f.Material != null ? baseUrl + f.Material : null,
+                    NoteLink = !string.IsNullOrWhiteSpace(f.Material) ? baseUrl + f.Material : null,
                     TopicDescription = f.CourseTopic.Description,
                     StartTime = f.CourseTopic.StartDate,
                     TopicName = f.CourseTopic.Topic,
@@ -279,7 +279,7 @@ namespace BusinessLayer.Services
                 .Select(f => new GetCourseContentDto
                 {
                     LiveStreamLink = f.LiveStream,
-                    NoteLink = f.Material != null ? baseUrl + f.Material : null,
+                    NoteLink = !string.IsNullOrWhiteSpace(f.Material) ? baseUrl + f.Material : null,
                     TopicDescription = f.CourseTopic.Description,
                     StartTime = f.CourseTopic.StartDate,
                     TopicName = f.CourseTopic.Topic,
@@ -302,7 +302,7 @@ namespace BusinessLayer.Services
                 .Select(f => new GetCourseContentDto
                 {
                     LiveStreamLink = f.LiveStream,
-                    NoteLink = f.Material != null ? baseUrl + f.Material : null,
+                    NoteLink = !string.IsNullOrWhiteSpace(f.Material) ? baseUrl + f.Material : null,
                     TopicDescription = f.CourseTopic.Description,
                     StartTime = f.CourseTopic.StartDate,
                     TopicName = f.CourseTopic.Topic,
@@ -331,7 +331,7 @@ namespace BusinessLayer.Services
                         .Select(f => new GetCourseContentDto
                         {
                             LiveStreamLink = f.LiveStream,
-                            NoteLink = baseUrl + f.Material,
+                            NoteLink = !string.IsNullOrWhiteSpace(f.Material) ? baseUrl + f.Material : null,
                             TopicDescription = f.CourseTopic.Description,
                             StartTime = f.CourseTopic.StartDate,
                             TopicName = f.CourseTopic.Topic,

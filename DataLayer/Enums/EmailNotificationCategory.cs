@@ -9,7 +9,8 @@ namespace DataLayer.Enums
         {
             OTP = 1,
             PasswordReset,
-            LiveLectureAlert
+            LiveLectureAlert,
+            AccountAdded
         }
         public enum EmailTemplate
         {

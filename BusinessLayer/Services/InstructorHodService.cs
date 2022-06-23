@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Interface;
+using BusinessLayer.Services.Email.Interface;
 using DataLayer.Dtos;
 using DataLayer.Enums;
 using DataLayer.Model;
@@ -18,11 +19,13 @@ namespace BusinessLayer.Services
         private readonly IConfiguration _configuration;
         private readonly ELearnContext _context;
         private readonly string defualtPassword = "1234567";
+        private readonly IEmailService _emailService;
 
-        public InstructorHodService(IConfiguration configuration, ELearnContext context)
+        public InstructorHodService(IConfiguration configuration, ELearnContext context, IEmailService emailService)
         {
             _configuration = configuration;
             _context = context;
+            _emailService = emailService;
         }
         public async Task<ResponseModel> AddCourseInstructorAndHod(AddUserDto userDto)
         {
@@ -66,8 +69,22 @@ namespace BusinessLayer.Services
                 user.PersonId = person.Id;
                 _context.Add(user);
                 await _context.SaveChangesAsync();
-                
-                if(userDto.RoleId == (int)Roles.DepartmentAdministrator)
+
+                if (person.Email != null)
+                {
+                    EmailDto emailDto = new EmailDto()
+                    {
+                        ReceiverEmail = person.Email,
+                        ReceiverName = person.Firstname,
+                        Password = "1234567",
+                        RegNumber = user.Username,
+                        Subject = "Account Creation Notification",
+                        NotificationCategory = EmailNotificationCategory.AccountAdded
+
+                    };
+                    await _emailService.EmailFormatter(emailDto);
+                }
+                if (userDto.RoleId == (int)Roles.DepartmentAdministrator)
                 {
                     var doesExist = await _context.DEPARTMENT_HEADS.Where(d => d.DepartmentId == userDto.DepartmentId && d.Active).FirstOrDefaultAsync();
                     if (doesExist != null)

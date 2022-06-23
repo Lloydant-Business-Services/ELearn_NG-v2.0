@@ -1,6 +1,8 @@
 ﻿using BusinessLayer.Infrastructure;
 using BusinessLayer.Interface;
+using BusinessLayer.Services.Email.Interface;
 using DataLayer.Dtos;
+using DataLayer.Enums;
 using DataLayer.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -18,13 +20,15 @@ namespace BusinessLayer.Services
         private readonly ELearnContext _context;
         private readonly IConfiguration _configuration;
         private readonly string baseUrl;
+        private readonly IEmailService _emailService;
         private readonly string defaultPassword = "1234567";
 
-        public SchoolAdminService(ELearnContext context, IConfiguration configuration)
+        public SchoolAdminService(ELearnContext context, IConfiguration configuration, IEmailService emailService)
         {
             _context = context;
             _configuration = configuration;
             baseUrl = _configuration.GetValue<string>("Url:root");
+            _emailService = emailService;
 
 
         }
@@ -92,6 +96,21 @@ namespace BusinessLayer.Services
                             await _context.SaveChangesAsync();
 
                             uploadAggregation.SuccessfullUpload += 1;
+                            if(person.Email != null)
+                            {
+                                EmailDto emailDto = new EmailDto()
+                                {
+                                    ReceiverEmail = person.Email,
+                                    ReceiverName = person.Firstname,
+                                    Password = defaultPassword,
+                                    RegNumber = user.Username,
+                                    Subject = "Account Creation Notification",
+                                    NotificationCategory = EmailNotificationCategory.AccountAdded
+                                    
+                                };
+                                await _emailService.EmailFormatter(emailDto);
+                            }
+                           
                         }
                         //Already exists
                         else
@@ -103,6 +122,7 @@ namespace BusinessLayer.Services
                             failedUploads.Add(failedUploadSingle);
                             uploadAggregation.FailedUpload += 1;
                         }
+                        
                     }
                     await transaction.CommitAsync();
                     uploadAggregation.FailedStudentUploads = failedUploads;

@@ -84,6 +84,20 @@ namespace BusinessLayer.Services.Email
             }
 
         }
+
+        public async Task<bool> AccountAddedALert(EmailDto dto)
+        {
+            try
+            {
+                dto.MailGunTemplate = "accountadded";
+                return await SendMail(dto);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
         public async Task<bool> EmailFormatter(EmailDto dto)
         {
             switch (dto.NotificationCategory)
@@ -94,6 +108,8 @@ namespace BusinessLayer.Services.Email
                     return await PasswordReset(dto);
                 case EmailNotificationCategory.LiveLectureAlert:
                     return await LiveLectureAlert(dto);
+                case EmailNotificationCategory.AccountAdded:
+                    return await AccountAddedALert(dto);
                 default:
                     throw new Exception("Inavild Email Category");
             }
@@ -116,6 +132,8 @@ namespace BusinessLayer.Services.Email
             request.AddParameter("v:user", dto.ReceiverName);
             request.AddParameter("template", dto.MailGunTemplate);
             request.AddParameter("v:message", dto.message);
+            request.AddParameter("v:regNumber", dto.RegNumber);
+            request.AddParameter("v:generatedPassword", dto.Password);
 
             request.Method = Method.POST;
             var stat = client.Execute(request);
